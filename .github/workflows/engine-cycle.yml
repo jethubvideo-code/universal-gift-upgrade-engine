@@ -28,21 +28,19 @@ jobs:
           GIFTTRACKER_DATA_URL: "https://jethubvideo-code.github.io/gifttracker-bot/gifts.json"
           BOT_TOKEN: ${{ secrets.BOT_TOKEN }}
           BUSINESS_CONNECTION_ID: ${{ vars.BUSINESS_CONNECTION_ID }}
-      - name: Publish state to mini app bridge
-        run: node scripts/publish-state.js
+      - name: Build static site (GitHub Pages)
+        run: node scripts/build-site.js
         env:
           DB_BACKEND: "file"
-          STATE_PUBLISH_URL: "https://superagent-a868bc34.base44.app/functions/engineState"
-          ENGINE_SYNC_TOKEN: ${{ secrets.ENGINE_SYNC_TOKEN }}
       - name: Commit engine state (if changed)
         run: |
           git config user.name "upgrade-engine-bot"
           git config user.email "actions@users.noreply.github.com"
-          git add data/state || true
+          git add data/state docs || true
           if git diff --cached --quiet; then
             echo "state unchanged"
           else
-            git commit -m "engine: state update $(date -u +%FT%TZ)"
+            git commit -m "engine: state + site update $(date -u +%FT%TZ)"
             git pull --rebase -q origin main || (sleep 10 && git pull --rebase -q origin main)
             git push
           fi

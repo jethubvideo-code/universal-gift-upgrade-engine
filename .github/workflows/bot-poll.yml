@@ -32,21 +32,19 @@ jobs:
           BOT_TOKEN: ${{ secrets.BOT_TOKEN }}
           MINIAPP_URL: ${{ vars.MINIAPP_URL }}
           BOT_POLL_SECONDS: "50"
-      - name: Apply pending mini app targets
-        run: node scripts/apply-pending.js
+      - name: Build static site (GitHub Pages)
+        run: node scripts/build-site.js
         env:
           DB_BACKEND: "file"
-          QUEUE_URL: "https://superagent-a868bc34.base44.app/functions/engineQueue"
-          ENGINE_SYNC_TOKEN: ${{ secrets.ENGINE_SYNC_TOKEN }}
       - name: Commit bot state (if changed)
         run: |
           git config user.name "upgrade-engine-bot"
           git config user.email "actions@users.noreply.github.com"
-          git add data/state || true
+          git add data/state docs || true
           if git diff --cached --quiet; then
             echo "state unchanged"
           else
-            git commit -m "bot: state update $(date -u +%FT%TZ)"
+            git commit -m "bot: state + site update $(date -u +%FT%TZ)"
             git pull --rebase -q origin main || (sleep 10 && git pull --rebase -q origin main)
             git push
           fi

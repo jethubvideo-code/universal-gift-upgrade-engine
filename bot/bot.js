@@ -81,7 +81,28 @@ async function handle(update) {
     });
   }
 
-  if (text === '/start') {
+  if (text === '/start' || text.startsWith('/start ')) {
+    // Deep link from the Mini App: /start add_<collection>_<number>[_<max_stars>]
+    const payload = text.slice(7).trim();
+    const dl = /^add_([A-Za-z0-9-]+)_(\d+)(?:_(\d+))?$/.exec(payload);
+    if (dl) {
+      const row = targets.create({
+        user_id: userId,
+        collection_id: dl[1],
+        gift_id: dl[1],
+        target_number: Number(dl[2]),          // ANY number — no special cases
+        max_upgrade_stars: dl[3] ? Number(dl[3]) : null
+      });
+      if (store.flushAll) store.flushAll();
+      await api('sendMessage', {
+        chat_id: chatId,
+        text: `✅ Target activated: ${esc(dl[1])} #${dl[2]}` +
+          (dl[3] ? ` (limit ${dl[3]} Stars)` : '') +
+        `\nStatus: WATCHING — the engine monitors every cycle\nUse /auto ${row.id} <max_stars> to enable AUTO UPGRADE`,
+        parse_mode: 'MarkdownV2'
+      });
+      return;
+    }
     const kb = config.MINIAPP_URL ? {
       inline_keyboard: [[{ text: '🎁 Open Mini App', web_app: { url: config.MINIAPP_URL } }]]
     } : undefined;

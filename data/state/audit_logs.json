@@ -75,5 +75,16 @@
   "details_json": "{\"from\":\"PREDICTED\",\"to\":\"HOT_TARGET\",\"reason\":\"Collection update move to HOT_TARGET\"}",
   "created_at": "2026-10-04T08:43:17.142Z",
   "updated_at": "2026-10-04T08:43:17.142Z"
+ },
+ {
+  "id": "52d6bec4-cf8e-4292-8105-f68919b1a358",
+  "actor_type": "user",
+  "actor_id": "8508044880",
+  "action": "CREATE_TARGET",
+  "entity_type": "target",
+  "entity_id": "ca794c18-7e41-4ed7-80fa-b1d0c5a5c06e",
+  "details_json": "{\"collection_id\":\"miragelamp\",\"gift_id\":\"miragelamp\",\"target_number\":51555}",
+  "created_at": "2026-10-04T09:46:17.633Z",
+  "updated_at": "2026-10-04T09:46:17.633Z"
  }
 ]

@@ -16,12 +16,13 @@
 import { EngineError, ErrorCodes } from '../core/errors.js';
 
 export class TelegramGiftsClient {
-  constructor({ client, limiter = null, store = null, source = 'mtproto', gifttrackerUrl = '' } = {}) {
+  constructor({ client, limiter = null, store = null, source = 'mtproto', gifttrackerUrl = '', fetchImpl = null } = {}) {
     this.client = client;
     this.limiter = limiter;
     this.store = store;
     this.source = source;
     this.gifttrackerUrl = gifttrackerUrl;
+    this.fetchImpl = fetchImpl || globalThis.fetch?.bind(globalThis);
   }
 
   async _invoke(method, params = {}) {
@@ -59,7 +60,8 @@ export class TelegramGiftsClient {
       // reading data from a PRIVATE sibling repo (GitHub Actions GITHUB_TOKEN)
       headers.Authorization = `Bearer ${process.env.GIFT_DATA_TOKEN}`;
     }
-    const res = await fetch(this.gifttrackerUrl, { headers });
+    if (!this.fetchImpl) throw new EngineError(ErrorCodes.CONFIG_ERROR, 'No fetch implementation available');
+    const res = await this.fetchImpl(this.gifttrackerUrl, { headers });
     if (!res.ok) throw new EngineError(ErrorCodes.NETWORK_ERROR, `gifttracker data ${res.status}`);
     const data = await res.json();
     const arr = Array.isArray(data) ? data : (data.gifts || data.collections || []);
@@ -68,8 +70,9 @@ export class TelegramGiftsClient {
       collection_id: String(g.collection_id ?? g.slug ?? g.name),
       slug: g.slug || g.name,
       name: g.title || g.name || g.slug,
-      total_supply: Number(g.total_supply ?? g.supply ?? 0),
-      upgraded_count: Number(g.upgraded_count ?? g.upgraded ?? 0),
+      // gifttracker-bot live shape: { slug, name, issued, total, added }
+      total_supply: Number(g.total_supply ?? g.supply ?? g.total ?? 0),
+      upgraded_count: Number(g.upgraded_count ?? g.upgraded ?? g.issued ?? 0),
       rarity: g.rarity || null
     }));
   }

@@ -9,5 +9,16 @@
   "status": "PENDING",
   "created_at": "2026-10-04T08:45:29.133Z",
   "updated_at": "2026-10-04T08:45:29.133Z"
+ },
+ {
+  "id": "59c5e90b-5d25-48df-8171-3ac3a9c2ae40",
+  "user_id": "8396883978",
+  "chat_id": "8396883978",
+  "kind": "TARGET_HOT",
+  "payload_json": "{\"target\":{\"collection_id\":\"algorithmcup\",\"target_number\":166},\"next_expected\":166}",
+  "dedup_key": "hot:61e578f1-1d9f-4697-a7bc-69925dd844f7",
+  "status": "PENDING",
+  "created_at": "2026-10-04T09:25:26.859Z",
+  "updated_at": "2026-10-04T09:25:26.859Z"
  }
 ]

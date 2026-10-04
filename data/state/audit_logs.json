@@ -9,5 +9,27 @@
   "details_json": "{\"collection_id\":\"PlushPepe\",\"gift_id\":\"PlushPepe\",\"target_number\":2826}",
   "created_at": "2026-10-04T07:10:36.166Z",
   "updated_at": "2026-10-04T07:10:36.166Z"
+ },
+ {
+  "id": "2274bd4c-faa8-40a0-87b1-713ef30c94c8",
+  "actor_type": "system",
+  "actor_id": "target-manager",
+  "action": "STATE_TRANSITION",
+  "entity_type": "target",
+  "entity_id": "3fc9ce6f-cfd9-46eb-ae61-c31d9d7d0e94",
+  "details_json": "{\"from\":\"WATCHING\",\"to\":\"PREDICTED\",\"reason\":\"Collection update move to PREDICTED\"}",
+  "created_at": "2026-10-04T07:12:11.471Z",
+  "updated_at": "2026-10-04T07:12:11.471Z"
+ },
+ {
+  "id": "52951411-e145-47de-8988-67f7ef96c74c",
+  "actor_type": "system",
+  "actor_id": "target-manager",
+  "action": "STATE_TRANSITION",
+  "entity_type": "target",
+  "entity_id": "3fc9ce6f-cfd9-46eb-ae61-c31d9d7d0e94",
+  "details_json": "{\"from\":\"PREDICTED\",\"to\":\"HOT_TARGET\",\"reason\":\"Collection update move to HOT_TARGET\"}",
+  "created_at": "2026-10-04T07:12:11.471Z",
+  "updated_at": "2026-10-04T07:12:11.471Z"
  }
 ]

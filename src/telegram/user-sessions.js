@@ -71,7 +71,14 @@ export class UserSessionManager {
 
   /** Returns the stored row with decrypted `session`, or null. */
   getUserSession(userId) {
-    const row = (this.store.find('telegram_sessions', { user_id: userId }) || [])[0];
+    let row = (this.store.find('telegram_sessions', { user_id: userId }) || [])[0];
+    if (!row) {
+      // Single-owner deployment: targets may carry the bot-chat id while the
+      // MTProto session is stored under the logged-in account's id. Fall
+      // back to the only session available rather than skipping the shot.
+      const all = this.store.find('telegram_sessions', {}) || [];
+      if (all.length === 1) row = all[0];
+    }
     if (!row) return null;
     try {
       return { ...row, session: decryptSession(row.session_encrypted, this.encryptionKey) };

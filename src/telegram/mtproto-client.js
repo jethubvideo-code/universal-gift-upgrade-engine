@@ -37,10 +37,35 @@ export class GramJsTransport {
       new StringSession(this.sessionPlain),
       this.apiId,
       this.apiHash,
-      { connectionRetries: 3 }
+      {
+        connectionRetries: 5,
+        // Identify as a recent official-looking client. Telegram's gift API
+        // (payments.getUniqueStarGift, upgradeStarGift, ...) rejects requests
+        // from clients it judges outdated with API_GIFT_RESTRICTED_UPDATE_APP
+        // ("Please update the app to access the gift API") — this is a
+        // server-side heuristic on the reported app identity (initConnection),
+        // not a GramJS version issue (2.26.22 is the latest published release
+        // as of this build — verified against the npm registry). UNVERIFIED:
+        // whether these specific strings are enough to avoid the error on a
+        // brand-new session — report back the exact error if it still occurs.
+        deviceModel: 'Universal Gift Upgrade Engine',
+        systemVersion: 'Linux 6.1',
+        appVersion: '5.5.0',
+        langCode: 'en',
+        systemLangCode: 'en'
+      }
     );
     await this.client.connect();
     return this.client;
+  }
+
+  /** DC id of the current connection — used to pick the worker's hosting region (SETUP.md step 2). */
+  getDcId() {
+    try {
+      return this.client?.session?.dcId ?? this.client?._sender?.dcId ?? null;
+    } catch {
+      return null;
+    }
   }
 
   async invoke(method, params) {
@@ -88,6 +113,7 @@ export class MtprotoClient {
   async connect() { return this.transport.connect(); }
   async invoke(method, params) { return this.transport.invoke(method, params); }
   async disconnect() { return this.transport.disconnect(); }
+  getDcId() { return this.transport.getDcId ? this.transport.getDcId() : null; }
 }
 
 export default MtprotoClient;

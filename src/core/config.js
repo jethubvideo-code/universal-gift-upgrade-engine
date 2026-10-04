@@ -29,9 +29,19 @@ export function loadConfig(env = process.env) {
     WORKER_TICK_MS: env.WORKER_TICK_MS ? parseInt(env.WORKER_TICK_MS, 10) : 250,
     COLLECTION_SOURCE: env.COLLECTION_SOURCE || 'mtproto',
     GIFTTRACKER_DATA_URL: env.GIFTTRACKER_DATA_URL || '',
-    // 'botapi' (Variant B, owner decision 0.4) or 'mtproto' (Variant A)
+    // 'botapi' (Variant B, owner decision 0.4) or 'mtproto' (Variant A,
+    // required by the Speed Mode pivot — see docs/DECISIONS.md 0.9).
+    // Default stays 'botapi' so the existing GitHub Actions cycle keeps
+    // working untouched; the new persistent worker sets TRANSPORT=mtproto
+    // explicitly (SETUP.md).
     TRANSPORT: env.TRANSPORT === 'mtproto' ? 'mtproto' : 'botapi',
-    BUSINESS_CONNECTION_ID: env.BUSINESS_CONNECTION_ID || ''
+    BUSINESS_CONNECTION_ID: env.BUSINESS_CONNECTION_ID || '',
+    // Section 6 (speed-mode-prompt.pdf): test (simulator) / dry-run (real
+    // reads, upgrade never actually sent) / live (real Stars spent).
+    // Defaults to the SAFEST option. Only 'live' spends real Stars, and it
+    // is never set by this engine — the Mini App (owner only) is the one
+    // place that is allowed to request it (Phase C; not implemented yet).
+    MODE: ['test', 'dry-run', 'live'].includes(env.MODE) ? env.MODE : (testMode ? 'test' : 'dry-run')
   };
 
   if (!testMode) {

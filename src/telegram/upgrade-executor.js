@@ -17,7 +17,7 @@ import { EngineError, ErrorCodes } from '../core/errors.js';
 import { withTimer } from '../core/metrics.js';
 
 export class UpgradeExecutor {
-  constructor({ savedGifts, payments, locks = null, limiter = null, retry = null, metrics = null, logger = null } = {}) {
+  constructor({ savedGifts, payments, locks = null, limiter = null, retry = null, metrics = null, logger = null, mode = 'dry-run' } = {}) {
     this.savedGifts = savedGifts;
     this.payments = payments;
     this.locks = locks;
@@ -25,6 +25,11 @@ export class UpgradeExecutor {
     this.retry = retry;
     this.metrics = metrics;
     this.logger = logger;
+    // Section 6 modes: 'test' (fake transport, used by test/simulator.test.js),
+    // 'dry-run' (real reads, upgrade/sendStarsForm calls are SKIPPED — logged as
+    // "would fire" + timing), 'live' (actually spends Stars). Only the owner
+    // flips 'live' — nothing in this engine sets it automatically.
+    this.mode = mode;
   }
 
   /** Full section-8 verification against ACTUAL Telegram state. */
@@ -79,6 +84,16 @@ export class UpgradeExecutor {
       if (done) return { status: 'COMPLETED', cached: true, details: done };
     }
 
+    if (this.mode === 'dry-run') {
+      // SAFE TEST MODE (section 6): read-only up to this point, the actual
+      // debiting call is never made. "Would fire" is logged with the branch
+      // that WOULD have run, so dry-run output is honest about what live
+      // mode would do next.
+      const branch = savedGift.prepaid_upgrade ? 'payments.upgradeStarGift (prepaid)' : 'payments.getPaymentForm -> payments.sendStarsForm (paid)';
+      if (this.logger) this.logger.info('DRY-RUN: would fire', { target: target.id, branch, price: savedGift.upgrade_stars ?? null });
+      return { status: 'WOULD_FIRE', details: { branch }, latency: Date.now() };
+    }
+
     if (savedGift.prepaid_upgrade) {
       // Official prepaid flow (Bot API: star_count 0 / MTProto: upgradeStarGift).
       const res = await this.payments.upgradePrepaid({ savedGift, userSession });
@@ -86,16 +101,22 @@ export class UpgradeExecutor {
     }
     // Paid upgrade: price already checked against the user's maximum.
     // Bot API executes it from the business balance (fails closed if short);
-    // MTProto returns the official payment form.
+    // MTProto: getPaymentForm then sendStarsForm (payment-executor.js step 2/2).
     try {
-      const res = await this.payments.beginPaidUpgrade({ savedGift, target, userSession });
-      if (res && res.executed) {
+      const begun = await this.payments.beginPaidUpgrade({ savedGift, target, userSession });
+      if (begun && begun.executed) {
+        // Bot API Business backend path: executes inline, no second step.
+        return { status: 'COMPLETED', details: begun, latency: Date.now() };
+      }
+      if (this.payments.finalizePaidUpgrade) {
+        // MTProto path: form obtained, now actually send it.
+        const res = await this.payments.finalizePaidUpgrade(begun);
         return { status: 'COMPLETED', details: res, latency: Date.now() };
       }
-      return { status: 'PAYMENT_REQUIRED', details: res, latency: Date.now() };
+      return { status: 'PAYMENT_REQUIRED', details: begun, latency: Date.now() };
     } catch (err) {
       if (err.code === ErrorCodes.PAYMENT_REQUIRED) {
-        // Insufficient Stars on the business balance: no Stars were spent.
+        // Insufficient Stars: no Stars were spent.
         return { status: 'PAYMENT_REQUIRED', details: { reason: err.message }, latency: Date.now() };
       }
       throw err;

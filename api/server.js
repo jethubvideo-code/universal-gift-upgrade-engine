@@ -47,8 +47,15 @@ export function createApi(engine, config) {
     const url = new URL(req.url, 'http://localhost');
     const path = url.pathname;
     try {
-      if (req.method === 'GET' && path === '/api/health') {
-        return json(res, 200, { ok: true, metrics: metrics.snapshot(), collections: engine.tracked.size });
+      if (req.method === 'GET' && (path === '/api/health' || path === '/healthz')) {
+        return json(res, 200, {
+          ok: true,
+          mode: config.MODE,
+          transport: config.TRANSPORT,
+          dc_id: engine.getDcId ? engine.getDcId() : null,
+          metrics: metrics.snapshot(),
+          collections: engine.tracked.size
+        });
       }
       if (req.method === 'GET' && path === '/api/collections') {
         return json(res, 200, store.findAll('gift_collections').map(c => ({

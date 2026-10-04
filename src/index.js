@@ -103,7 +103,7 @@ export async function createEngine({ config = loadConfig(), store = null, transp
 
   const savedGifts = backend || new SavedGiftsClient({ client: mtproto, limiter });
   const payments = backend || new PaymentExecutor({ client: mtproto, limiter, retry, metrics, logger });
-  const executor = new UpgradeExecutor({ savedGifts, payments, locks, limiter, retry, metrics, logger });
+  const executor = new UpgradeExecutor({ savedGifts, payments, locks, limiter, retry, metrics, logger, mode: config.MODE });
   const notifier = new Notifier({ botToken: config.BOT_TOKEN, store });
 
   const hot = new HotTargetEngine({
@@ -159,6 +159,7 @@ export async function createEngine({ config = loadConfig(), store = null, transp
     targets, index, scheduler, cache, monitor, hot, gifts,
     sessions, executor, notifier, collections,
     refreshAll, tracked,
+    getDcId() { return mtproto ? mtproto.getDcId() : null; },
     async stop() {
       scheduler.stopAll();
       if (mtproto) await mtproto.disconnect().catch(() => {});

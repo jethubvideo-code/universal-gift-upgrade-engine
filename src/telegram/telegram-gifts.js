@@ -78,6 +78,49 @@ export class TelegramGiftsClient {
   }
 
   /**
+   * Confirmed TL schema (core.telegram.org, Layer 225):
+   *   payments.getUniqueStarGift#a1974d72 slug:string = payments.UniqueStarGift
+   *   Only users (not bots) can call this. Error STARGIFT_SLUG_INVALID (400)
+   *   means that exact numbered slug does not exist (yet, or never will).
+   * Used ONLY to confirm the window is open right before firing — never as
+   * the prediction source (that stays the public counter / gifttracker).
+   */
+  async getUniqueStarGift(slug) {
+    try {
+      const res = await this._invoke('payments.getUniqueStarGift', { slug });
+      return { exists: true, slug, result: res };
+    } catch (err) {
+      if (/STARGIFT_SLUG_INVALID/i.test(String(err?.message || err))) {
+        return { exists: false, slug, result: null };
+      }
+      throw err;
+    }
+  }
+
+  /**
+   * Section 3.B window probe: slug "<Base>-<N-1>" must exist AND
+   * "<Base>-<N>" must NOT exist yet. Both calls are issued back-to-back
+   * (Promise.all) over the SAME persistent MTProto connection — GramJS can
+   * pack both into one outgoing container when they are queued in the same
+   * tick, but this is NOT guaranteed to be a single TCP round trip the way
+   * a raw multi-method container would be. Marked UNVERIFIED: measure actual
+   * round-trip count/timing in scripts/dryrun-speedtest.js and report it —
+   * do not assume "one round trip" without that measurement.
+   */
+  async probeWindow(slugBase, n) {
+    const t0 = Date.now();
+    const [prev, next] = await Promise.all([
+      this.getUniqueStarGift(`${slugBase}-${n - 1}`),
+      this.getUniqueStarGift(`${slugBase}-${n}`)
+    ]);
+    return {
+      windowOpen: prev.exists === true && next.exists === false,
+      prev, next,
+      latencyMs: Date.now() - t0
+    };
+  }
+
+  /**
    * Current state of one collection.
    * NOTE: upgraded_count / next_expected_number are PREDICTION inputs.
    * The actual Telegram user state is the source of truth for upgrades.

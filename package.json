@@ -13,11 +13,15 @@
     "api": "node api/server.js",
     "test": "node --test test/*.test.js",
     "test:perf": "node --test test/perf/*.test.js",
-    "check": "find src bot api test -name '*.js' -exec node --check {} +"
+    "check": "find src bot api test -name '*.js' -exec node --check {} +",
+    "login": "node scripts/login-mtproto.js",
+    "dryrun": "node scripts/dryrun-speedtest.js",
+    "bench:fire": "node scripts/benchmark-fire-local.mjs"
   },
-  "dependencies": {},
+  "dependencies": {
+    "telegram": "^2.26.22"
+  },
   "optionalDependencies": {
-    "telegram": "^2.26.22",
     "better-sqlite3": "^11.10.0"
   },
   "devDependencies": {}

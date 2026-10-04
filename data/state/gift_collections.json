@@ -1,0 +1,1091 @@
+[
+ {
+  "id": "43e5c491-f561-40e6-9616-921b08ffa9d2",
+  "collection_id": "algorithmcup",
+  "title": "algorithmcup",
+  "slug": "algorithmcup",
+  "total_supply": 188,
+  "updated_at": "2026-10-04T06:51:32.879Z",
+  "created_at": "2026-10-04T06:51:32.880Z"
+ },
+ {
+  "id": "01d0f420-693e-482c-9606-0a0dd757e53a",
+  "collection_id": "ArtisanBrick",
+  "title": "ArtisanBrick",
+  "slug": "ArtisanBrick",
+  "total_supply": 6852,
+  "updated_at": "2026-10-04T06:51:32.880Z",
+  "created_at": "2026-10-04T06:51:32.880Z"
+ },
+ {
+  "id": "eeb09097-500f-4635-840b-b499fd1713cd",
+  "collection_id": "AstralShard",
+  "title": "AstralShard",
+  "slug": "AstralShard",
+  "total_supply": 6196,
+  "updated_at": "2026-10-04T06:51:32.880Z",
+  "created_at": "2026-10-04T06:51:32.880Z"
+ },
+ {
+  "id": "ae4b7347-f8ce-4901-92a9-81803a8ac13f",
+  "collection_id": "BDayCandle",
+  "title": "BDayCandle",
+  "slug": "BDayCandle",
+  "total_supply": 307521,
+  "updated_at": "2026-10-04T06:51:32.880Z",
+  "created_at": "2026-10-04T06:51:32.880Z"
+ },
+ {
+  "id": "d16585e4-6f1d-4a99-b92c-02947805b759",
+  "collection_id": "BerryBox",
+  "title": "BerryBox",
+  "slug": "BerryBox",
+  "total_supply": 66580,
+  "updated_at": "2026-10-04T06:51:32.880Z",
+  "created_at": "2026-10-04T06:51:32.880Z"
+ },
+ {
+  "id": "9bac65ee-e266-4a11-a7bd-a130f592d452",
+  "collection_id": "BigYear",
+  "title": "BigYear",
+  "slug": "BigYear",
+  "total_supply": 101415,
+  "updated_at": "2026-10-04T06:51:32.880Z",
+  "created_at": "2026-10-04T06:51:32.880Z"
+ },
+ {
+  "id": "abdfcb14-8b55-48a2-82fa-5d417620d087",
+  "collection_id": "BlingBinky",
+  "title": "BlingBinky",
+  "slug": "BlingBinky",
+  "total_supply": 9990,
+  "updated_at": "2026-10-04T06:51:32.880Z",
+  "created_at": "2026-10-04T06:51:32.880Z"
+ },
+ {
+  "id": "c1f3ceeb-e7d8-4473-a712-831efbc9de8c",
+  "collection_id": "BondedRing",
+  "title": "BondedRing",
+  "slug": "BondedRing",
+  "total_supply": 8130,
+  "updated_at": "2026-10-04T06:51:32.880Z",
+  "created_at": "2026-10-04T06:51:32.880Z"
+ },
+ {
+  "id": "5a25d5a4-480a-4454-ab72-6126ccf3e72d",
+  "collection_id": "BowTie",
+  "title": "BowTie",
+  "slug": "BowTie",
+  "total_supply": 65687,
+  "updated_at": "2026-10-04T06:51:32.880Z",
+  "created_at": "2026-10-04T06:51:32.880Z"
+ },
+ {
+  "id": "61042f4b-c65e-4ff4-ad5d-9692db7ffe97",
+  "collection_id": "BunnyMuffin",
+  "title": "BunnyMuffin",
+  "slug": "BunnyMuffin",
+  "total_supply": 66655,
+  "updated_at": "2026-10-04T06:51:32.880Z",
+  "created_at": "2026-10-04T06:51:32.880Z"
+ },
+ {
+  "id": "e33e4d56-0c2c-4d4c-bfc8-527949b8d5ba",
+  "collection_id": "CandyCane",
+  "title": "CandyCane",
+  "slug": "CandyCane",
+  "total_supply": 320622,
+  "updated_at": "2026-10-04T06:51:32.881Z",
+  "created_at": "2026-10-04T06:51:32.881Z"
+ },
+ {
+  "id": "df23524e-d544-4400-b5ee-ee782ff0a01c",
+  "collection_id": "ChillFlame",
+  "title": "ChillFlame",
+  "slug": "ChillFlame",
+  "total_supply": 482271,
+  "updated_at": "2026-10-04T06:51:32.881Z",
+  "created_at": "2026-10-04T06:51:32.881Z"
+ },
+ {
+  "id": "df0c317f-7b3d-44b8-b697-380611de6d9a",
+  "collection_id": "CloverPin",
+  "title": "CloverPin",
+  "slug": "CloverPin",
+  "total_supply": 270970,
+  "updated_at": "2026-10-04T06:51:32.881Z",
+  "created_at": "2026-10-04T06:51:32.881Z"
+ },
+ {
+  "id": "1717f221-f580-4c5b-8389-bcbd6cb4c220",
+  "collection_id": "CookieHeart",
+  "title": "CookieHeart",
+  "slug": "CookieHeart",
+  "total_supply": 264486,
+  "updated_at": "2026-10-04T06:51:32.887Z",
+  "created_at": "2026-10-04T06:51:32.887Z"
+ },
+ {
+  "id": "36fe35b5-f671-432c-b0a0-44fb29ccbbc6",
+  "collection_id": "CrystalBall",
+  "title": "CrystalBall",
+  "slug": "CrystalBall",
+  "total_supply": 27732,
+  "updated_at": "2026-10-04T06:51:32.887Z",
+  "created_at": "2026-10-04T06:51:32.887Z"
+ },
+ {
+  "id": "86dd70cf-dfcd-4b77-8bee-18b976d762a6",
+  "collection_id": "CupidCharm",
+  "title": "CupidCharm",
+  "slug": "CupidCharm",
+  "total_supply": 33112,
+  "updated_at": "2026-10-04T06:51:32.887Z",
+  "created_at": "2026-10-04T06:51:32.887Z"
+ },
+ {
+  "id": "5969fcb0-a1cc-474b-8e25-8821130ba24c",
+  "collection_id": "DeskCalendar",
+  "title": "DeskCalendar",
+  "slug": "DeskCalendar",
+  "total_supply": 293075,
+  "updated_at": "2026-10-04T06:51:32.887Z",
+  "created_at": "2026-10-04T06:51:32.887Z"
+ },
+ {
+  "id": "b3e8307d-67bf-4840-917b-ced6ea813db8",
+  "collection_id": "diamondring",
+  "title": "Diamond Rings",
+  "slug": "diamondring",
+  "total_supply": 32924,
+  "updated_at": "2026-10-04T06:51:32.887Z",
+  "created_at": "2026-10-04T06:51:32.887Z"
+ },
+ {
+  "id": "28f74b97-f747-4241-b41c-854c998da1f1",
+  "collection_id": "DurovsCap",
+  "title": "DurovsCap",
+  "slug": "DurovsCap",
+  "total_supply": 4774,
+  "updated_at": "2026-10-04T06:51:32.887Z",
+  "created_at": "2026-10-04T06:51:32.887Z"
+ },
+ {
+  "id": "aeceead2-8e67-4da2-9b65-9ddacab12a0f",
+  "collection_id": "DurovsGlasses",
+  "title": "DurovsGlasses",
+  "slug": "DurovsGlasses",
+  "total_supply": 4982,
+  "updated_at": "2026-10-04T06:51:32.887Z",
+  "created_at": "2026-10-04T06:51:32.887Z"
+ },
+ {
+  "id": "2f68887e-caff-496e-b237-ee3d193ab143",
+  "collection_id": "EasterEgg",
+  "title": "EasterEgg",
+  "slug": "EasterEgg",
+  "total_supply": 173176,
+  "updated_at": "2026-10-04T06:51:32.887Z",
+  "created_at": "2026-10-04T06:51:32.887Z"
+ },
+ {
+  "id": "d26338da-c93e-4c4a-a5b3-4a0df1503230",
+  "collection_id": "ElectricSkull",
+  "title": "ElectricSkull",
+  "slug": "ElectricSkull",
+  "total_supply": 9407,
+  "updated_at": "2026-10-04T06:51:32.887Z",
+  "created_at": "2026-10-04T06:51:32.887Z"
+ },
+ {
+  "id": "1d9109ca-0f30-44ee-b20b-70fae7246b10",
+  "collection_id": "eternalrose",
+  "title": "Eternal Roses",
+  "slug": "eternalrose",
+  "total_supply": 37640,
+  "updated_at": "2026-10-04T06:51:32.887Z",
+  "created_at": "2026-10-04T06:51:32.887Z"
+ },
+ {
+  "id": "eb83638d-c592-4c68-9a83-a2967a74d086",
+  "collection_id": "EternalCandle",
+  "title": "EternalCandle",
+  "slug": "EternalCandle",
+  "total_supply": 46590,
+  "updated_at": "2026-10-04T06:51:32.887Z",
+  "created_at": "2026-10-04T06:51:32.887Z"
+ },
+ {
+  "id": "da5d00b2-b9de-4d03-8f3f-c7b10b7c64b9",
+  "collection_id": "EvilEye",
+  "title": "EvilEye",
+  "slug": "EvilEye",
+  "total_supply": 85204,
+  "updated_at": "2026-10-04T06:51:32.887Z",
+  "created_at": "2026-10-04T06:51:32.887Z"
+ },
+ {
+  "id": "b7baaed5-f3e8-43d3-932a-595b7204834c",
+  "collection_id": "FaithAmulet",
+  "title": "FaithAmulet",
+  "slug": "FaithAmulet",
+  "total_supply": 172784,
+  "updated_at": "2026-10-04T06:51:32.888Z",
+  "created_at": "2026-10-04T06:51:32.888Z"
+ },
+ {
+  "id": "1fc5f88c-8b41-4149-9111-c83d74941002",
+  "collection_id": "FinePen",
+  "title": "FinePen",
+  "slug": "FinePen",
+  "total_supply": 49529,
+  "updated_at": "2026-10-04T06:51:32.888Z",
+  "created_at": "2026-10-04T06:51:32.888Z"
+ },
+ {
+  "id": "50a40cd2-e599-4881-b1c2-bf2b9f3b8415",
+  "collection_id": "flyingbroom",
+  "title": "Flying Brooms",
+  "slug": "flyingbroom",
+  "total_supply": 25916,
+  "updated_at": "2026-10-04T06:51:32.888Z",
+  "created_at": "2026-10-04T06:51:32.888Z"
+ },
+ {
+  "id": "109f9b1f-e49f-4dbe-ba87-23754cf69157",
+  "collection_id": "FreshSocks",
+  "title": "FreshSocks",
+  "slug": "FreshSocks",
+  "total_supply": 200509,
+  "updated_at": "2026-10-04T06:51:32.888Z",
+  "created_at": "2026-10-04T06:51:32.888Z"
+ },
+ {
+  "id": "30df03cb-f27c-432e-99ae-9418c3a3ddd4",
+  "collection_id": "GemSignet",
+  "title": "GemSignet",
+  "slug": "GemSignet",
+  "total_supply": 6962,
+  "updated_at": "2026-10-04T06:51:32.888Z",
+  "created_at": "2026-10-04T06:51:32.888Z"
+ },
+ {
+  "id": "b29aecf4-ca8a-4160-9c67-423a5cb11196",
+  "collection_id": "GenieLamp",
+  "title": "GenieLamp",
+  "slug": "GenieLamp",
+  "total_supply": 7666,
+  "updated_at": "2026-10-04T06:51:32.888Z",
+  "created_at": "2026-10-04T06:51:32.888Z"
+ },
+ {
+  "id": "0b65aed7-2dd2-4a02-8abb-c333ee4d1fa9",
+  "collection_id": "GingerCookie",
+  "title": "GingerCookie",
+  "slug": "GingerCookie",
+  "total_supply": 188888,
+  "updated_at": "2026-10-04T06:51:32.888Z",
+  "created_at": "2026-10-04T06:51:32.888Z"
+ },
+ {
+  "id": "b93208a0-4d7a-4c31-ab5d-42ec154b2073",
+  "collection_id": "HangingStar",
+  "title": "HangingStar",
+  "slug": "HangingStar",
+  "total_supply": 58118,
+  "updated_at": "2026-10-04T06:51:32.888Z",
+  "created_at": "2026-10-04T06:51:32.888Z"
+ },
+ {
+  "id": "80a4de1c-8ac9-4291-add0-51fd7e04f08a",
+  "collection_id": "HappyBrownie",
+  "title": "HappyBrownie",
+  "slug": "HappyBrownie",
+  "total_supply": 264231,
+  "updated_at": "2026-10-04T06:51:32.888Z",
+  "created_at": "2026-10-04T06:51:32.888Z"
+ },
+ {
+  "id": "7c17f6c2-bb18-45ca-b163-e99e64386116",
+  "collection_id": "HeartLocket",
+  "title": "HeartLocket",
+  "slug": "HeartLocket",
+  "total_supply": 1973,
+  "updated_at": "2026-10-04T06:51:32.900Z",
+  "created_at": "2026-10-04T06:51:32.900Z"
+ },
+ {
+  "id": "247f4e26-c87e-499b-816c-77718810c7ed",
+  "collection_id": "HeroicHelmet",
+  "title": "HeroicHelmet",
+  "slug": "HeroicHelmet",
+  "total_supply": 3794,
+  "updated_at": "2026-10-04T06:51:32.900Z",
+  "created_at": "2026-10-04T06:51:32.900Z"
+ },
+ {
+  "id": "0569ab27-224f-4f50-ad6d-ab0aedf1070a",
+  "collection_id": "HexPot",
+  "title": "HexPot",
+  "slug": "HexPot",
+  "total_supply": 69837,
+  "updated_at": "2026-10-04T06:51:32.900Z",
+  "created_at": "2026-10-04T06:51:32.901Z"
+ },
+ {
+  "id": "aedd60f9-d8a1-475f-9d22-e2fe7fd43c8e",
+  "collection_id": "HolidayDrink",
+  "title": "HolidayDrink",
+  "slug": "HolidayDrink",
+  "total_supply": 120989,
+  "updated_at": "2026-10-04T06:51:32.931Z",
+  "created_at": "2026-10-04T06:51:32.931Z"
+ },
+ {
+  "id": "403d239b-a59a-4113-b6c6-790ee9f90c69",
+  "collection_id": "HomemadeCake",
+  "title": "HomemadeCake",
+  "slug": "HomemadeCake",
+  "total_supply": 199482,
+  "updated_at": "2026-10-04T06:51:32.931Z",
+  "created_at": "2026-10-04T06:51:32.931Z"
+ },
+ {
+  "id": "a89aea9b-6a95-4488-82bf-bfe69dd49c9e",
+  "collection_id": "HypnoLollipop",
+  "title": "HypnoLollipop",
+  "slug": "HypnoLollipop",
+  "total_supply": 116639,
+  "updated_at": "2026-10-04T06:51:32.931Z",
+  "created_at": "2026-10-04T06:51:32.931Z"
+ },
+ {
+  "id": "d4120405-a4d2-4420-a107-2b40015ae188",
+  "collection_id": "IceCream",
+  "title": "IceCream",
+  "slug": "IceCream",
+  "total_supply": 342255,
+  "updated_at": "2026-10-04T06:51:32.931Z",
+  "created_at": "2026-10-04T06:51:32.931Z"
+ },
+ {
+  "id": "257a1f0f-bf6c-4b25-a3fd-df309b626c66",
+  "collection_id": "InputKey",
+  "title": "InputKey",
+  "slug": "InputKey",
+  "total_supply": 159750,
+  "updated_at": "2026-10-04T06:51:32.931Z",
+  "created_at": "2026-10-04T06:51:32.931Z"
+ },
+ {
+  "id": "337ab9ce-e520-4689-bdae-017e224b8267",
+  "collection_id": "InstantRamen",
+  "title": "InstantRamen",
+  "slug": "InstantRamen",
+  "total_supply": 457382,
+  "updated_at": "2026-10-04T06:51:32.931Z",
+  "created_at": "2026-10-04T06:51:32.931Z"
+ },
+ {
+  "id": "474a0458-958e-4aca-bf21-c1ae17ad8f85",
+  "collection_id": "intelligencecup",
+  "title": "intelligencecup",
+  "slug": "intelligencecup",
+  "total_supply": 220,
+  "updated_at": "2026-10-04T06:51:32.931Z",
+  "created_at": "2026-10-04T06:51:32.931Z"
+ },
+ {
+  "id": "fcf664f7-af6f-4391-a05d-ec9c9241bad7",
+  "collection_id": "IonGem",
+  "title": "IonGem",
+  "slug": "IonGem",
+  "total_supply": 4692,
+  "updated_at": "2026-10-04T06:51:32.932Z",
+  "created_at": "2026-10-04T06:51:32.932Z"
+ },
+ {
+  "id": "ea48a66d-fcb0-4c97-b93b-ab07e40fca32",
+  "collection_id": "ionicdryer",
+  "title": "Ionic Dryers",
+  "slug": "ionicdryer",
+  "total_supply": 25719,
+  "updated_at": "2026-10-04T06:51:32.932Z",
+  "created_at": "2026-10-04T06:51:32.932Z"
+ },
+ {
+  "id": "1a0566ba-0f78-4a62-be1c-cbdae2e15560",
+  "collection_id": "JackInTheBox",
+  "title": "JackInTheBox",
+  "slug": "JackInTheBox",
+  "total_supply": 97345,
+  "updated_at": "2026-10-04T06:51:32.932Z",
+  "created_at": "2026-10-04T06:51:32.932Z"
+ },
+ {
+  "id": "f5436e6b-d789-4f40-8866-21f65bd68ce8",
+  "collection_id": "JellyBunny",
+  "title": "JellyBunny",
+  "slug": "JellyBunny",
+  "total_supply": 129350,
+  "updated_at": "2026-10-04T06:51:32.935Z",
+  "created_at": "2026-10-04T06:51:32.935Z"
+ },
+ {
+  "id": "b9b1aac3-2ab0-4b1c-b0de-55f345edb8c8",
+  "collection_id": "JesterHat",
+  "title": "JesterHat",
+  "slug": "JesterHat",
+  "total_supply": 190222,
+  "updated_at": "2026-10-04T06:51:32.935Z",
+  "created_at": "2026-10-04T06:51:32.935Z"
+ },
+ {
+  "id": "2fa4cb9c-0eb7-4735-9219-53ff424f3393",
+  "collection_id": "jinglebells",
+  "title": "Jingle Bells",
+  "slug": "jinglebells",
+  "total_supply": 101004,
+  "updated_at": "2026-10-04T06:51:32.935Z",
+  "created_at": "2026-10-04T06:51:32.935Z"
+ },
+ {
+  "id": "f6899ef1-6c4b-4144-8077-a1b10a3b64e9",
+  "collection_id": "JollyChimp",
+  "title": "JollyChimp",
+  "slug": "JollyChimp",
+  "total_supply": 132155,
+  "updated_at": "2026-10-04T06:51:32.935Z",
+  "created_at": "2026-10-04T06:51:32.935Z"
+ },
+ {
+  "id": "80f99a53-fccf-4a83-9f36-b63935a0ade1",
+  "collection_id": "JoyfulBundle",
+  "title": "JoyfulBundle",
+  "slug": "JoyfulBundle",
+  "total_supply": 114092,
+  "updated_at": "2026-10-04T06:51:32.935Z",
+  "created_at": "2026-10-04T06:51:32.935Z"
+ },
+ {
+  "id": "646d45fb-0b24-41be-b563-527f066776f1",
+  "collection_id": "KhabibsPapakha",
+  "title": "KhabibsPapakha",
+  "slug": "KhabibsPapakha",
+  "total_supply": 29000,
+  "updated_at": "2026-10-04T06:51:32.935Z",
+  "created_at": "2026-10-04T06:51:32.935Z"
+ },
+ {
+  "id": "661e26f7-a64f-43b6-99d3-68e6a2197c0b",
+  "collection_id": "KissedFrog",
+  "title": "KissedFrog",
+  "slug": "KissedFrog",
+  "total_supply": 14278,
+  "updated_at": "2026-10-04T06:51:32.936Z",
+  "created_at": "2026-10-04T06:51:32.936Z"
+ },
+ {
+  "id": "b741aaad-3b91-4e5f-9418-247d37672743",
+  "collection_id": "LibertyFigure",
+  "title": "LibertyFigure",
+  "slug": "LibertyFigure",
+  "total_supply": 295480,
+  "updated_at": "2026-10-04T06:51:32.940Z",
+  "created_at": "2026-10-04T06:51:32.940Z"
+ },
+ {
+  "id": "d7601d90-56e0-4aeb-b1bf-60458455d2da",
+  "collection_id": "LightSword",
+  "title": "LightSword",
+  "slug": "LightSword",
+  "total_supply": 131222,
+  "updated_at": "2026-10-04T06:51:32.940Z",
+  "created_at": "2026-10-04T06:51:32.940Z"
+ },
+ {
+  "id": "7d629dc1-4f7d-410c-8a3b-2d7febdf0633",
+  "collection_id": "LolPop",
+  "title": "LolPop",
+  "slug": "LolPop",
+  "total_supply": 468745,
+  "updated_at": "2026-10-04T06:51:32.940Z",
+  "created_at": "2026-10-04T06:51:32.940Z"
+ },
+ {
+  "id": "1380d6d3-0681-454a-ac3f-eb41b8a672db",
+  "collection_id": "LootBag",
+  "title": "LootBag",
+  "slug": "LootBag",
+  "total_supply": 14489,
+  "updated_at": "2026-10-04T06:51:32.940Z",
+  "created_at": "2026-10-04T06:51:32.940Z"
+ },
+ {
+  "id": "20c5232b-6bcd-4133-9122-94873ccfa944",
+  "collection_id": "lovecandle",
+  "title": "Love Candles",
+  "slug": "lovecandle",
+  "total_supply": 30296,
+  "updated_at": "2026-10-04T06:51:32.941Z",
+  "created_at": "2026-10-04T06:51:32.941Z"
+ },
+ {
+  "id": "443d5ff9-3911-4b68-a865-690931ffc7c7",
+  "collection_id": "LovePotion",
+  "title": "LovePotion",
+  "slug": "LovePotion",
+  "total_supply": 30412,
+  "updated_at": "2026-10-04T06:51:32.941Z",
+  "created_at": "2026-10-04T06:51:32.941Z"
+ },
+ {
+  "id": "336a1c19-18b1-47e2-be89-a6e40bd28aa3",
+  "collection_id": "LowRider",
+  "title": "LowRider",
+  "slug": "LowRider",
+  "total_supply": 23950,
+  "updated_at": "2026-10-04T06:51:32.941Z",
+  "created_at": "2026-10-04T06:51:32.941Z"
+ },
+ {
+  "id": "113c8303-332d-4c85-82e5-a03cace5c8bc",
+  "collection_id": "LunarSnake",
+  "title": "LunarSnake",
+  "slug": "LunarSnake",
+  "total_supply": 259346,
+  "updated_at": "2026-10-04T06:51:32.941Z",
+  "created_at": "2026-10-04T06:51:32.941Z"
+ },
+ {
+  "id": "de818287-4696-4524-a052-415e4321cc4f",
+  "collection_id": "LushBouquet",
+  "title": "LushBouquet",
+  "slug": "LushBouquet",
+  "total_supply": 140116,
+  "updated_at": "2026-10-04T06:51:32.941Z",
+  "created_at": "2026-10-04T06:51:32.941Z"
+ },
+ {
+  "id": "e5a09d4a-3ea3-4891-af65-048653df9369",
+  "collection_id": "MadPumpkin",
+  "title": "MadPumpkin",
+  "slug": "MadPumpkin",
+  "total_supply": 22199,
+  "updated_at": "2026-10-04T06:51:32.948Z",
+  "created_at": "2026-10-04T06:51:32.948Z"
+ },
+ {
+  "id": "732a964e-757b-4205-9119-69a599019534",
+  "collection_id": "MagicPotion",
+  "title": "MagicPotion",
+  "slug": "MagicPotion",
+  "total_supply": 4871,
+  "updated_at": "2026-10-04T06:51:32.948Z",
+  "created_at": "2026-10-04T06:51:32.948Z"
+ },
+ {
+  "id": "88e67c1d-a549-4c99-87a0-38913d7dd380",
+  "collection_id": "MightyArm",
+  "title": "MightyArm",
+  "slug": "MightyArm",
+  "total_supply": 4123,
+  "updated_at": "2026-10-04T06:51:32.949Z",
+  "created_at": "2026-10-04T06:51:32.949Z"
+ },
+ {
+  "id": "6e406cbf-e05a-4a6e-9e48-0379cff8c768",
+  "collection_id": "MiniOscar",
+  "title": "MiniOscar",
+  "slug": "MiniOscar",
+  "total_supply": 5614,
+  "updated_at": "2026-10-04T06:51:32.949Z",
+  "created_at": "2026-10-04T06:51:32.949Z"
+ },
+ {
+  "id": "8d1543e6-4c20-44f0-b842-8cac01832540",
+  "collection_id": "miragelamp",
+  "title": "Mirage Lamp",
+  "slug": "miragelamp",
+  "total_supply": 226713,
+  "updated_at": "2026-10-04T06:51:32.949Z",
+  "created_at": "2026-10-04T06:51:32.949Z"
+ },
+ {
+  "id": "7b6fe776-8581-4afd-9ad6-4e9a90a03842",
+  "collection_id": "MoneyPot",
+  "title": "MoneyPot",
+  "slug": "MoneyPot",
+  "total_supply": 91779,
+  "updated_at": "2026-10-04T06:51:32.949Z",
+  "created_at": "2026-10-04T06:51:32.949Z"
+ },
+ {
+  "id": "ae3b5514-9efa-4ebc-b313-442cef94ca11",
+  "collection_id": "MoodPack",
+  "title": "MoodPack",
+  "slug": "MoodPack",
+  "total_supply": 198560,
+  "updated_at": "2026-10-04T06:51:32.949Z",
+  "created_at": "2026-10-04T06:51:32.949Z"
+ },
+ {
+  "id": "ec0b7d23-c416-4030-a6ff-d85bfa5e8ec1",
+  "collection_id": "MoonPendant",
+  "title": "MoonPendant",
+  "slug": "MoonPendant",
+  "total_supply": 111080,
+  "updated_at": "2026-10-04T06:51:32.950Z",
+  "created_at": "2026-10-04T06:51:32.950Z"
+ },
+ {
+  "id": "479f0c5c-76a1-4405-9402-3694c0391286",
+  "collection_id": "MousseCake",
+  "title": "MousseCake",
+  "slug": "MousseCake",
+  "total_supply": 230505,
+  "updated_at": "2026-10-04T06:51:32.960Z",
+  "created_at": "2026-10-04T06:51:32.960Z"
+ },
+ {
+  "id": "fe4f4ac6-629a-4fc0-925d-d0431758e5bd",
+  "collection_id": "NailBracelet",
+  "title": "NailBracelet",
+  "slug": "NailBracelet",
+  "total_supply": 4818,
+  "updated_at": "2026-10-04T06:51:32.965Z",
+  "created_at": "2026-10-04T06:51:32.965Z"
+ },
+ {
+  "id": "d7891cdd-197a-4f2b-aa40-22e6dab171d5",
+  "collection_id": "NekoHelmet",
+  "title": "NekoHelmet",
+  "slug": "NekoHelmet",
+  "total_supply": 16149,
+  "updated_at": "2026-10-04T06:51:32.965Z",
+  "created_at": "2026-10-04T06:51:32.965Z"
+ },
+ {
+  "id": "8b6dba37-7179-4edc-9576-4d4c5f0f4d3c",
+  "collection_id": "PartySparkler",
+  "title": "PartySparkler",
+  "slug": "PartySparkler",
+  "total_supply": 243771,
+  "updated_at": "2026-10-04T06:51:32.965Z",
+  "created_at": "2026-10-04T06:51:32.965Z"
+ },
+ {
+  "id": "498da43d-2653-4dc4-9da5-f5231f047db7",
+  "collection_id": "PerfumeBottle",
+  "title": "PerfumeBottle",
+  "slug": "PerfumeBottle",
+  "total_supply": 4848,
+  "updated_at": "2026-10-04T06:51:32.965Z",
+  "created_at": "2026-10-04T06:51:32.965Z"
+ },
+ {
+  "id": "5732495c-21c4-45af-9a88-a3dea8c2df0e",
+  "collection_id": "PetSnake",
+  "title": "PetSnake",
+  "slug": "PetSnake",
+  "total_supply": 279106,
+  "updated_at": "2026-10-04T06:51:32.965Z",
+  "created_at": "2026-10-04T06:51:32.965Z"
+ },
+ {
+  "id": "84c67a0e-d389-4ce6-af64-0174d0f32f01",
+  "collection_id": "PlushPepe",
+  "title": "PlushPepe",
+  "slug": "PlushPepe",
+  "total_supply": 2861,
+  "updated_at": "2026-10-04T06:51:32.966Z",
+  "created_at": "2026-10-04T06:51:32.966Z"
+ },
+ {
+  "id": "49827b2f-ee8c-44e6-89df-7b15bfb345a7",
+  "collection_id": "PoolFloat",
+  "title": "PoolFloat",
+  "slug": "PoolFloat",
+  "total_supply": 246862,
+  "updated_at": "2026-10-04T06:51:32.966Z",
+  "created_at": "2026-10-04T06:51:32.966Z"
+ },
+ {
+  "id": "5c8a8eec-a73e-4b78-86d4-273e3580869c",
+  "collection_id": "PreciousPeach",
+  "title": "PreciousPeach",
+  "slug": "PreciousPeach",
+  "total_supply": 3160,
+  "updated_at": "2026-10-04T06:51:32.969Z",
+  "created_at": "2026-10-04T06:51:32.969Z"
+ },
+ {
+  "id": "0172ddcd-2d66-4592-ae50-1393b2b3d574",
+  "collection_id": "PrettyPosy",
+  "title": "PrettyPosy",
+  "slug": "PrettyPosy",
+  "total_supply": 181231,
+  "updated_at": "2026-10-04T06:51:32.969Z",
+  "created_at": "2026-10-04T06:51:32.969Z"
+ },
+ {
+  "id": "d33d3bfe-d4f4-492d-bd05-1685d8f676a1",
+  "collection_id": "RareBird",
+  "title": "RareBird",
+  "slug": "RareBird",
+  "total_supply": 14971,
+  "updated_at": "2026-10-04T06:51:32.969Z",
+  "created_at": "2026-10-04T06:51:32.969Z"
+ },
+ {
+  "id": "885b4bf1-6e81-469e-bb73-f021a87575de",
+  "collection_id": "RecordPlayer",
+  "title": "RecordPlayer",
+  "slug": "RecordPlayer",
+  "total_supply": 46888,
+  "updated_at": "2026-10-04T06:51:32.972Z",
+  "created_at": "2026-10-04T06:51:32.972Z"
+ },
+ {
+  "id": "efaf19c5-d83d-4bc2-83d5-e42c08f73238",
+  "collection_id": "RestlessJar",
+  "title": "RestlessJar",
+  "slug": "RestlessJar",
+  "total_supply": 120184,
+  "updated_at": "2026-10-04T06:51:32.972Z",
+  "created_at": "2026-10-04T06:51:32.972Z"
+ },
+ {
+  "id": "58093340-105e-4393-bb68-fb85f88b7a44",
+  "collection_id": "SakuraFlower",
+  "title": "SakuraFlower",
+  "slug": "SakuraFlower",
+  "total_supply": 93115,
+  "updated_at": "2026-10-04T06:51:32.972Z",
+  "created_at": "2026-10-04T06:51:32.972Z"
+ },
+ {
+  "id": "3c35eb93-6a9c-4d1d-875f-c0017cfc790e",
+  "collection_id": "SantaHat",
+  "title": "SantaHat",
+  "slug": "SantaHat",
+  "total_supply": 89034,
+  "updated_at": "2026-10-04T06:51:32.972Z",
+  "created_at": "2026-10-04T06:51:32.972Z"
+ },
+ {
+  "id": "8074d384-f521-4132-b9c3-12ec15515374",
+  "collection_id": "ScaredCat",
+  "title": "ScaredCat",
+  "slug": "ScaredCat",
+  "total_supply": 19289,
+  "updated_at": "2026-10-04T06:51:32.972Z",
+  "created_at": "2026-10-04T06:51:32.972Z"
+ },
+ {
+  "id": "22260c22-7383-42ad-9a6e-33e55ac1047c",
+  "collection_id": "SharpTongue",
+  "title": "SharpTongue",
+  "slug": "SharpTongue",
+  "total_supply": 8546,
+  "updated_at": "2026-10-04T06:51:32.973Z",
+  "created_at": "2026-10-04T06:51:32.973Z"
+ },
+ {
+  "id": "5e5bcdef-9394-4696-a5c6-97d8b0a2b0cc",
+  "collection_id": "SignetRing",
+  "title": "SignetRing",
+  "slug": "SignetRing",
+  "total_supply": 18499,
+  "updated_at": "2026-10-04T06:51:32.977Z",
+  "created_at": "2026-10-04T06:51:32.977Z"
+ },
+ {
+  "id": "fd4e45a2-e5b9-4011-b150-3f2e1372e860",
+  "collection_id": "SkullFlower",
+  "title": "SkullFlower",
+  "slug": "SkullFlower",
+  "total_supply": 24126,
+  "updated_at": "2026-10-04T06:51:32.977Z",
+  "created_at": "2026-10-04T06:51:32.977Z"
+ },
+ {
+  "id": "fbbc67dc-3e74-439c-a65b-a04f5178cd4b",
+  "collection_id": "SkyStilettos",
+  "title": "SkyStilettos",
+  "slug": "SkyStilettos",
+  "total_supply": 58460,
+  "updated_at": "2026-10-04T06:51:32.977Z",
+  "created_at": "2026-10-04T06:51:32.977Z"
+ },
+ {
+  "id": "7f6daafb-da4b-44df-ab2b-180b82f84737",
+  "collection_id": "SleighBell",
+  "title": "SleighBell",
+  "slug": "SleighBell",
+  "total_supply": 28000,
+  "updated_at": "2026-10-04T06:51:32.977Z",
+  "created_at": "2026-10-04T06:51:32.977Z"
+ },
+ {
+  "id": "c0dfc1dd-f260-4cd4-ac83-998ba712e8b5",
+  "collection_id": "SnakeBox",
+  "title": "SnakeBox",
+  "slug": "SnakeBox",
+  "total_supply": 273898,
+  "updated_at": "2026-10-04T06:51:32.977Z",
+  "created_at": "2026-10-04T06:51:32.977Z"
+ },
+ {
+  "id": "3733a82a-fec4-4cdc-be67-5c5f7d954913",
+  "collection_id": "SnoopCigar",
+  "title": "SnoopCigar",
+  "slug": "SnoopCigar",
+  "total_supply": 119573,
+  "updated_at": "2026-10-04T06:51:32.978Z",
+  "created_at": "2026-10-04T06:51:32.978Z"
+ },
+ {
+  "id": "50cf65b7-03f0-4581-9c4f-82be4dbc5a52",
+  "collection_id": "SnoopDogg",
+  "title": "SnoopDogg",
+  "slug": "SnoopDogg",
+  "total_supply": 593781,
+  "updated_at": "2026-10-04T06:51:32.978Z",
+  "created_at": "2026-10-04T06:51:32.978Z"
+ },
+ {
+  "id": "b6fb5a24-63f2-4c11-a853-e8f058aa8cae",
+  "collection_id": "snowmittens",
+  "title": "Snow Mittens",
+  "slug": "snowmittens",
+  "total_supply": 49969,
+  "updated_at": "2026-10-04T06:51:32.981Z",
+  "created_at": "2026-10-04T06:51:32.981Z"
+ },
+ {
+  "id": "76f6d492-7d26-4eae-8fd1-2a56d2b4aef1",
+  "collection_id": "SnowGlobe",
+  "title": "SnowGlobe",
+  "slug": "SnowGlobe",
+  "total_supply": 72788,
+  "updated_at": "2026-10-04T06:51:33.001Z",
+  "created_at": "2026-10-04T06:51:33.001Z"
+ },
+ {
+  "id": "3d289930-1e74-4c4d-966a-a5c24db4f681",
+  "collection_id": "SpicedWine",
+  "title": "SpicedWine",
+  "slug": "SpicedWine",
+  "total_supply": 146090,
+  "updated_at": "2026-10-04T06:51:33.001Z",
+  "created_at": "2026-10-04T06:51:33.001Z"
+ },
+ {
+  "id": "faaa239f-dc7e-4728-ae91-13fe607c62cd",
+  "collection_id": "SpringBasket",
+  "title": "SpringBasket",
+  "slug": "SpringBasket",
+  "total_supply": 231311,
+  "updated_at": "2026-10-04T06:51:33.003Z",
+  "created_at": "2026-10-04T06:51:33.003Z"
+ },
+ {
+  "id": "0b19d2ec-56e6-4618-b95e-a74a551d1987",
+  "collection_id": "SpyAgaric",
+  "title": "SpyAgaric",
+  "slug": "SpyAgaric",
+  "total_supply": 89438,
+  "updated_at": "2026-10-04T06:51:33.004Z",
+  "created_at": "2026-10-04T06:51:33.004Z"
+ },
+ {
+  "id": "a89c753f-21e1-4209-bd41-916706d3ebb3",
+  "collection_id": "StarNotepad",
+  "title": "StarNotepad",
+  "slug": "StarNotepad",
+  "total_supply": 99082,
+  "updated_at": "2026-10-04T06:51:33.004Z",
+  "created_at": "2026-10-04T06:51:33.004Z"
+ },
+ {
+  "id": "c9e4cc27-792d-440d-963f-1f86616591bc",
+  "collection_id": "StellarRocket",
+  "title": "StellarRocket",
+  "slug": "StellarRocket",
+  "total_supply": 156318,
+  "updated_at": "2026-10-04T06:51:33.007Z",
+  "created_at": "2026-10-04T06:51:33.007Z"
+ },
+ {
+  "id": "581a032f-e5d7-4ba1-8593-5ed8ed775878",
+  "collection_id": "SurgeBoard",
+  "title": "SurgeBoard",
+  "slug": "SurgeBoard",
+  "total_supply": 39464,
+  "updated_at": "2026-10-04T06:51:33.007Z",
+  "created_at": "2026-10-04T06:51:33.007Z"
+ },
+ {
+  "id": "20fe1d2a-324d-4bed-a07a-073e66e865fd",
+  "collection_id": "SwagBag",
+  "title": "SwagBag",
+  "slug": "SwagBag",
+  "total_supply": 237970,
+  "updated_at": "2026-10-04T06:51:33.007Z",
+  "created_at": "2026-10-04T06:51:33.007Z"
+ },
+ {
+  "id": "855b3794-e8e3-413d-8dba-0d409c93e9fc",
+  "collection_id": "SwissWatch",
+  "title": "SwissWatch",
+  "slug": "SwissWatch",
+  "total_supply": 29323,
+  "updated_at": "2026-10-04T06:51:33.007Z",
+  "created_at": "2026-10-04T06:51:33.007Z"
+ },
+ {
+  "id": "a0e80397-ebf4-40d5-9787-40dd4776ad1e",
+  "collection_id": "TamaGadget",
+  "title": "TamaGadget",
+  "slug": "TamaGadget",
+  "total_supply": 135097,
+  "updated_at": "2026-10-04T06:51:33.008Z",
+  "created_at": "2026-10-04T06:51:33.008Z"
+ },
+ {
+  "id": "f31e3e35-305b-4d9c-a160-e80ea740e047",
+  "collection_id": "TimelessBook",
+  "title": "TimelessBook",
+  "slug": "TimelessBook",
+  "total_supply": 99421,
+  "updated_at": "2026-10-04T06:51:33.014Z",
+  "created_at": "2026-10-04T06:51:33.014Z"
+ },
+ {
+  "id": "1ebdfb1f-e684-48d3-b583-1093293995c0",
+  "collection_id": "tophat",
+  "title": "Top Hats",
+  "slug": "tophat",
+  "total_supply": 35099,
+  "updated_at": "2026-10-04T06:51:33.014Z",
+  "created_at": "2026-10-04T06:51:33.014Z"
+ },
+ {
+  "id": "95a95a21-7b3b-41bb-ab22-a30b96ec361a",
+  "collection_id": "toybear",
+  "title": "Toy Bears",
+  "slug": "toybear",
+  "total_supply": 57724,
+  "updated_at": "2026-10-04T06:51:33.014Z",
+  "created_at": "2026-10-04T06:51:33.014Z"
+ },
+ {
+  "id": "b017f64f-af7c-4b5d-a84d-acb07f219d70",
+  "collection_id": "TrappedHeart",
+  "title": "TrappedHeart",
+  "slug": "TrappedHeart",
+  "total_supply": 26407,
+  "updated_at": "2026-10-04T06:51:33.014Z",
+  "created_at": "2026-10-04T06:51:33.014Z"
+ },
+ {
+  "id": "c7485363-0111-41dc-8c06-2fee1ac83b42",
+  "collection_id": "UFCStrike",
+  "title": "UFCStrike",
+  "slug": "UFCStrike",
+  "total_supply": 60000,
+  "updated_at": "2026-10-04T06:51:33.014Z",
+  "created_at": "2026-10-04T06:51:33.014Z"
+ },
+ {
+  "id": "812ffaf7-5736-4fab-bb3e-99a559ae16f2",
+  "collection_id": "ValentineBox",
+  "title": "ValentineBox",
+  "slug": "ValentineBox",
+  "total_supply": 41025,
+  "updated_at": "2026-10-04T06:51:33.015Z",
+  "created_at": "2026-10-04T06:51:33.015Z"
+ },
+ {
+  "id": "027896c5-8cd3-4a89-86b1-ca54ddbbf63f",
+  "collection_id": "ViceCream",
+  "title": "ViceCream",
+  "slug": "ViceCream",
+  "total_supply": 490553,
+  "updated_at": "2026-10-04T06:51:33.015Z",
+  "created_at": "2026-10-04T06:51:33.015Z"
+ },
+ {
+  "id": "ff1074b0-e751-4738-a35e-2f4c246a0a17",
+  "collection_id": "VictoryMedal",
+  "title": "VictoryMedal",
+  "slug": "VictoryMedal",
+  "total_supply": 124608,
+  "updated_at": "2026-10-04T06:51:33.015Z",
+  "created_at": "2026-10-04T06:51:33.015Z"
+ },
+ {
+  "id": "c9e210be-c9f4-4c3c-8147-0f0e9581ca82",
+  "collection_id": "VintageCigar",
+  "title": "VintageCigar",
+  "slug": "VintageCigar",
+  "total_supply": 31024,
+  "updated_at": "2026-10-04T06:51:33.015Z",
+  "created_at": "2026-10-04T06:51:33.015Z"
+ },
+ {
+  "id": "4c5f9909-899d-4437-b0e3-8efe0ff5bd28",
+  "collection_id": "VoodooDoll",
+  "title": "VoodooDoll",
+  "slug": "VoodooDoll",
+  "total_supply": 27620,
+  "updated_at": "2026-10-04T06:51:33.015Z",
+  "created_at": "2026-10-04T06:51:33.015Z"
+ },
+ {
+  "id": "0f452f80-7f5b-485f-a9d7-9573f369260c",
+  "collection_id": "WestsideSign",
+  "title": "WestsideSign",
+  "slug": "WestsideSign",
+  "total_supply": 11992,
+  "updated_at": "2026-10-04T06:51:33.015Z",
+  "created_at": "2026-10-04T06:51:33.015Z"
+ },
+ {
+  "id": "af24978b-0835-4e70-9ff9-625c13fdb0f1",
+  "collection_id": "WhipCupcake",
+  "title": "WhipCupcake",
+  "slug": "WhipCupcake",
+  "total_supply": 367619,
+  "updated_at": "2026-10-04T06:51:33.016Z",
+  "created_at": "2026-10-04T06:51:33.016Z"
+ },
+ {
+  "id": "4549dc62-20a2-4062-a6b0-95619ac9c34e",
+  "collection_id": "WinterWreath",
+  "title": "WinterWreath",
+  "slug": "WinterWreath",
+  "total_supply": 100846,
+  "updated_at": "2026-10-04T06:51:33.022Z",
+  "created_at": "2026-10-04T06:51:33.022Z"
+ },
+ {
+  "id": "e0767889-8764-4fe0-8c01-e4a8f325395e",
+  "collection_id": "WitchHat",
+  "title": "WitchHat",
+  "slug": "WitchHat",
+  "total_supply": 88480,
+  "updated_at": "2026-10-04T06:51:33.022Z",
+  "created_at": "2026-10-04T06:51:33.022Z"
+ },
+ {
+  "id": "dbb9538f-558f-4ca2-aca7-aea834b527fc",
+  "collection_id": "XmasStocking",
+  "title": "XmasStocking",
+  "slug": "XmasStocking",
+  "total_supply": 334632,
+  "updated_at": "2026-10-04T06:51:33.022Z",
+  "created_at": "2026-10-04T06:51:33.022Z"
+ }
+]

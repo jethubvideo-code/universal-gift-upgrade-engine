@@ -145,25 +145,11 @@ async function handle(update) {
       });
       return;
     }
-    const kb = config.MINIAPP_URL ? {
-      inline_keyboard: [[{ text: '🎁 Открыть GIFT ATELIER', web_app: { url: config.MINIAPP_URL } }]]
-    } : undefined;
+    /* Владелец: мини-апп из бота УБРАН (сайт живёт сам на GitHub Pages),
+       бот — только /start, никаких кнопок и функций сверху. */
     await api('sendMessage', {
       chat_id: chatId,
-      text:
-        '🎁 *GIFT ATELIER* — живой монитор Telegram Gifts\n\n' +
-        '• 121 коллекция, детект апгрейда за ~8\\-10 сек\n' +
-        '• карточка каждого улучшения прилетает сюда мгновенно — с уникальным артом экземпляра\n' +
-        '• сайт обновляется в реальном времени\n\n' +
-        '*Движок авто\\-апгрейда:*\n' +
-        '/add <коллекция> <номер> — создать таргет\n' +
-        '/targets — мои таргеты и статусы\n' +
-        '/auto <id> <макс\\_звёзд> — включить АВТО\\-АПГРЕЙД\n' +
-        '/login — подключить свой аккаунт \(апгрейды с твоих Stars\)\n' +
-        '/mygifts — сканировать мои подарки сейчас\n\n' +
-        'Кнопка меню справа от поля ввода открывает сайт\.',
-      parse_mode: 'MarkdownV2',
-      ...(kb ? { reply_markup: kb } : {})
+      text: 'Привет! Бот активен — карточки улучшений Telegram Gifts будут приходить сюда в реальном времени.'
     });
     return;
   }
@@ -438,31 +424,14 @@ async function main() {
   const deadline = pollSeconds > 0 ? Date.now() + pollSeconds * 1000 : Infinity;
   logger.info('Bot started', { mode: pollSeconds > 0 ? 'one-shot' : 'persistent', pollSeconds });
 
-  // Register the command menu (the "Команды" / "/" button in Telegram).
-  // Idempotent: safe to re-register every poll cycle.
+  // Владелец убрал мини-апп из бота: сайт живёт сам на GitHub Pages.
+  // Очищаем меню команд и возвращаем стандартную кнопку меню (раньше была web_app «Открыть сайт»).
+  // Idempotent: безопасно на каждом цикле поллинга.
   try {
-    await api('setMyCommands', {
-      commands: [
-        { command: 'targets', description: '🎯 Мои таргеты и статусы' },
-        { command: 'add', description: '➕ Создать таргет: /add коллекция номер' },
-        { command: 'auto', description: '⭐ Авто-апгрейд: /auto id макс_звёзд' },
-        { command: 'login', description: '🔑 Подключить свой аккаунт' },
-        { command: 'mygifts', description: '💎 Сканировать мои подарки' },
-        { command: 'help', description: 'ℹ️ Все команды' }
-      ]
-    });
-    // Меню-кнопка бота (постоянная, справа от поля ввода) → сайт GIFT ATELIER
-    if (config.MINIAPP_URL) {
-      try {
-        await api('setChatMenuButton', {
-          menu_button: { type: 'web_app', text: '🎁 Открыть сайт', web_app: { url: config.MINIAPP_URL } }
-        });
-      } catch (err2) {
-        logger.warn('setChatMenuButton failed (non-fatal)', { error: err2.message });
-      }
-    }
+    await api('setMyCommands', { commands: [] });
+    await api('setChatMenuButton', { menu_button: { type: 'default' } });
   } catch (err) {
-    logger.warn('setMyCommands failed (non-fatal)', { error: err.message });
+    logger.warn('menu cleanup failed (non-fatal)', { error: err.message });
   }
 
   while (Date.now() < deadline) {

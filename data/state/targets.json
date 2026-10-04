@@ -1,1 +1,16 @@
-[]
+[
+ {
+  "id": "3fc9ce6f-cfd9-46eb-ae61-c31d9d7d0e94",
+  "user_id": "6097472949",
+  "collection_id": "PlushPepe",
+  "gift_id": "PlushPepe",
+  "target_number": 2826,
+  "auto_upgrade": 0,
+  "max_upgrade_stars": null,
+  "priority": 3,
+  "status": "WATCHING",
+  "created_at": "2026-10-04T07:10:36.166Z",
+  "updated_at": "2026-10-04T07:10:36.166Z",
+  "completed_at": null
+ }
+]

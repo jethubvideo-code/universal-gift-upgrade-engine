@@ -1,1 +1,13 @@
-[]
+[
+ {
+  "id": "9f6e76f3-4264-4c97-b8a1-88ac32da8b80",
+  "actor_type": "user",
+  "actor_id": "6097472949",
+  "action": "CREATE_TARGET",
+  "entity_type": "target",
+  "entity_id": "3fc9ce6f-cfd9-46eb-ae61-c31d9d7d0e94",
+  "details_json": "{\"collection_id\":\"PlushPepe\",\"gift_id\":\"PlushPepe\",\"target_number\":2826}",
+  "created_at": "2026-10-04T07:10:36.166Z",
+  "updated_at": "2026-10-04T07:10:36.166Z"
+ }
+]

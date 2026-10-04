@@ -26,21 +26,27 @@
 import { EngineError, ErrorCodes } from '../core/errors.js';
 
 export class PaymentExecutor {
-  constructor({ client, limiter = null, retry = null, metrics = null, logger = null } = {}) {
+  constructor({ client, limiter = null, retry = null, metrics = null, logger = null, clientResolver = null } = {}) {
     this.client = client;
     this.limiter = limiter;
     this.retry = retry;
     this.metrics = metrics;
     this.logger = logger;
+    // clientResolver: async (userSession) => per-user MTProto client (multi-user)
+    this.clientResolver = clientResolver;
   }
 
-  async _invoke(method, params = {}, { priority = 2 } = {}) {
-    if (!this.client) throw new EngineError(ErrorCodes.CONFIG_ERROR, 'No MTProto client configured');
+  async _invoke(method, params = {}, { priority = 2, userSession = null } = {}) {
+    let client = this.client;
+    if (userSession && this.clientResolver) {
+      client = await this.clientResolver(userSession);
+    }
+    if (!client) throw new EngineError(ErrorCodes.CONFIG_ERROR, 'No MTProto client configured');
     const call = async () => {
       if (this.limiter) {
-        return this.limiter.run({ account: 'user', method, priority }, () => this.client.invoke(method, params));
+        return this.limiter.run({ account: 'user', method, priority }, () => client.invoke(method, params));
       }
-      return this.client.invoke(method, params);
+      return client.invoke(method, params);
     };
     if (this.retry) return this.retry.run(call, { label: method });
     return call();
@@ -76,8 +82,8 @@ export class PaymentExecutor {
   }
 
   /** Prepaid upgrade → official payments.upgradeStarGift({ stargift: InputSavedStarGift }). */
-  async upgradePrepaid({ savedGift }) {
-    return this._invoke('payments.upgradeStarGift', { stargift: this._inputSavedGift(savedGift) }, { priority: 0 });
+  async upgradePrepaid({ savedGift, userSession = null }) {
+    return this._invoke('payments.upgradeStarGift', { stargift: this._inputSavedGift(savedGift) }, { priority: 0, userSession });
   }
 
   /**
@@ -85,12 +91,12 @@ export class PaymentExecutor {
    * Price is charged by Telegram only; if the price exceeds the user's limit we
    * NEVER reach this method — UpgradeExecutor returns PRICE_LIMIT_EXCEEDED first.
    */
-  async beginPaidUpgrade({ savedGift }) {
+  async beginPaidUpgrade({ savedGift, target = null, userSession = null }) {
     const invoice = {
       _: 'inputInvoiceStarGiftUpgrade',
       stargift: this._inputSavedGift(savedGift)
     };
-    const form = await this._invoke('payments.getPaymentForm', { invoice }, { priority: 0 });
+    const form = await this._invoke('payments.getPaymentForm', { invoice }, { priority: 0, userSession });
     return { invoice, form };
   }
 
@@ -102,11 +108,11 @@ export class PaymentExecutor {
    * Secure-style extra step — NOT expected for a Stars-only purchase, surfaced
    * as-is if Telegram ever returns it).
    */
-  async finalizePaidUpgrade({ form, invoice }) {
+  async finalizePaidUpgrade({ form, invoice, userSession = null }) {
     if (!form || form.form_id == null) {
       throw new EngineError(ErrorCodes.CONFIG_ERROR, 'finalizePaidUpgrade requires a form with form_id (call beginPaidUpgrade first)');
     }
-    return this._invoke('payments.sendStarsForm', { form_id: form.form_id, invoice }, { priority: 0 });
+    return this._invoke('payments.sendStarsForm', { form_id: form.form_id, invoice }, { priority: 0, userSession });
   }
 }
 

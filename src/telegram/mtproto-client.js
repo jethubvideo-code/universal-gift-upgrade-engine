@@ -117,3 +117,44 @@ export class MtprotoClient {
 }
 
 export default MtprotoClient;
+
+
+/**
+ * Per-user MTProto client pool (multi-user support).
+ * Each user's session gets its OWN GramJS client so a shot always executes
+ * on the account that owns the target — never on another user's account.
+ */
+export class MtprotoSessionPool {
+  constructor({ apiId, apiHash, logger = null } = {}) {
+    this.apiId = apiId;
+    this.apiHash = apiHash;
+    this.logger = logger;
+    this.clients = new Map(); // user_id -> { client, connected, connecting }
+  }
+
+  /** sessionRow: { user_id, session: <plain session string> } */
+  async getClient(sessionRow) {
+    if (!sessionRow?.session) throw new EngineError(ErrorCodes.CONFIG_ERROR,
+      'MtprotoSessionPool.getClient requires a decrypted session');
+    const uid = String(sessionRow.user_id);
+    let entry = this.clients.get(uid);
+    if (!entry) {
+      const client = new MtprotoClient({ apiId: this.apiId, apiHash: this.apiHash, sessionPlain: sessionRow.session });
+      entry = { client, connected: false };
+      this.clients.set(uid, entry);
+    }
+    if (!entry.connected) {
+      if (this.logger) this.logger.debug('MTProto per-user connect', { user_id: uid });
+      await entry.client.connect();
+      entry.connected = true;
+    }
+    return entry.client;
+  }
+
+  async disconnectAll() {
+    for (const entry of this.clients.values()) {
+      try { await entry.client.disconnect(); } catch {}
+    }
+    this.clients.clear();
+  }
+}

@@ -108,7 +108,7 @@ export class UpgradeExecutor {
       }
       if (this.payments.finalizePaidUpgrade) {
         // MTProto path: form obtained, now actually send it.
-        const res = await this.payments.finalizePaidUpgrade(begun);
+        const res = await this.payments.finalizePaidUpgrade({ ...begun, userSession });
         return { status: 'COMPLETED', details: res, latency: Date.now() };
       }
       return { status: 'PAYMENT_REQUIRED', details: begun, latency: Date.now() };

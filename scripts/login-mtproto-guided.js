@@ -20,6 +20,34 @@ import { UserSessionManager } from '../src/telegram/user-sessions.js';
 
 const OWNER = String(process.env.OWNER_CHAT_ID || '').trim();
 
+/**
+ * MULTI-USER: the chat to walk through login is resolved as
+ *  1) LOGIN_CHAT_ID env (manual dispatch / owner), else
+ *  2) the oldest pending record in data/state/login_requests.json
+ *     (created by the /login bot command — works for ANY user).
+ */
+async function resolveRequester(store) {
+  const explicit = String(process.env.LOGIN_CHAT_ID || OWNER || '').trim();
+  if (explicit) return { chat_id: explicit, user_id: explicit, request: null };
+  const pending = (store.find('login_requests', { status: 'pending' }) || [])
+    .sort((a, b) => String(a.created_at).localeCompare(String(b.created_at)));
+  const req = pending[0];
+  if (!req) return null;
+  store.update('login_requests', req.id, { status: 'processing', updated_at: new Date().toISOString() });
+  if (store.flushAll) store.flushAll();
+  return { chat_id: String(req.chat_id), user_id: String(req.user_id), request: req };
+}
+
+async function finishRequest(store, request, status, accountUserId) {
+  if (!request) return;
+  store.update('login_requests', request.id, {
+    status,
+    account_user_id: accountUserId || null,
+    updated_at: new Date().toISOString()
+  });
+  if (store.flushAll) store.flushAll();
+}
+
 async function main() {
   const config = loadConfig();
   for (const key of ['TG_API_ID', 'TG_API_HASH', 'SESSION_ENCRYPTION_KEY', 'BOT_TOKEN']) {
@@ -28,12 +56,18 @@ async function main() {
       process.exit(1);
     }
   }
-  if (!OWNER) {
-    console.error('Missing OWNER_CHAT_ID env.');
-    process.exit(1);
-  }
+  const store = createStore(config);
 
-  // --- Bot API helpers (prompts + reading the owner's replies) ---
+  const requester = await resolveRequester(store);
+  main.requester = requester;
+  if (!requester) {
+    console.log('No pending login requests — nothing to do.');
+    process.exit(0);
+  }
+  console.log('Guided login target chat:', requester.chat_id);
+  const CHAT = requester.chat_id;
+
+  // --- Bot API helpers (prompts + reading this user's replies) ---
   const bot = async (method, params = {}) => {
     const res = await fetch(`https://api.telegram.org/bot${config.BOT_TOKEN}/${method}`, {
       method: 'POST',
@@ -43,7 +77,7 @@ async function main() {
     });
     return res.json().catch(() => ({}));
   };
-  const botSay = (text) => bot('sendMessage', { chat_id: OWNER, text });
+  const botSay = (text) => bot('sendMessage', { chat_id: CHAT, text });
 
   let offset = null; // null = not yet initialized
   async function askOwner(prompt, { timeoutMs = 10 * 60_000, clean = null } = {}) {
@@ -64,7 +98,7 @@ async function main() {
         offset = u.update_id + 1;
         const msg = u.message;
         // Fail-closed: only the owner's own chat, text messages only.
-        if (msg && String(msg.chat.id) === OWNER && msg.text) {
+        if (msg && String(msg.chat.id) === CHAT && msg.text) {
           const text = msg.text.trim();
           if (clean) {
             const cleaned = clean(text);
@@ -130,10 +164,15 @@ async function main() {
   const me = await client.getMe();
   const userId = String(me.id);
 
-  const store = createStore(config);
   const sessions = new UserSessionManager({ store, encryptionKey: config.SESSION_ENCRYPTION_KEY });
   sessions.save({ user_id: userId, session_plain: sessionString, dc_id: dcId });
-  if (store.flushAll) store.flushAll();
+  // ALIAS: targets are stored under the requester's bot-chat id. Save the
+  // same session under that id too, so getUserSession(target.user_id) finds
+  // exactly this user's session (never another account's).
+  if (requester.user_id && String(requester.user_id) !== String(userId)) {
+    sessions.save({ user_id: String(requester.user_id), session_plain: sessionString, dc_id: dcId });
+  }
+  await finishRequest(store, requester.request, 'done', userId);
   await client.disconnect();
 
   console.log('LOGIN_COMPLETE | user:', userId, '| dc:', dcId); // no session string in the log
@@ -148,10 +187,19 @@ async function main() {
 main().catch(async (err) => {
   console.error('Fatal:', String(err.message || err).slice(0, 200));
   try {
-    const res = await fetch(`https://api.telegram.org/bot${process.env.BOT_TOKEN || ''}/sendMessage`, {
-      method: 'POST', headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ chat_id: OWNER, text: '⚠️ Вход не получился: ' + String(err.message || err).slice(0, 80) + '\nНапиши моему агенту — он перезапустит.' }),
-    });
+    const config = loadConfig();
+    const store = createStore(config);
+    if (main.requester && main.requester.request) {
+      store.update('login_requests', main.requester.request.id, { status: 'failed', updated_at: new Date().toISOString() });
+      if (store.flushAll) store.flushAll();
+    }
+    const chat = main.requester ? main.requester.chat_id : (process.env.LOGIN_CHAT_ID || OWNER || '');
+    if (chat) {
+      await fetch(`https://api.telegram.org/bot${config.BOT_TOKEN || process.env.BOT_TOKEN || ''}/sendMessage`, {
+        method: 'POST', headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ chat_id: chat, text: '⚠️ Вход не получился: ' + String(err.message || err).slice(0, 80) + '\nНапиши /login ещё раз.' }),
+      });
+    }
   } catch {}
   process.exit(1);
 });

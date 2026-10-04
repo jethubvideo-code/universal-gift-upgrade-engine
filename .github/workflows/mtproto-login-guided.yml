@@ -5,13 +5,17 @@ name: MTProto login (guided)
 # committed to data/state/telegram_sessions.json.
 on:
   workflow_dispatch:
+  schedule:
+    - cron: "*/2 * * * *" # picks up /login requests from ANY user (queue in data/state)
 
 permissions:
   contents: write
 
+# NEVER cancel an in-progress login: the user may be mid-flow answering
+# the bot's phone/code/2FA questions.
 concurrency:
   group: mtproto-login-guided
-  cancel-in-progress: true
+  cancel-in-progress: false
 
 jobs:
   login:

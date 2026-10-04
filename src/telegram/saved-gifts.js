@@ -13,21 +13,27 @@
 import { EngineError, ErrorCodes } from '../core/errors.js';
 
 export class SavedGiftsClient {
-  constructor({ client, limiter = null } = {}) {
+  constructor({ client, limiter = null, clientResolver = null } = {}) {
     this.client = client;
     this.limiter = limiter;
+    // clientResolver: async (userSession) => per-user MTProto client (multi-user)
+    this.clientResolver = clientResolver;
   }
 
-  async _invoke(method, params = {}) {
-    if (!this.client) throw new EngineError(ErrorCodes.CONFIG_ERROR, 'No MTProto client configured');
-    if (this.limiter) return this.limiter.run({ account: 'user', method, priority: 2 }, () => this.client.invoke(method, params));
-    return this.client.invoke(method, params);
+  async _invoke(method, params = {}, { userSession = null } = {}) {
+    let client = this.client;
+    if (userSession && this.clientResolver) {
+      client = await this.clientResolver(userSession);
+    }
+    if (!client) throw new EngineError(ErrorCodes.CONFIG_ERROR, 'No MTProto client configured');
+    if (this.limiter) return this.limiter.run({ account: 'user', method, priority: 2 }, () => client.invoke(method, params));
+    return client.invoke(method, params);
   }
 
   /** All saved gifts of the user, normalized. */
   async getSavedStarGifts({ userSession = null } = {}) {
-    if (!this.client) return []; // degraded / TEST MODE without transport
-    const res = await this._invoke('payments.getSavedStarGifts', {});
+    if (!this.client && !this.clientResolver) return []; // degraded / TEST MODE without transport
+    const res = await this._invoke('payments.getSavedStarGifts', {}, { userSession });
     const gifts = res?.gifts || res?.saved_gifts || res?.items || [];
     return gifts.map(g => {
       const raw = g.gift || g.saved_gift || g;

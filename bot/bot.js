@@ -143,7 +143,8 @@ async function handle(update) {
         '/state <collection> — counters \\(prediction\\)\n' +
         '/linkbusiness — connect Telegram Business \\(enables AUTO UPGRADE\\)\n' +
         '/mygifts — scan your account for un\\-upgraded gifts right now\n' +
-        '/autoupgrade on <max\\_stars> — auto\\-upgrade ANY owned gift found, no number needed in advance',
+        '/autoupgrade on <max\\_stars> — auto\\-upgrade ANY owned gift found, no number needed in advance\n' +
+        '/login — подключить свой аккаунт \(полностью автоматические апгрейды с твоих Stars\)',
       parse_mode: 'MarkdownV2',
       ...(kb ? { reply_markup: kb } : {})
     });
@@ -162,9 +163,37 @@ async function handle(update) {
         '/mygifts — просканировать мои подарки сейчас\n' +
         '/state <коллекция> — счётчик и предикшн\n' +
         '/collections — все коллекции\n' +
+        '/login — подключить свой аккаунт (для полного авто-апгрейда)\n' +
         '/linkbusiness — привязать Telegram Business'
     });
     return;
+  }
+  if (text === '/login') {
+    // MULTI-USER: request a guided MTProto login. The login workflow picks
+    // up the request within minutes and walks THIS user through phone +
+    // code + 2FA right here in the chat.
+    const pendingMine = store.find('login_requests', { user_id: userId })
+      .filter(r => r.status === 'pending' || r.status === 'processing');
+    if (pendingMine.length) {
+      return api('sendMessage', { chat_id: chatId, text: '⏳ Твой вход уже в очереди/обработке — следи за сообщениями здесь.' });
+    }
+    store.insert('login_requests', {
+      id: `lr-${userId}-${Date.now()}`,
+      chat_id: String(chatId),
+      user_id: userId,
+      status: 'pending',
+      created_at: new Date().toISOString(),
+      updated_at: new Date().toISOString()
+    });
+    return api('sendMessage', {
+      chat_id: chatId,
+      text: '🔑 Вход запущен! В течение пары минут бот пришлёт сюда 2-3 вопроса:\n\n'
+        + '1⃣ Номер телефона (международный формат)\n'
+        + '2⃣ Код входа из Telegram\n'
+        + '3⃣ Пароль 2FA, если он у тебя включён\n\n'
+        + 'После входа апгрейды твоих таргетов будут выполняться с твоего аккаунта и твоих Stars — автоматически, как только номер станет доступен.\n\n'
+        + 'Не забудь потом удалить сообщения с кодом и паролем из чата.'
+    });
   }
   if (text === '/linkbusiness') {
     await api('sendMessage', {
@@ -343,6 +372,7 @@ async function main() {
         { command: 'mygifts', description: '💎 Сканировать мои подарки' },
         { command: 'state', description: '📊 Счётчик и предикшн коллекции' },
         { command: 'collections', description: '🗂 Все 121 коллекций' },
+        { command: 'login', description: '🔑 Подключить свой аккаунт' },
         { command: 'linkbusiness', description: '🔗 Привязать Telegram Business' },
         { command: 'help', description: 'ℹ️ Все команды' }
       ]

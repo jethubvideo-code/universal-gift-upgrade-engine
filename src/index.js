@@ -33,6 +33,7 @@ import { SavedGiftsClient } from './telegram/saved-gifts.js';
 import { PaymentExecutor } from './telegram/payment-executor.js';
 import { UpgradeExecutor } from './telegram/upgrade-executor.js';
 import { UserSessionManager } from './telegram/user-sessions.js';
+import { MtprotoSessionPool } from './telegram/mtproto-client.js';
 import { Notifier } from './services/notifications.js';
 import { TargetStates } from './core/state-machine.js';
 
@@ -103,8 +104,15 @@ export async function createEngine({ config = loadConfig(), store = null, transp
     gifttrackerUrl: config.GIFTTRACKER_DATA_URL
   });
 
-  const savedGifts = backend || new SavedGiftsClient({ client: mtproto, limiter });
-  const payments = backend || new PaymentExecutor({ client: mtproto, limiter, retry, metrics, logger });
+  // MULTI-USER: each logged-in user's shot executes on THEIR OWN account.
+  const sessionPool = mtproto
+    ? new MtprotoSessionPool({ apiId: config.TG_API_ID, apiHash: config.TG_API_HASH, logger })
+    : null;
+  const clientResolver = sessionPool
+    ? (async (userSession) => sessionPool.getClient(userSession))
+    : null;
+  const savedGifts = backend || new SavedGiftsClient({ client: mtproto, limiter, clientResolver });
+  const payments = backend || new PaymentExecutor({ client: mtproto, limiter, retry, metrics, logger, clientResolver });
   const executor = new UpgradeExecutor({ savedGifts, payments, locks, limiter, retry, metrics, logger, mode: config.MODE });
   const notifier = new Notifier({ botToken: config.BOT_TOKEN, store });
 
@@ -165,6 +173,7 @@ export async function createEngine({ config = loadConfig(), store = null, transp
     async stop() {
       scheduler.stopAll();
       if (mtproto) await mtproto.disconnect().catch(() => {});
+      if (sessionPool) await sessionPool.disconnectAll().catch(() => {});
       if (store.flushAll) store.flushAll();
       logger.info('Engine stopped');
     }

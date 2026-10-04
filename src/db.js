@@ -19,7 +19,8 @@ export const TABLES = [
   'notifications',
   'audit_logs',
   'collection_state',
-  'locks'
+  'locks',
+  'login_requests'
 ];
 
 export class MemoryStore {

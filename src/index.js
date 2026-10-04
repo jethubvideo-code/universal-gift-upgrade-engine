@@ -204,7 +204,9 @@ export async function main() {
   if (once) {
     await runOnce(engine);
     await engine.stop();
-    return;
+    // One-shot mode (Actions runners): GramJS sockets/update loops can keep
+    // the event loop alive for minutes after a clean stop. Exit explicitly.
+    process.exit(0);
   }
   // Persistent server mode: scheduler polls run in the background.
   let http = null;

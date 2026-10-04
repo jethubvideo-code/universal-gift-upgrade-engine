@@ -150,6 +150,22 @@ async function handle(update) {
     return;
   }
 
+  if (text === '/help') {
+    await api('sendMessage', {
+      chat_id: chatId,
+      text:
+        '🎁 *Команды Universal Gift Upgrade Engine*\n\n' +
+        '/targets — мои таргеты и статусы\n' +
+        '/add <коллекция> <номер> — создать таргет\n' +
+        '/auto <id> <макс_звёзд> — включить авто-апгрейд с лимитом\n' +
+        '/autoupgrade on <макс_звёзд> — авто-апгрейд любого моего подарка\n' +
+        '/mygifts — просканировать мои подарки сейчас\n' +
+        '/state <коллекция> — счётчик и предикшн\n' +
+        '/collections — все коллекции\n' +
+        '/linkbusiness — привязать Telegram Business'
+    });
+    return;
+  }
   if (text === '/linkbusiness') {
     await api('sendMessage', {
       chat_id: chatId,
@@ -314,6 +330,26 @@ async function main() {
   const pollSeconds = Number(process.env.BOT_POLL_SECONDS || 0);
   const deadline = pollSeconds > 0 ? Date.now() + pollSeconds * 1000 : Infinity;
   logger.info('Bot started', { mode: pollSeconds > 0 ? 'one-shot' : 'persistent', pollSeconds });
+
+  // Register the command menu (the "Команды" / "/" button in Telegram).
+  // Idempotent: safe to re-register every poll cycle.
+  try {
+    await api('setMyCommands', {
+      commands: [
+        { command: 'targets', description: '🎯 Мои таргеты и статусы' },
+        { command: 'add', description: '➕ Создать таргет: /add коллекция номер' },
+        { command: 'auto', description: '⭐ Авто-апгрейд: /auto id макс_звёзд' },
+        { command: 'autoupgrade', description: '🔥 Авто-апгрейд любого подарка' },
+        { command: 'mygifts', description: '💎 Сканировать мои подарки' },
+        { command: 'state', description: '📊 Счётчик и предикшн коллекции' },
+        { command: 'collections', description: '🗂 Все 121 коллекций' },
+        { command: 'linkbusiness', description: '🔗 Привязать Telegram Business' },
+        { command: 'help', description: 'ℹ️ Все команды' }
+      ]
+    });
+  } catch (err) {
+    logger.warn('setMyCommands failed (non-fatal)', { error: err.message });
+  }
 
   while (Date.now() < deadline) {
     let res;

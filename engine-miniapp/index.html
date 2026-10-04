@@ -153,7 +153,7 @@ const DEEPLINK = 'https://t.me/lvlonebot?start=';
    browser (CORS *), so counter numbers move in near real time (every 20s)
    without waiting for the engine workflows to rebuild state.json (5-15 min).
    state.json remains the source for titles/engine meta; live numbers win. */
-const LIVE_URL = 'https://jethubvideo-code.github.io/gifttracker-bot/gifts.json';
+const LIVE_URL = 'https://raw.githubusercontent.com/jethubvideo-code/gifttracker-bot/main/docs/gifts.json';
 const LIVE_POLL_MS = 5000; // owner asked for per-second feel; 5s is the fastest sane rate against a static JSON file
 const tg = window.Telegram && window.Telegram.WebApp;
 if (tg) { tg.ready(); tg.expand(); if (tg.setHeaderColor) tg.setHeaderColor('#0b0a0e'); if (tg.setBackgroundColor) tg.setBackgroundColor('#0b0a0e'); }

@@ -25,7 +25,7 @@ jobs:
           DB_BACKEND: "file"
           TRANSPORT: "botapi"
           COLLECTION_SOURCE: "gifttracker"
-          GIFTTRACKER_DATA_URL: "https://jethubvideo-code.github.io/gifttracker-bot/gifts.json"
+          GIFTTRACKER_DATA_URL: "https://raw.githubusercontent.com/jethubvideo-code/gifttracker-bot/main/docs/gifts.json"
           BOT_TOKEN: ${{ secrets.BOT_TOKEN }}
           BUSINESS_CONNECTION_ID: ${{ vars.BUSINESS_CONNECTION_ID }}
       - name: Build static site (GitHub Pages)

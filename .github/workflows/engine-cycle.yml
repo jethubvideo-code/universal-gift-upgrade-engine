@@ -41,6 +41,6 @@ jobs:
             echo "state unchanged"
           else
             git commit -m "engine: state + site update $(date -u +%FT%TZ)"
-            git pull --rebase -q origin main || (sleep 10 && git pull --rebase -q origin main)
+            git pull --rebase -q -X theirs origin main || { sleep 10; git rebase --abort 2>/dev/null || true; git pull --rebase -q -X theirs origin main; }
             git push
           fi

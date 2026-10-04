@@ -206,6 +206,7 @@ export async function main() {
   }
   // Persistent server mode: scheduler polls run in the background.
   let http = null;
+  let signalTimer = null;
   try {
     const { createApi } = await import('../api/server.js');
     http = createApi(engine, config);
@@ -219,10 +220,32 @@ export async function main() {
     if (stopping) return;
     stopping = true;
     engine.logger.info(`Received ${sig}, shutting down`);
+    if (signalTimer) clearTimeout(signalTimer);
     if (http) http.close();
     await engine.stop();
     process.exit(0);
   };
+  // SPEED (Speed Mode): adaptive signal loop — ONE network round trip per tick
+  // for ALL tracked collections (refreshAllTracked), at 500ms cadence while any
+  // target is HOT (window imminent) and POLL_INTERVAL_MS otherwise. This is the
+  // persistent-worker replacement for the legacy 10s per-collection timers.
+  engine.monitor.cancelPerCollectionPolls();
+  const signalLoop = async () => {
+    if (stopping) return;
+    let anyHot = false;
+    try {
+      anyHot = engine.index.hot().length > 0;
+      await engine.monitor.refreshAllTracked();
+    } catch (err) {
+      engine.logger.warn('Signal fetch failed (will retry)', { error: err.message });
+    }
+    const delay = (anyHot || engine.index.hot().length > 0)
+      ? (config.HOT_POLL_MS || 500)
+      : (config.POLL_INTERVAL_MS || 10000);
+    signalTimer = setTimeout(signalLoop, stopping ? 0 : delay);
+  };
+  signalTimer = setTimeout(signalLoop, 0);
+
   process.on('SIGINT', () => shutdown('SIGINT'));
   process.on('SIGTERM', () => shutdown('SIGTERM'));
 }

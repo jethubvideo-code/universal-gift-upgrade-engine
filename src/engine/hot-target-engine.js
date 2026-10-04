@@ -37,6 +37,14 @@ export class HotTargetEngine {
     this.metrics = metrics;
     this.logger = logger;
     this.distanceThreshold = distanceThreshold;
+    // SPEED (Speed Mode Phase B): pre-staged verifications keyed by target id
+    // (saved gift + session fetched while the target is NEAR the window, so
+    // the fire moment needs ZERO extra fetches) and a synchronous in-process
+    // double-fire claim keyed by idempotency key (two onCollectionUpdate
+    // events in the same tick must never fire twice).
+    this.prepared = new Map();
+    this.firedKeys = new Set();
+    this.preparedTtlMs = 30000;
   }
 
   evaluate(target, state) {
@@ -286,12 +294,27 @@ export class HotTargetEngine {
       }
     }
 
-    return {
+    const entry = {
       ready: true,
       session,
       savedGift,
-      payload
+      payload,
+      preparedAtMs: Date.now()
     };
+    if (this.prepared) this.prepared.set(target.id, entry);
+    return entry;
+  }
+
+  /** Fresh prepared entry for a target, or null if missing/expired (fail-closed re-fetch then). */
+  _freshPrepared(targetId) {
+    if (!this.prepared) return null;
+    const entry = this.prepared.get(targetId);
+    if (!entry) return null;
+    if (Date.now() - entry.preparedAtMs > (this.preparedTtlMs ?? 30000)) {
+      this.prepared.delete(targetId);
+      return null;
+    }
+    return entry;
   }
 
   async handleHot(target) {
@@ -304,6 +327,25 @@ export class HotTargetEngine {
 
       // Idempotency check via upgrade_jobs table
       const idempotencyKey = `upgrade:${target.id}:${target.target_number}`;
+
+      // SPEED (Phase B): synchronous double-fire claim. Two collection
+      // updates arriving in the same tick schedule handleHot twice; the
+      // store-level idempotency only guards AFTER a DONE write, which is too
+      // late for a same-tick race. This Set is checked and claimed in the
+      // SAME synchronous block — no await between check and add.
+      if (this.firedKeys && this.firedKeys.has(idempotencyKey)) {
+        return { status: TargetStates.COMPLETED, cached: true, deduped: 'in-process' };
+      }
+      if (this.firedKeys) this.firedKeys.add(idempotencyKey);
+
+      // SPEED (Phase B): reuse the pre-staged saved gift fetched at preStage
+      // time (while the target was only NEAR). UpgradeExecutor.verify accepts
+      // a provided savedGift and then makes NO network call — removing one
+      // full round trip (~100-300ms) from the fire moment. If the prepared
+      // entry is stale (> PREPARED_TTL_MS), verify re-fetches (fail-closed).
+      const preparedEntry = this._freshPrepared ? this._freshPrepared(target.id) : null;
+      const preparedSavedGift = preparedEntry ? preparedEntry.savedGift : null;
+
       let job = null;
 
       if (this.store) {
@@ -353,8 +395,9 @@ export class HotTargetEngine {
 
         if (executor && typeof executor.verify === 'function') {
           verifyRes = await executor.verify({
-            userSession: null,
-            target
+            userSession: preparedEntry ? preparedEntry.session : null,
+            target,
+            savedGift: preparedSavedGift || null
           });
         } else {
           // Graceful degradation / Test mode default verifier
@@ -380,6 +423,7 @@ export class HotTargetEngine {
           if (this.metrics && typeof this.metrics.counter === 'function') {
             this.metrics.counter('upgrades_failed');
           }
+          if (this.firedKeys) this.firedKeys.delete(idempotencyKey);
           throw new EngineError(ErrorCodes.VERIFICATION_FAILED, reason);
         }
 
@@ -485,6 +529,9 @@ export class HotTargetEngine {
 
         return { status: TargetStates.COMPLETED, result: execRes, latency: totalLatency };
       } catch (err) {
+        // Release the in-process claim: the fire did NOT complete, so a later
+        // retry (next cycle / resumed QUEUED job) must be allowed to run.
+        if (this.firedKeys) this.firedKeys.delete(idempotencyKey);
         if (this.logger) {
           this.logger.error('handleHot execution error', {
             target_id: target.id,

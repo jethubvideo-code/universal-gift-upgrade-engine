@@ -28,6 +28,15 @@ export function loadConfig(env = process.env) {
     CACHE_TTL_MS: env.CACHE_TTL_MS ? parseInt(env.CACHE_TTL_MS, 10) : 60000,
     WORKER_TICK_MS: env.WORKER_TICK_MS ? parseInt(env.WORKER_TICK_MS, 10) : 250,
     COLLECTION_SOURCE: env.COLLECTION_SOURCE || 'mtproto',
+    // SPEED (Speed Mode): signal-poll cadence of the persistent worker.
+    // HOT_POLL_MS applies whenever ANY target is HOT (default 500ms); otherwise
+    // POLL_INTERVAL_MS (default 10s). The signal fetch is ONE round trip for
+    // ALL tracked collections (CollectionMonitor.refreshAllTracked).
+    POLL_INTERVAL_MS: env.POLL_INTERVAL_MS ? parseInt(env.POLL_INTERVAL_MS, 10) : 10000,
+    HOT_POLL_MS: env.HOT_POLL_MS ? parseInt(env.HOT_POLL_MS, 10) : 500,
+    // How long a pre-staged verification (saved gift fetched while the target
+    // is merely NEAR, not at the window) may be reused without a re-fetch.
+    PREPARED_TTL_MS: env.PREPARED_TTL_MS ? parseInt(env.PREPARED_TTL_MS, 10) : 30000,
     GIFTTRACKER_DATA_URL: env.GIFTTRACKER_DATA_URL || '',
     // 'botapi' (Variant B, owner decision 0.4) or 'mtproto' (Variant A,
     // required by the Speed Mode pivot — see docs/DECISIONS.md 0.9).

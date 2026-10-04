@@ -14,7 +14,6 @@
  */
 import crypto from 'node:crypto';
 import { EngineError, ErrorCodes } from '../core/errors.js';
-import { withTimer } from '../core/metrics.js';
 
 export class UpgradeExecutor {
   constructor({ savedGifts, payments, locks = null, limiter = null, retry = null, metrics = null, logger = null, mode = 'dry-run' } = {}) {
@@ -58,7 +57,8 @@ export class UpgradeExecutor {
 
   /** Execute the officially allowed upgrade flow. */
   async execute({ userSession = null, target, savedGift, idempotencyKey }) {
-    const t = this.metrics ? withTimer(this.metrics, 'execution_latency_ms', { target: target.id }, null) : null;
+    // Manual timing (the withTimer helper requires an fn; timing is done
+    // inline here so execution_latency_ms is recorded exactly once per run).
     const start = Date.now();
     try {
       const result = await this._doExecute({ userSession, target, savedGift, idempotencyKey });
@@ -72,8 +72,6 @@ export class UpgradeExecutor {
         this.metrics.counter('upgrades_failed', { reason: err.code || 'UNKNOWN' });
       }
       throw err;
-    } finally {
-      void t;
     }
   }
 

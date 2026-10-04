@@ -28,6 +28,12 @@ jobs:
           GIFTTRACKER_DATA_URL: "https://jethubvideo-code.github.io/gifttracker-bot/gifts.json"
           BOT_TOKEN: ${{ secrets.BOT_TOKEN }}
           BUSINESS_CONNECTION_ID: ${{ vars.BUSINESS_CONNECTION_ID }}
+      - name: Publish state to mini app bridge
+        run: node scripts/publish-state.js
+        env:
+          DB_BACKEND: "file"
+          STATE_PUBLISH_URL: "https://superagent-a868bc34.base44.app/functions/engineState"
+          ENGINE_SYNC_TOKEN: ${{ secrets.ENGINE_SYNC_TOKEN }}
       - name: Commit engine state (if changed)
         run: |
           git config user.name "upgrade-engine-bot"

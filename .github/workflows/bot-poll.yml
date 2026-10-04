@@ -32,6 +32,12 @@ jobs:
           BOT_TOKEN: ${{ secrets.BOT_TOKEN }}
           MINIAPP_URL: ${{ vars.MINIAPP_URL }}
           BOT_POLL_SECONDS: "50"
+      - name: Apply pending mini app targets
+        run: node scripts/apply-pending.js
+        env:
+          DB_BACKEND: "file"
+          QUEUE_URL: "https://superagent-a868bc34.base44.app/functions/engineQueue"
+          ENGINE_SYNC_TOKEN: ${{ secrets.ENGINE_SYNC_TOKEN }}
       - name: Commit bot state (if changed)
         run: |
           git config user.name "upgrade-engine-bot"

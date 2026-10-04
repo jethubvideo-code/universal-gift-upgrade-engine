@@ -146,9 +146,18 @@ const BASE = location.pathname.replace(/\/[^/]*$/, '/');
 const STATE_URL = BASE + 'state.json';
 const TARGETS_URL = BASE + 'targets/';
 const DEEPLINK = 'https://t.me/lvlonebot?start=';
+/* LIVE layer: the app polls the tracker's public JSON DIRECTLY from the
+   browser (CORS *), so counter numbers move in near real time (every 20s)
+   without waiting for the engine workflows to rebuild state.json (5-15 min).
+   state.json remains the source for titles/engine meta; live numbers win. */
+const LIVE_URL = 'https://jethubvideo-code.github.io/gifttracker-bot/gifts.json';
+const LIVE_POLL_MS = 20000;
 const tg = window.Telegram && window.Telegram.WebApp;
 if (tg) { tg.ready(); tg.expand(); if (tg.setHeaderColor) tg.setHeaderColor('#0b0a0e'); if (tg.setBackgroundColor) tg.setBackgroundColor('#0b0a0e'); }
 let COLS = [], cur = null, userHash = null, lastUpdate = null;
+let LIVE = new Map();        // slug -> {issued, total} (direct tracker data)
+let SAMPLES = new Map();      // slug -> [{t, issued}] client-side history (30 min)
+let liveUpdated = null;      // tracker's own "updated" timestamp
 
 const $ = id => document.getElementById(id);
 const esc = s => String(s).replace(/[&<>"']/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
@@ -171,6 +180,7 @@ async function loadState() {
     if (!r.ok) throw 0;
     const d = await r.json();
     lastUpdate = d.updated_at; COLS = d.collections || [];
+    mergeLive();
     $('upd').textContent = 'обновлено ' + fmtAgo(d.updated_at);
     const dot = $('pulse');
     if (d.engine && d.engine.business_linked) dot.classList.remove('warn'); else dot.classList.add('warn');
@@ -178,6 +188,60 @@ async function loadState() {
   } catch (e) {
     $('cols').innerHTML = '<div class="empty"><div class="big">⚡</div><p>Не удалось загрузить данные.<br>Попробуй обновить через минуту.</p></div>';
   }
+}
+/* ---- LIVE: direct tracker polling (near real-time numbers) ---- */
+function mergeLive() {
+  for (const c of COLS) {
+    const lv = LIVE.get(c.collection_id); if (!lv) continue;
+    c.issued = lv.issued; c.total = lv.total; c.next = lv.issued < lv.total ? lv.issued + 1 : null;
+  }
+}
+function ratePerMin(cid) {
+  const arr = SAMPLES.get(cid); if (!arr || arr.length < 2) return 0;
+  const a = arr[0], b = arr[arr.length - 1];
+  const dtMin = (b.t - a.t) / 60000;
+  if (dtMin < 0.5) return 0;
+  return Math.max(0, (b.issued - a.issued) / dtMin);
+}
+function etaText(cid, remaining) {
+  const r = ratePerMin(cid);
+  if (r <= 0 || remaining <= 0) return '';
+  const mins = remaining / r;
+  if (mins > 60 * 24) return '';
+  return mins < 1 ? 'финиш < 1 мин' : 'финиш ≈ ' + (mins < 60 ? Math.round(mins) + ' мин' : (mins / 60).toFixed(1) + ' ч');
+}
+async function loadLive() {
+  try {
+    const r = await fetch(LIVE_URL, { cache: 'no-store' });
+    if (!r.ok) return;
+    const d = await r.json();
+    liveUpdated = d.updated || null;
+    const now = Date.now();
+    for (const g of (d.gifts || [])) {
+      const issued = Number(g.issued || 0), total = Number(g.total || 0);
+      const prev = LIVE.get(g.slug);
+      LIVE.set(g.slug, { issued, total });
+      let arr = SAMPLES.get(g.slug);
+      if (!arr) { arr = []; SAMPLES.set(g.slug, arr); }
+      if (!prev || prev.issued !== issued) arr.push({ t: now, issued });
+      while (arr.length && now - arr[0].t > 30 * 60000) arr.shift();
+    }
+    mergeLive();
+    const staleMin = liveUpdated ? Math.round((Date.now() - new Date(liveUpdated)) / 60000) : null;
+    $('upd').textContent = staleMin == null ? '' :
+      (staleMin <= 1 ? 'LIVE · только что' :
+       staleMin < 60 ? 'источник: ' + staleMin + ' мин назад' :
+       'источник: ' + Math.round(staleMin / 60) + ' ч назад');
+    $('pulse').classList.toggle('warn', staleMin != null && staleMin > 10);
+    renderCols();
+    if (cur && $('sheet').classList.contains('open')) refreshSheetLive();
+  } catch (e) { /* tracker unreachable — state.json values stay on screen */ }
+}
+function refreshSheetLive() {
+  if (!cur) return;
+  const total = cur.total || 0, iss = cur.issued || 0, next = (iss < total) ? iss + 1 : null;
+  $('sh-sub').textContent = `Выдано ${iss.toLocaleString('ru')} из ${total.toLocaleString('ru')}` + (ratePerMin(cur.collection_id) > 0 ? ' · ' + ratePerMin(cur.collection_id).toFixed(1) + '/мин' : '');
+  $('sh-hint').textContent = next ? ('Ближайший ожидаемый номер: #' + next + (etaText(cur.collection_id, total - iss) ? ' · ' + etaText(cur.collection_id, total - iss) : '')) : '';
 }
 function renderCols() {
   const q = $('q').value.trim().toLowerCase();
@@ -191,7 +255,7 @@ function renderCols() {
       <div class="top"><span class="nm">${esc(c.title || c.collection_id)}${hot ? '<span class="hot-badge">ФИНИШ</span>' : ''}</span>
       <span class="nx">${next ? 'следующий #' + next : 'выпуск завершён'}</span></div>
       <div class="bar"><i class="${hot ? 'hot' : ''}" style="width:${pct}%"></i></div>
-      <div class="meta"><span>выдано ${iss.toLocaleString('ru')} из ${total.toLocaleString('ru')}</span><span>${pct}%</span></div>
+      <div class="meta"><span>выдано ${iss.toLocaleString('ru')} из ${total.toLocaleString('ru')}</span><span>${(() => { const r = ratePerMin(c.collection_id); return r > 0 ? r.toFixed(1) + '/мин · ' : (etaText(c.collection_id, total - iss) || pct + '%'); })()}</span></div>
     </div>`;
   }).join('');
   $('cols').innerHTML = close || '<div class="empty"><p>Ничего не найдено.</p></div>';
@@ -254,7 +318,9 @@ $('sheet').onclick = e => { if (e.target === $('sheet')) $('sheet').classList.re
 $('sh-go').onclick = submitTarget;
 computeUserHash().then(h => { userHash = h; });
 loadState();
-setInterval(loadState, 90000);
+setInterval(loadState, 60000); // engine meta + titles (targets live in docs/targets/)
+loadLive();
+setInterval(loadLive, LIVE_POLL_MS); // LIVE numbers every 20s, direct from the tracker
 </script>
 </body>
 </html>

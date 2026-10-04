@@ -35,11 +35,16 @@ export function loadConfig(env = process.env) {
   };
 
   if (!testMode) {
-    if (!config.BOT_TOKEN) {
-      throw new EngineError(ErrorCodes.CONFIG_ERROR, 'Missing required configuration field: BOT_TOKEN');
+    // BOT_TOKEN is intentionally NOT hard-required: without it the engine
+    // degrades to MONITORING-ONLY mode (collections sync, counters, hot
+    // detection; notifications are stored, not sent; upgrades impossible
+    // until a bot is linked). The dedicated bot entry (bot/bot.js) still
+    // refuses to run without a token.
+    if (config.TRANSPORT === 'botapi' && !config.BOT_TOKEN) {
+      config.MONITORING_ONLY = true;
     }
     if (config.TRANSPORT === 'mtproto') {
-      const required = ['TG_API_ID', 'TG_API_HASH', 'SESSION_ENCRYPTION_KEY'];
+      const required = ['BOT_TOKEN', 'TG_API_ID', 'TG_API_HASH', 'SESSION_ENCRYPTION_KEY'];
       for (const key of required) {
         if (!config[key]) {
           throw new EngineError(ErrorCodes.CONFIG_ERROR, `Missing required configuration field: ${key} (TRANSPORT=mtproto)`);

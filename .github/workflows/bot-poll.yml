@@ -19,7 +19,12 @@ jobs:
     steps:
       - uses: actions/checkout@v4
       - name: Poll bot updates (one short cycle)
-        run: node bot/bot.js
+        run: |
+          if [ -z "$BOT_TOKEN" ]; then
+            echo "vars.BOT_TOKEN not set yet — bot poll skipped (monitoring still runs via engine-cycle)"
+            exit 0
+          fi
+          node bot/bot.js
         env:
           TEST_MODE: "false"
           DB_BACKEND: "file"

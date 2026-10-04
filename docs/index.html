@@ -6,168 +6,318 @@
 <meta http-equiv="Expires" content="0">
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
-<title>Gift Engine · Таргеты</title>
+<title>Gift Engine · Снайпер подарков</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
-<link href="https://fonts.googleapis.com/css2?family=Unbounded:wght@500;700&family=Manrope:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Unbounded:wght@400;500;600;700&family=Manrope:wght@400;500;600;700;800&display=swap" rel="stylesheet">
 <style>
 :root{
-  --bg:#0b0a0e; --panel:#14121a; --panel2:#1a1722; --line:#2a2536;
-  --gold:#e8c35a; --gold2:#f5d87e; --text:#f2eef7; --dim:#9b93ad; --dim2:#6b6480;
-  --green:#4ade80; --red:#f87171; --blue:#7aa2f7;
+  --bg:#0a0910; --bg2:#0e0c16; --panel:#131019; --panel2:#1a1626; --raise:#201b30;
+  --line:#262038; --line2:#332a4d;
+  --gold:#e8c35a; --gold2:#f5d87e; --gold-dim:#8f7a2e;
+  --text:#f2eef7; --dim:#a89fc2; --dim2:#655d80;
+  --green:#4ade80; --red:#f87171; --blue:#7aa2f7; --purple:#c084fc;
+  --r-lg:20px; --r-md:14px; --r-sm:10px;
 }
 *{margin:0;padding:0;box-sizing:border-box;-webkit-tap-highlight-color:transparent}
-html,body{height:100%}
+html{scroll-behavior:smooth}
 body{background:var(--bg);color:var(--text);font-family:'Manrope',system-ui,sans-serif;overflow-x:hidden;
-  background-image:radial-gradient(60% 40% at 50% 0%,rgba(232,195,90,.07),transparent 70%)}
-.tg{font-family:'Unbounded',sans-serif}
-#app{max-width:520px;margin:0 auto;padding:0 14px 90px}
-.hdr{padding:16px 2px 12px;position:sticky;top:0;background:linear-gradient(180deg,var(--bg) 75%,transparent);z-index:20}
+  background-image:
+    radial-gradient(50% 30% at 50% -5%,rgba(232,195,90,.09),transparent 70%),
+    radial-gradient(40% 26% at 90% 12%,rgba(124,92,255,.07),transparent 70%),
+    radial-gradient(36% 24% at 4% 22%,rgba(232,195,90,.05),transparent 70%);
+  background-attachment:fixed}
+.tg-font{font-family:'Unbounded',sans-serif}
+#app{max-width:540px;margin:0 auto;padding:0 14px 104px}
+
+/* ---------- header ---------- */
+.hdr{padding:18px 2px 10px;position:sticky;top:0;z-index:30;
+  background:linear-gradient(180deg,var(--bg) 55%,rgba(10,9,16,.88) 82%,transparent)}
 .hdr .row{display:flex;align-items:center;justify-content:space-between}
-.logo{font-size:19px;letter-spacing:.4px;display:flex;align-items:center;gap:8px}
-.logo .dot{width:9px;height:9px;border-radius:50%;background:var(--green);box-shadow:0 0 12px var(--green);animation:pulse 2s infinite}
-.logo .dot.warn{background:var(--gold);box-shadow:0 0 12px var(--gold)}
-@keyframes pulse{50%{opacity:.5}}
-.hdr .st{font-size:11.5px;color:var(--dim)}
-.tabs{display:flex;gap:8px;margin:12px 0 4px}
-.tab{flex:1;text-align:center;padding:9px 0;border-radius:12px;background:var(--panel);border:1px solid var(--line);
-  color:var(--dim);font-weight:600;font-size:13.5px;cursor:pointer;transition:.15s}
-.tab.on{background:linear-gradient(180deg,#2b2340,#221c33);color:var(--gold2);border-color:#4a3c66}
+.brand{display:flex;align-items:center;gap:10px}
+.brand .mark{width:34px;height:34px;border-radius:11px;display:flex;align-items:center;justify-content:center;
+  background:linear-gradient(135deg,#2a2140,#171226);border:1px solid var(--line2);
+  box-shadow:0 4px 18px rgba(0,0,0,.45), inset 0 1px 0 rgba(255,255,255,.06)}
+.brand .mark svg{width:19px;height:19px}
+.brand .ttl{font-family:'Unbounded';font-size:15.5px;font-weight:600;letter-spacing:.06em}
+.brand .sub{font-size:10px;color:var(--dim2);letter-spacing:.14em;text-transform:uppercase;margin-top:1px}
+.live{display:flex;align-items:center;gap:7px;background:var(--panel);border:1px solid var(--line);
+  border-radius:99px;padding:7px 12px;font-size:11.5px;font-weight:700;color:var(--dim)}
+.live .dot{width:8px;height:8px;border-radius:50%;background:var(--green);box-shadow:0 0 10px var(--green);animation:pulse 2s infinite}
+.live .dot.warn{background:var(--gold);box-shadow:0 0 10px var(--gold)}
+@keyframes pulse{50%{opacity:.45}}
+.fresh{font-size:11px;color:var(--dim2);text-align:right;margin-top:6px;min-height:14px}
+
+/* ---------- hero stats ---------- */
+.hero{display:grid;grid-template-columns:repeat(3,1fr);gap:9px;margin:12px 0 4px}
+.stat{background:linear-gradient(160deg,var(--panel) 0%,var(--panel2) 100%);border:1px solid var(--line);
+  border-radius:var(--r-md);padding:12px 10px 11px;position:relative;overflow:hidden}
+.stat::after{content:'';position:absolute;inset:0 0 auto 0;height:1px;
+  background:linear-gradient(90deg,transparent,rgba(232,195,90,.5),transparent)}
+.stat .v{font-family:'Unbounded';font-size:19px;font-weight:600;letter-spacing:.02em}
+.stat .v.gd{color:var(--gold2)}
+.stat .k{font-size:10px;color:var(--dim2);letter-spacing:.1em;text-transform:uppercase;margin-top:3px;font-weight:700}
+
+/* ---------- tabs ---------- */
+.tabs{display:flex;gap:7px;margin:14px 0 4px;background:var(--panel);border:1px solid var(--line);
+  border-radius:var(--r-md);padding:4px}
+.tab{flex:1;text-align:center;padding:10px 0;border-radius:11px;color:var(--dim);font-weight:700;
+  font-size:13px;cursor:pointer;transition:all .18s;display:flex;align-items:center;justify-content:center;gap:6px}
+.tab svg{width:14px;height:14px;opacity:.85}
+.tab.on{background:linear-gradient(180deg,#2c2347,#221b3a);color:var(--gold2);
+  box-shadow:0 2px 10px rgba(0,0,0,.35), inset 0 1px 0 rgba(255,255,255,.05);border:1px solid #463a68}
+
+/* ---------- search ---------- */
 .search{margin:10px 0 12px;position:relative}
-.search input{width:100%;background:var(--panel);border:1px solid var(--line);border-radius:13px;color:var(--text);
-  padding:12px 16px 12px 40px;font-size:14.5px;font-family:inherit;outline:none}
-.search input:focus{border-color:#4a3c66}
-.search svg{position:absolute;left:13px;top:12px;opacity:.5}
-.card{background:var(--panel);border:1px solid var(--line);border-radius:15px;padding:13px 14px;margin-bottom:10px;cursor:pointer;transition:.15s}
-.card:active{transform:scale(.985)}
-.card .top{display:flex;justify-content:space-between;align-items:baseline;margin-bottom:9px}
-.card .nm{font-weight:700;font-size:14.5px;letter-spacing:.2px}
-.card .nx{font-size:12px;color:var(--gold);font-weight:600;white-space:nowrap}
-.bar{height:6px;border-radius:4px;background:#0e0c13;overflow:hidden}
-.bar i{display:block;height:100%;border-radius:4px;background:linear-gradient(90deg,#8f7a2e,var(--gold));transition:width .5s}
-.bar i.hot{background:linear-gradient(90deg,#b3541e,#f59e0b)}
-.meta{display:flex;justify-content:space-between;margin-top:7px;font-size:11.5px;color:var(--dim)}
-.hot-badge{display:inline-block;font-size:10px;font-weight:700;color:#0b0a0e;background:var(--gold);
-  padding:2px 7px;border-radius:6px;margin-left:7px;vertical-align:1px;letter-spacing:.5px}
-.sheet{position:fixed;inset:0;z-index:50;display:flex;align-items:flex-end;justify-content:center;
-  background:rgba(5,4,8,.72);backdrop-filter:blur(4px);opacity:0;pointer-events:none;transition:.2s}
-.sheet.open{opacity:1;pointer-events:auto}
-.sheet .box{width:100%;max-width:520px;background:var(--panel2);border:1px solid var(--line);border-bottom:none;
-  border-radius:22px 22px 0 0;padding:20px 18px 26px;transform:translateY(30px);transition:.22s}
-.sheet.open .box{transform:translateY(0)}
-.grab{width:42px;height:4px;border-radius:3px;background:var(--line);margin:0 auto 16px}
-.sheet h3{font-family:'Unbounded';font-size:17px;margin-bottom:5px}
-.sheet .sub{color:var(--dim);font-size:12.5px;margin-bottom:16px}
-.fld{margin-bottom:13px}
-.fld label{display:block;font-size:11.5px;color:var(--dim);margin-bottom:6px;font-weight:600;text-transform:uppercase;letter-spacing:.6px}
-.fld input{width:100%;background:var(--bg);border:1px solid var(--line);border-radius:12px;color:var(--text);
-  padding:13px 14px;font-size:16px;font-weight:700;font-family:inherit;outline:none}
-.fld input:focus{border-color:var(--gold)}
-.hint{font-size:11.5px;color:var(--dim2);margin-top:5px}
-.btn{width:100%;padding:15px;border:none;border-radius:14px;font-family:'Unbounded';font-size:14px;font-weight:700;
-  cursor:pointer;letter-spacing:.3px}
-.btn.gold{background:linear-gradient(180deg,var(--gold2),var(--gold));color:#1a1408;box-shadow:0 6px 24px rgba(232,195,90,.25)}
-.btn:disabled{opacity:.5}
-.btn.ghost{background:transparent;border:1px solid var(--line);color:var(--dim);margin-top:9px;font-family:'Manrope';font-weight:600}
-.trow{background:var(--panel);border:1px solid var(--line);border-radius:14px;padding:13px 14px;margin-bottom:10px}
-.trow .r1{display:flex;justify-content:space-between;align-items:center;margin-bottom:4px}
-.trow .col{font-weight:700;font-size:14px}
-.trow .num{font-family:'Unbounded';font-size:15px;color:var(--gold2)}
-.trow .r2{display:flex;gap:8px;align-items:center;font-size:12px;color:var(--dim)}
-.chip{font-size:10px;font-weight:700;padding:3px 8px;border-radius:7px;letter-spacing:.4px}
-.chip.WATCHING{background:#1d2b3d;color:#8db8ff}
-.chip.PREDICTED{background:#33261a;color:#f5b76b}
-.chip.HOT_TARGET{background:#3d1d1d;color:#ff8f8f;animation:pulse 1.2s infinite}
-.chip.UPGRADING{background:#33261a;color:#f5b76b;animation:pulse 1.2s infinite}
-.chip.COMPLETED{background:#16331f;color:#6ee394}
-.chip.FAILED{background:#331616;color:#ff8f8f}
-.empty{text-align:center;padding:52px 20px;color:var(--dim2)}
-.empty .big{font-size:34px;margin-bottom:12px}
-.empty p{font-size:13px;line-height:1.55}
-.toast{position:fixed;left:50%;bottom:78px;transform:translate(-50%,20px);background:#211d2e;border:1px solid #443a5e;
-  color:var(--text);padding:13px 20px;border-radius:13px;font-size:13.5px;font-weight:600;z-index:99;
-  opacity:0;transition:.25s;max-width:88%;text-align:center}
-.toast.show{opacity:1;transform:translate(-50%,0)}
-.toast.ok{border-color:#2c5e3f}.toast.err{border-color:#5e2c2c}
-.note{background:#161422;border:1px solid #3a3050;border-radius:14px;padding:14px;margin-top:14px;font-size:12.5px;color:var(--dim);line-height:1.55}
-.note b{color:var(--gold2)}
-.spin{display:inline-block;width:15px;height:15px;border:2px solid var(--line);border-top-color:var(--gold);border-radius:50%;animation:rot .7s linear infinite;vertical-align:-3px}
-@keyframes rot{to{transform:rotate(360deg)}}
+.search input{width:100%;background:var(--panel);border:1px solid var(--line);border-radius:13px;
+  color:var(--text);padding:12.5px 16px 12.5px 42px;font-size:14.5px;font-family:inherit;outline:none;transition:.15s}
+.search input:focus{border-color:var(--line2);background:var(--panel2)}
+.search svg{position:absolute;left:14px;top:13px;width:17px;height:17px;opacity:.45}
+
+/* ---------- collection cards ---------- */
+.grid{display:flex;flex-direction:column;gap:9px}
+.card{display:flex;gap:12px;align-items:center;background:linear-gradient(150deg,var(--panel) 0%,rgba(26,22,38,.9) 100%);
+  border:1px solid var(--line);border-radius:var(--r-md);padding:11px;cursor:pointer;transition:transform .14s,border-color .2s}
+.card:active{transform:scale(.982)}
+.card.hotc{border-color:rgba(245,158,11,.4);background:linear-gradient(150deg,#1b1524 0%,#241a2e 100%)}
+.art{width:64px;height:64px;border-radius:13px;flex-shrink:0;position:relative;overflow:hidden;
+  background:radial-gradient(80% 80% at 30% 20%,#2c2347,#15111f);border:1px solid rgba(255,255,255,.05);
+  box-shadow:0 4px 14px rgba(0,0,0,.4)}
+.art img{width:100%;height:100%;object-fit:cover;display:block;opacity:0;transition:opacity .35s}
+.art img.ok{opacity:1}
+.art .mono{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;
+  font-family:'Unbounded';font-size:19px;color:var(--gold);opacity:.9}
+.art::before{content:'';position:absolute;inset:0;animation:shimmer 1.5s infinite linear;
+  background:linear-gradient(100deg,transparent 30%,rgba(255,255,255,.05) 50%,transparent 70%)}
+@keyframes shimmer{to{transform:translateX(100%)}}
+.art.loaded::before{display:none}
+.card .body{flex:1;min-width:0}
+.card .r1{display:flex;align-items:center;gap:7px}
+.card .nm{font-weight:800;font-size:14px;letter-spacing:.01em;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.chip{font-size:9.5px;font-weight:800;letter-spacing:.06em;padding:2.5px 7px;border-radius:6px;flex-shrink:0}
+.chip.fin{background:linear-gradient(90deg,#f59e0b,#fbbf24);color:#1c1204}
+.chip.done{background:rgba(74,222,128,.14);color:var(--green);border:1px solid rgba(74,222,128,.3)}
+.card .nums{display:flex;align-items:baseline;gap:8px;margin-top:4px}
+.card .cnt{font-family:'Unbounded';font-size:16.5px;font-weight:600;color:var(--gold2)}
+.card .of{font-size:11px;color:var(--dim2)}
+.bar{height:5px;border-radius:4px;background:#0d0b13;overflow:hidden;margin-top:7px}
+.bar i{display:block;height:100%;border-radius:4px;background:linear-gradient(90deg,var(--gold-dim),var(--gold));
+  transition:width .6s cubic-bezier(.2,.8,.2,1)}
+.bar i.hotbar{background:linear-gradient(90deg,#b3541e,#f59e0b);box-shadow:0 0 8px rgba(245,158,11,.5)}
+.card .meta{display:flex;justify-content:space-between;margin-top:6px;font-size:10.5px;color:var(--dim2)}
+.card .meta .spd{color:var(--dim);font-weight:600}
+.ring{width:46px;height:46px;flex-shrink:0;position:relative}
+.ring svg{width:46px;height:46px;transform:rotate(-90deg)}
+.ring .pct{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;
+  font-size:10px;font-weight:800;color:var(--dim)}
+
+/* ---------- feed ---------- */
+.feed{display:flex;flex-direction:column;gap:8px}
+.fitem{display:flex;gap:11px;align-items:center;background:var(--panel);border:1px solid var(--line);
+  border-radius:var(--r-md);padding:10px 12px;animation:slidein .3s}
+@keyframes slidein{from{opacity:0;transform:translateY(6px)}to{opacity:1}}
+.fitem .ic{width:38px;height:38px;border-radius:11px;flex-shrink:0;display:flex;align-items:center;justify-content:center;
+  font-size:17px;background:var(--raise);border:1px solid var(--line2)}
+.fitem .ic.hot{background:linear-gradient(135deg,#3a2410,#241605);border-color:rgba(245,158,11,.4)}
+.fitem .ic.done{background:linear-gradient(135deg,#12301d,#0a1a10);border-color:rgba(74,222,128,.35)}
+.fitem .ic.new{background:linear-gradient(135deg,#241d3d,#161026);border-color:rgba(192,132,252,.35)}
+.fitem .txt{flex:1;min-width:0}
+.fitem .l1{font-size:13px;font-weight:700;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.fitem .l1 b{color:var(--gold2)}
+.fitem .l2{font-size:10.5px;color:var(--dim2);margin-top:2px}
+.fitem .ago{font-size:10px;color:var(--dim2);flex-shrink:0;font-weight:600}
+
+/* ---------- my targets ---------- */
+.trow{background:linear-gradient(150deg,var(--panel) 0%,var(--panel2) 100%);border:1px solid var(--line);
+  border-radius:var(--r-md);padding:12px;margin-bottom:9px;display:flex;gap:12px;align-items:center}
+.trow .st{display:inline-flex;align-items:center;gap:5px;font-size:10px;font-weight:800;padding:3px 9px;border-radius:7px}
+.st.WATCHING{background:rgba(122,162,247,.12);color:var(--blue)}
+.st.PREDICTED{background:rgba(232,195,90,.13);color:var(--gold2)}
+.st.HOT_TARGET{background:linear-gradient(90deg,#f59e0b,#fbbf24);color:#1c1204;box-shadow:0 0 12px rgba(245,158,11,.45)}
+.st.UPGRADING{background:rgba(192,132,252,.15);color:var(--purple)}
+.st.COMPLETED{background:rgba(74,222,128,.14);color:var(--green)}
+.st.FAILED{background:rgba(248,113,113,.13);color:var(--red)}
+.trow .badges{display:flex;gap:5px;flex-wrap:wrap;margin-top:6px;align-items:center}
+.trow .bd{font-size:9.5px;font-weight:700;color:var(--dim);background:var(--raise);
+  border:1px solid var(--line);padding:2.5px 8px;border-radius:6px}
+.trow .bd.gold{color:var(--gold2);border-color:rgba(232,195,90,.35)}
+
+/* ---------- empty / notes ---------- */
+.empty{background:var(--panel);border:1px solid var(--line);border-radius:var(--r-lg);padding:34px 22px;
+  text-align:center;margin-top:14px}
+.empty .big{font-size:38px;margin-bottom:12px}
+.empty p{color:var(--dim);font-size:13.5px;line-height:1.55}
+.empty .note{margin-top:14px;font-size:11.5px;color:var(--dim2);line-height:1.5}
+.note{font-size:11px;color:var(--dim2);line-height:1.55;margin-top:14px;text-align:center}
+
+/* ---------- sheet ---------- */
+#sheet{position:fixed;inset:0;background:rgba(5,4,10,.7);backdrop-filter:blur(6px);z-index:100;
+  display:flex;align-items:flex-end;justify-content:center;opacity:0;pointer-events:none;transition:opacity .22s}
+#sheet.open{opacity:1;pointer-events:auto}
+.sheet-in{width:100%;max-width:540px;background:linear-gradient(170deg,var(--panel2) 0%,var(--panel) 30%);
+  border:1px solid var(--line2);border-bottom:none;border-radius:26px 26px 0 0;padding:10px 18px 26px;
+  transform:translateY(40px);transition:transform .26s cubic-bezier(.2,.8,.2,1)}
+#sheet.open .sheet-in{transform:translateY(0)}
+.grab{width:42px;height:4.5px;border-radius:3px;background:var(--line2);margin:2px auto 14px}
+.sh-hero{display:flex;gap:14px;align-items:center}
+.sh-art{width:96px;height:96px;border-radius:18px;flex-shrink:0;overflow:hidden;position:relative;
+  background:radial-gradient(80% 80% at 30% 20%,#2c2347,#15111f);border:1px solid rgba(255,255,255,.06);
+  box-shadow:0 8px 26px rgba(0,0,0,.5)}
+.sh-art img{width:100%;height:100%;object-fit:cover}
+.sh-art .mono{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;
+  font-family:'Unbounded';font-size:26px;color:var(--gold)}
+.sh-ttl{font-family:'Unbounded';font-size:17px;font-weight:600;line-height:1.25}
+.sh-sub{font-size:12px;color:var(--dim);margin-top:5px;line-height:1.5}
+.sh-grid{display:grid;grid-template-columns:1fr 1fr;gap:9px;margin:16px 0 14px}
+.sh-cell{background:var(--panel);border:1px solid var(--line);border-radius:12px;padding:10px 12px}
+.sh-cell .v{font-family:'Unbounded';font-size:15px;font-weight:600;color:var(--gold2)}
+.sh-cell .k{font-size:9.5px;color:var(--dim2);text-transform:uppercase;letter-spacing:.08em;font-weight:700;margin-top:3px}
+.fld{margin-bottom:10px}
+.fld label{display:block;font-size:10.5px;font-weight:700;color:var(--dim);letter-spacing:.06em;
+  text-transform:uppercase;margin-bottom:6px}
+.fld input{width:100%;background:var(--bg2);border:1px solid var(--line);border-radius:12px;color:var(--text);
+  padding:13px 15px;font-size:15px;font-family:'Unbounded';font-weight:500;outline:none;transition:.15s}
+.fld input:focus{border-color:rgba(232,195,90,.5)}
+.fld .hint{font-size:10.5px;color:var(--dim2);margin-top:5px}
+.btn{width:100%;padding:15px 0;border-radius:14px;border:none;cursor:pointer;font-family:'Unbounded';
+  font-size:13.5px;font-weight:600;letter-spacing:.04em;transition:transform .12s;
+  background:linear-gradient(93deg,#e8c35a 0%,#f5d87e 55%,#e8c35a 100%);color:#221a05;
+  box-shadow:0 6px 22px rgba(232,195,90,.28)}
+.btn:active{transform:scale(.97)}
+.btn-ghost{width:100%;margin-top:9px;padding:12px 0;border-radius:13px;background:transparent;
+  border:1px solid var(--line2);color:var(--dim);font-family:inherit;font-size:12.5px;font-weight:700;cursor:pointer}
+
+/* ---------- toast ---------- */
+.toast{position:fixed;left:50%;bottom:26px;transform:translateX(-50%) translateY(20px);z-index:200;
+  background:var(--raise);border:1px solid var(--line2);color:var(--text);font-size:12.5px;font-weight:600;
+  padding:11px 18px;border-radius:13px;opacity:0;pointer-events:none;transition:all .25s;max-width:86vw;text-align:center;
+  box-shadow:0 10px 30px rgba(0,0,0,.5)}
+.toast.show{opacity:1;transform:translateX(-50%) translateY(0)}
+.toast.ok{border-color:rgba(74,222,128,.45)}
+.toast.err{border-color:rgba(248,113,113,.45)}
+
+/* skeleton */
+.skel{height:86px;border-radius:var(--r-md);background:linear-gradient(100deg,var(--panel) 30%,var(--panel2) 50%,var(--panel) 70%);
+  background-size:200% 100%;animation:sk 1.3s infinite;margin-bottom:9px}
+@keyframes sk{to{background-position:-200% 0}}
 </style>
 </head>
 <body>
 <div id="app">
   <div class="hdr">
     <div class="row">
-      <div class="logo tg"><span class="dot" id="pulse"></span>GIFT&nbsp;ENGINE</div>
-      <div class="st" id="upd">загрузка…</div>
+      <div class="brand">
+        <div class="mark">
+          <svg viewBox="0 0 24 24" fill="none"><path d="M4 9l3-4.5a2 2 0 0 1 1.7-1h6.6A2 2 0 0 1 17 4.5L20 9M4 9h16M4 9v9.5A1.5 1.5 0 0 0 5.5 20h13a1.5 1.5 0 0 0 1.5-1.5V9m-6 4.2a2.5 2.5 0 1 1-3 0" stroke="#e8c35a" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        </div>
+        <div>
+          <div class="ttl tg-font">GIFT ENGINE</div>
+          <div class="sub">снайпер апгрейдов</div>
+        </div>
+      </div>
+      <div class="live"><span class="dot" id="pulse"></span><span id="upd">загрузка…</span></div>
     </div>
-    <div class="tabs">
-      <div class="tab on" id="tab-col">Коллекции</div>
-      <div class="tab" id="tab-my">Мои таргеты</div>
-    </div>
+    <div class="fresh" id="fresh"></div>
+  </div>
+
+  <div class="hero">
+    <div class="stat"><div class="v" id="h-colls">—</div><div class="k">коллекций</div></div>
+    <div class="stat"><div class="v gd" id="h-tg">—</div><div class="k">целей в работе</div></div>
+    <div class="stat"><div class="v" id="h-upg">—</div><div class="k">апгрейдов</div></div>
+  </div>
+
+  <div class="tabs">
+    <div class="tab on" id="tab-col">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><rect x="3" y="3" width="7" height="7" rx="2"/><rect x="14" y="3" width="7" height="7" rx="2"/><rect x="3" y="14" width="7" height="7" rx="2"/><rect x="14" y="14" width="7" height="7" rx="2"/></svg>
+      Коллекции</div>
+    <div class="tab" id="tab-feed">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><path d="M3 12h4l2.5-7 4 14 2.5-7h5"/></svg>
+      Лента</div>
+    <div class="tab" id="tab-my">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="8.5" r="4"/><path d="M4.5 20a7.5 7.5 0 0 1 15 0"/></svg>
+      Мои</div>
+  </div>
+
+  <div class="search" id="searchwrap">
+    <svg viewBox="0 0 24 24" fill="none" stroke="#a89fc2" stroke-width="2.3" stroke-linecap="round"><circle cx="11" cy="11" r="7"/><path d="m20 20-3.5-3.5"/></svg>
+    <input id="q" placeholder="Найти коллекцию…" autocomplete="off">
   </div>
 
   <div id="view-col">
-    <div class="search">
-      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><circle cx="11" cy="11" r="7"/><path d="m20 20-3.5-3.5"/></svg>
-      <input id="q" placeholder="Поиск коллекции…" autocomplete="off">
-    </div>
-    <div id="cols"><div class="empty"><p><span class="spin"></span><br><br>Загружаю коллекции…</p></div></div>
+    <div class="grid" id="cols"><div class="skel"></div><div class="skel"></div><div class="skel"></div></div>
+  </div>
+
+  <div id="view-feed" style="display:none">
+    <div class="feed" id="feed"><div class="skel"></div><div class="skel"></div></div>
+    <div class="note">Живая лента движка: новые цели и статусы. Личные данные пользователей не публикуются.</div>
   </div>
 
   <div id="view-my" style="display:none">
-    <div id="mine"><div class="empty"><p><span class="spin"></span></p></div></div>
-  </div>
-
-  <div class="sheet" id="sheet">
-    <div class="box">
-      <div class="grab"></div>
-      <h3 id="sh-title" class="tg">—</h3>
-      <div class="sub" id="sh-sub">—</div>
-      <div class="fld">
-        <label>Номер подарка-таргета</label>
-        <input id="sh-num" type="number" min="1" inputmode="numeric" placeholder="номер">
-        <div class="hint" id="sh-hint"></div>
-      </div>
-      <div class="fld">
-        <label>Лимит цены апгрейда, Stars (необязательно)</label>
-        <input id="sh-stars" type="number" min="0" inputmode="numeric" placeholder="без лимита">
-        <div class="hint">Если апгрейд будет стоить дороже — движок не купит и сообщит тебе.</div>
-      </div>
-      <button class="btn gold" id="sh-go">Активировать через бота</button>
-      <button class="btn ghost" id="sh-close">Отмена</button>
-    </div>
+    <div id="mine"><div class="skel"></div><div class="skel"></div></div>
   </div>
 </div>
+
+<div id="sheet">
+  <div class="sheet-in">
+    <div class="grab"></div>
+    <div class="sh-hero">
+      <div class="sh-art" id="sh-art"><span class="mono" id="sh-mono"></span></div>
+      <div>
+        <div class="sh-ttl tg-font" id="sh-title">—</div>
+        <div class="sh-sub" id="sh-sub">—</div>
+      </div>
+    </div>
+    <div class="sh-grid">
+      <div class="sh-cell"><div class="v" id="sh-next">—</div><div class="k">следующий номер</div></div>
+      <div class="sh-cell"><div class="v" id="sh-eta">—</div><div class="k">прогноз финиша</div></div>
+    </div>
+    <div class="fld">
+      <label>Номер, который поймать</label>
+      <input id="sh-num" type="number" inputmode="numeric" placeholder="напр. 166">
+      <div class="hint" id="sh-hint"></div>
+    </div>
+    <div class="fld">
+      <label>Лимит Stars (необязательно)</label>
+      <input id="sh-stars" type="number" inputmode="numeric" placeholder="макс. цена апгрейда">
+      <div class="hint">Движок не потратит ни одной звезды выше лимита.</div>
+    </div>
+    <button class="btn" id="sh-go">🎯 Поймать номер</button>
+    <button class="btn-ghost" id="sh-close">Закрыть</button>
+  </div>
+</div>
+
 <div class="toast" id="toast"></div>
 
 <script>
 /* GitHub-only architecture: static site on GitHub Pages.
-   READ:  state.json (public collections snapshot) + targets/<sha256(user_id)>.json (my targets)
-   WRITE: deep link to the bot -> bot command creates the target. No external backend. */
+   READ:  state.json (public snapshot + live feed) + targets/<sha256>.json
+   WRITE: deep link to the bot -> the bot creates the target. No backend. */
 const BASE = location.pathname.replace(/\/[^/]*$/, '/');
 const STATE_URL = BASE + 'state.json';
 const TARGETS_URL = BASE + 'targets/';
 const DEEPLINK = 'https://t.me/lvlonebot?start=';
-/* LIVE layer: the app polls the tracker's public JSON DIRECTLY from the
-   browser (CORS *), so counter numbers move in near real time (every 20s)
-   without waiting for the engine workflows to rebuild state.json (5-15 min).
-   state.json remains the source for titles/engine meta; live numbers win. */
 const LIVE_URL = 'https://raw.githubusercontent.com/jethubvideo-code/gifttracker-bot/main/docs/gifts.json';
-const LIVE_POLL_MS = 5000; // owner asked for per-second feel; 5s is the fastest sane rate against a static JSON file
+const LIVE_POLL_MS = 5000;
 const tg = window.Telegram && window.Telegram.WebApp;
-if (tg) { tg.ready(); tg.expand(); if (tg.setHeaderColor) tg.setHeaderColor('#0b0a0e'); if (tg.setBackgroundColor) tg.setBackgroundColor('#0b0a0e'); }
-let COLS = [], cur = null, userHash = null, lastUpdate = null;
-let LIVE = new Map();        // slug -> {issued, total} (direct tracker data)
-let SAMPLES = new Map();      // slug -> [{t, issued}] client-side history (30 min)
-let liveUpdated = null;      // tracker's own "updated" timestamp
+if (tg) { tg.ready(); tg.expand(); if (tg.setHeaderColor) tg.setHeaderColor('#0a0910'); if (tg.setBackgroundColor) tg.setBackgroundColor('#0a0910'); }
+
+let COLS = [], FEED = [], META = null, cur = null, userHash = null;
+let LIVE = new Map(), SAMPLES = new Map(), liveUpdated = null;
 
 const $ = id => document.getElementById(id);
 const esc = s => String(s).replace(/[&<>"']/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
-function toast(msg, cls) { const t = $('toast'); t.textContent = msg; t.className = 'toast show ' + (cls || ''); setTimeout(() => t.className = 'toast', 3400); }
-function fmtAgo(iso) { if (!iso) return '—'; const m = Math.round((Date.now() - new Date(iso)) / 60000); if (m < 1) return 'только что'; if (m < 60) return m + ' мин назад'; return Math.round(m / 60) + ' ч назад'; }
+const fmtN = n => Number(n || 0).toLocaleString('ru');
+function toast(msg, cls) { const t = $('toast'); t.textContent = msg; t.className = 'toast show ' + (cls || ''); setTimeout(() => t.className = 'toast', 3600); }
+function fmtAgo(iso) { if (!iso) return '—'; const m = Math.round((Date.now() - new Date(iso)) / 60000); if (m < 1) return 'только что'; if (m < 60) return m + ' мин'; if (m < 60*24) return Math.round(m/60) + ' ч'; return Math.round(m/1440) + ' дн'; }
+function agoShort(iso) { if (!iso) return ''; const m = Math.round((Date.now() - new Date(iso)) / 60000); if (m < 1) return 'сейчас'; if (m < 60) return m + ' мин'; if (m < 60*24) return Math.round(m/60) + ' ч'; return Math.round(m/1440) + ' дн'; }
 function openUrl(url) { if (tg && tg.openTelegramLink) tg.openTelegramLink(url); else window.open(url, '_blank'); }
 
+/* gift art with graceful fallback (Fragment public CDN) */
+function artHtml(c, cls) {
+  const initial = esc((c.title || c.collection_id || '?').trim().charAt(0).toUpperCase());
+  const img = c.img ? `<img loading="lazy" src="${esc(c.img)}" alt="" onload="this.classList.add('ok');this.parentNode.classList.add('loaded')" onerror="this.remove();this.parentNode.classList.add('loaded')">` : '';
+  return `<div class="art ${cls||''}" id="a-${esc(c.collection_id)}"><span class="mono">${initial}</span>${img}</div>`;
+}
 async function computeUserHash() {
   const u = tg && tg.initDataUnsafe && tg.initDataUnsafe.user;
   if (!u || !u.id) return null;
@@ -182,17 +332,19 @@ async function loadState() {
     const r = await fetch(STATE_URL, { cache: 'no-store' });
     if (!r.ok) throw 0;
     const d = await r.json();
-    lastUpdate = d.updated_at; COLS = d.collections || [];
+    META = d.engine || {};
+    COLS = d.collections || [];
+    FEED = (d.engine && d.engine.feed) || [];
     mergeLive();
-    $('upd').textContent = 'обновлено ' + fmtAgo(d.updated_at);
-    const dot = $('pulse');
-    if (d.engine && d.engine.business_linked) dot.classList.remove('warn'); else dot.classList.add('warn');
-    renderCols();
+    $('h-colls').textContent = fmtN(META.collections);
+    $('h-tg').textContent = fmtN(META.active_targets);
+    $('h-upg').textContent = fmtN(META.upgrades_done);
+    $('fresh').textContent = 'движок: MTProto · ' + (META.logged_in_users ? META.logged_in_users + ' акк. подключено' : 'ожидание входа');
+    renderCols(); renderFeed();
   } catch (e) {
     $('cols').innerHTML = '<div class="empty"><div class="big">⚡</div><p>Не удалось загрузить данные.<br>Попробуй обновить через минуту.</p></div>';
   }
 }
-/* ---- LIVE: direct tracker polling (near real-time numbers) ---- */
 function mergeLive() {
   for (const c of COLS) {
     const lv = LIVE.get(c.collection_id); if (!lv) continue;
@@ -211,8 +363,9 @@ function etaText(cid, remaining) {
   if (r <= 0 || remaining <= 0) return '';
   const mins = remaining / r;
   if (mins > 60 * 24) return '';
-  return mins < 1 ? 'финиш < 1 мин' : 'финиш ≈ ' + (mins < 60 ? Math.round(mins) + ' мин' : (mins / 60).toFixed(1) + ' ч');
+  return mins < 1 ? '<1 мин' : mins < 60 ? Math.round(mins) + ' мин' : (mins / 60).toFixed(1) + ' ч';
 }
+
 async function loadLive() {
   try {
     const r = await fetch(LIVE_URL, { cache: 'no-store' });
@@ -231,46 +384,104 @@ async function loadLive() {
     }
     mergeLive();
     const staleMin = liveUpdated ? Math.round((Date.now() - new Date(liveUpdated)) / 60000) : null;
-    $('upd').textContent = staleMin == null ? '' :
-      (staleMin <= 1 ? 'LIVE · только что' :
-       staleMin < 60 ? 'источник: ' + staleMin + ' мин назад' :
-       'источник: ' + Math.round(staleMin / 60) + ' ч назад');
+    $('upd').textContent = staleMin == null ? 'live' :
+      staleMin <= 1 ? 'LIVE' : staleMin < 60 ? '−' + staleMin + ' мин' : '−' + Math.round(staleMin / 60) + ' ч';
     $('pulse').classList.toggle('warn', staleMin != null && staleMin > 10);
     renderCols();
-    if (cur && $('sheet').classList.contains('open')) refreshSheetLive();
-  } catch (e) { /* tracker unreachable — state.json values stay on screen */ }
+    if (cur && $('sheet').classList.contains('open')) fillSheet(cur.collection_id);
+  } catch (e) { /* tracker unreachable — state.json values stay */ }
 }
-function refreshSheetLive() {
-  if (!cur) return;
-  const total = cur.total || 0, iss = cur.issued || 0, next = (iss < total) ? iss + 1 : null;
-  $('sh-sub').textContent = `Выдано ${iss.toLocaleString('ru')} из ${total.toLocaleString('ru')}` + (ratePerMin(cur.collection_id) > 0 ? ' · ' + ratePerMin(cur.collection_id).toFixed(1) + '/мин' : '');
-  $('sh-hint').textContent = next ? ('Ближайший ожидаемый номер: #' + next + (etaText(cur.collection_id, total - iss) ? ' · ' + etaText(cur.collection_id, total - iss) : '')) : '';
+
+function ring(pct, hot) {
+  const R = 19, C = 2 * Math.PI * R, off = C * (1 - Math.min(100, pct) / 100);
+  return `<div class="ring"><svg viewBox="0 0 46 46">
+    <circle cx="23" cy="23" r="${R}" stroke="#221c33" stroke-width="4.5" fill="none"/>
+    <circle cx="23" cy="23" r="${R}" stroke="${hot ? '#f59e0b' : 'url(#gr)'}" stroke-width="4.5" fill="none"
+      stroke-linecap="round" stroke-dasharray="${C}" stroke-dashoffset="${off}"/>
+    <defs><linearGradient id="gr" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#8f7a2e"/><stop offset="1" stop-color="#f5d87e"/></linearGradient></defs>
+  </svg><span class="pct">${Math.min(100, pct)}%</span></div>`;
 }
+
 function renderCols() {
   const q = $('q').value.trim().toLowerCase();
   const list = q ? COLS.filter(c => (c.title || c.collection_id).toLowerCase().includes(q)) : COLS;
-  const close = list.map(c => {
+  const html = list.map(c => {
     const total = c.total || 0, iss = c.issued || 0;
     const next = (iss < total) ? iss + 1 : null;
     const pct = total ? Math.min(100, Math.round(iss / total * 100)) : 0;
-    const hot = total && total - iss <= Math.max(3, Math.round(total * 0.01));
-    return `<div class="card" data-c="${esc(c.collection_id)}">
-      <div class="top"><span class="nm">${esc(c.title || c.collection_id)}${hot ? '<span class="hot-badge">ФИНИШ</span>' : ''}</span>
-      <span class="nx">${next ? 'следующий #' + next : 'выпуск завершён'}</span></div>
-      <div class="bar"><i class="${hot ? 'hot' : ''}" style="width:${pct}%"></i></div>
-      <div class="meta"><span>выдано ${iss.toLocaleString('ru')} из ${total.toLocaleString('ru')}</span><span>${(() => { const r = ratePerMin(c.collection_id); return r > 0 ? r.toFixed(1) + '/мин · ' : (etaText(c.collection_id, total - iss) || pct + '%'); })()}</span></div>
+    const finished = total && iss >= total;
+    const hot = !finished && total && total - iss <= Math.max(3, Math.round(total * 0.01));
+    const r = ratePerMin(c.collection_id);
+    const eta = etaText(c.collection_id, total - iss);
+    return `<div class="card ${hot ? 'hotc' : ''}" data-c="${esc(c.collection_id)}">
+      ${artHtml(c)}
+      <div class="body">
+        <div class="r1"><span class="nm">${esc(c.title || c.collection_id)}</span>
+          ${finished ? '<span class="chip done">ВЫПУЩЕН ВСЕ</span>' : hot ? '<span class="chip fin">ФИНИШ</span>' : ''}</div>
+        <div class="nums"><span class="cnt">${fmtN(iss)}</span><span class="of">/ ${fmtN(total)}</span></div>
+        <div class="bar"><i class="${hot ? 'hotbar' : ''}" style="width:${pct}%"></i></div>
+        <div class="meta"><span>${next ? 'след. #' + fmtN(next) : '—'}</span>
+          <span class="spd">${finished ? 'готово' : r > 0 ? r.toFixed(1) + '/мин' + (eta ? ' · финиш ' + eta : '') : eta ? 'финиш ' + eta : ''}</span></div>
+      </div>
+      ${ring(pct, hot)}
     </div>`;
   }).join('');
-  $('cols').innerHTML = close || '<div class="empty"><p>Ничего не найдено.</p></div>';
+  $('cols').innerHTML = html || '<div class="empty"><p>Ничего не найдено.</p></div>';
 }
-function openSheet(cid) {
-  cur = COLS.find(c => c.collection_id === cid); if (!cur) return;
-  const total = cur.total || 0, iss = cur.issued || 0, next = (iss < total) ? iss + 1 : null;
-  $('sh-title').textContent = cur.title || cur.collection_id;
-  $('sh-sub').textContent = `Выдано ${iss.toLocaleString('ru')} из ${total.toLocaleString('ru')}`;
-  $('sh-num').value = next || ''; $('sh-hint').textContent = next ? ('Ближайший ожидаемый номер: #' + next) : '';
-  $('sh-stars').value = ''; $('sheet').classList.add('open');
+
+/* ---- live feed ---- */
+const FEED_TXT = {
+  new: ['🎯', 'Новая цель', 'движок взял номер под наблюдение'],
+  near: ['⏰', 'Цель близко', 'движок приготовился к выстрелу'],
+  hot: ['🔥', 'Горячий таргет', 'номер на подходе — уведомление отправлено'],
+  upg: ['⚡', 'Апгрейд начат', 'проверка подарка и списание Stars'],
+  done: ['✅', 'Апгрейд выполнен', 'номер пойман']
+};
+function renderFeed() {
+  if (!FEED.length) {
+    $('feed').innerHTML = '<div class="empty"><div class="big">📡</div><p>Лента пока пуста.<br>Создай первую цель — и события появятся здесь.</p></div>';
+    return;
+  }
+  $('feed').innerHTML = FEED.map((f, i) => {
+    const m = FEED_TXT[f.type] || ['•', 'Событие', f.type];
+    return `<div class="fitem" style="animation-delay:${Math.min(i,8)*40}ms">
+      <div class="ic ${f.type}">${m[0]}</div>
+      <div class="txt">
+        <div class="l1">${m[1]}: <b>#${fmtN(f.number)}</b> · ${esc(f.title || f.collection_id)}</div>
+        <div class="l2">${m[2]}</div>
+      </div>
+      <div class="ago">${agoShort(f.ts)}</div>
+    </div>`;
+  }).join('');
 }
+
+/* ---- sheet ---- */
+function fillSheet(cid) {
+  const c = COLS.find(x => x.collection_id === cid); if (!c) return;
+  cur = c;
+  const total = c.total || 0, iss = c.issued || 0;
+  const next = (iss < total) ? iss + 1 : null;
+  const initial = (c.title || c.collection_id).trim().charAt(0).toUpperCase();
+  $('sh-mono').textContent = initial;
+  $('sh-title').textContent = c.title || c.collection_id;
+  const r = ratePerMin(cid);
+  $('sh-sub').textContent = `Выдано ${fmtN(iss)} из ${fmtN(total)}` + (r > 0 ? ' · ' + r.toFixed(1) + '/мин' : '');
+  $('sh-next').textContent = next ? '#' + fmtN(next) : 'все';
+  $('sh-eta').textContent = total > iss ? (etaText(cid, total - iss) || '—') : 'готово';
+  const art = $('sh-art');
+  art.querySelectorAll('img').forEach(im => im.remove());
+  if (c.img) {
+    const im = document.createElement('img');
+    im.src = c.img; im.alt = '';
+    im.onerror = () => im.remove();
+    art.appendChild(im);
+  }
+  if (!$('sh-num').value || sheetOpenedFor !== cid) $('sh-num').value = next || '';
+  sheetOpenedFor = cid;
+  $('sh-hint').textContent = next ? 'Ближайший ожидаемый: #' + fmtN(next) : 'Выпуск завершён — лови любой оставшийся номер.';
+}
+let sheetOpenedFor = null;
+function openSheet(cid) { fillSheet(cid); $('sh-stars').value = ''; $('sheet').classList.add('open'); }
 function submitTarget() {
   if (!cur) return;
   const num = parseInt($('sh-num').value, 10);
@@ -278,41 +489,60 @@ function submitTarget() {
   const stars = $('sh-stars').value.trim();
   const payload = 'add_' + cur.collection_id + '_' + num + (stars ? '_' + stars : '');
   $('sheet').classList.remove('open');
-  toast('Открываю бота — нажми «Start», и таргет активируется', 'ok');
+  toast('Открываю бота — нажми Start, и цель активируется', 'ok');
   openUrl(DEEPLINK + payload);
 }
-const STATUS_RU = { WATCHING: 'Слежу', PREDICTED: 'Цель близко', HOT_TARGET: 'Горячий таргет', UPGRADING: 'Апгрейд', COMPLETED: 'Выполнен', FAILED: 'Не удалось' };
+
+/* ---- my targets ---- */
+const STATUS_RU = { WATCHING: 'Слежу', PREDICTED: 'Цель близко', HOT_TARGET: 'Горячий', UPGRADING: 'Апгрейд', COMPLETED: 'Выполнен', FAILED: 'Не удалось' };
 async function loadMine() {
   if (!userHash) {
-    $('mine').innerHTML = '<div class="empty"><div class="big">🤖</div><p>Твои таргеты появятся здесь.<br>Открой приложение из бота <b>@lvlonebot</b> (кнопка меню).</p></div>';
+    $('mine').innerHTML = '<div class="empty"><div class="big">🤖</div><p>Твои цели появятся здесь.<br>Открой приложение из бота <b>@lvlonebot</b> — кнопка меню.</p></div>';
     return;
   }
   try {
     const r = await fetch(TARGETS_URL + userHash + '.json', { cache: 'no-store' });
     const d = await r.json();
     if (!d.targets || !d.targets.length) {
-      $('mine').innerHTML = '<div class="empty"><div class="big">🎯</div><p>Пока нет таргетов.<br>Открой вкладку «Коллекции», выбери подарок<br>и задай номер, который нужно словить.</p><div class="note">Движок следит за выдачей всех коллекций каждые 15 минут. Когда номер станет близко — бот напишет тебе первым.</div></div>';
+      $('mine').innerHTML = '<div class="empty"><div class="big">🎯</div><p>Пока нет целей.<br>Открой «Коллекции», выбери подарок<br>и задай номер, который нужно поймать.</p><div class="note">Движок следит за выпуском всех коллекций. Когда номер станет близко — бот напишет первым, а с включённым /auto — сам сделает апгрейд.</div></div>';
       return;
     }
-    $('mine').innerHTML = d.targets.map(t => `<div class="trow">
-      <div class="r1"><span class="col">${esc(t.title || t.collection_id)}</span><span class="num">#${t.target_number}</span></div>
-      <div class="r2"><span class="chip ${t.status}">${STATUS_RU[t.status] || t.status}</span>
-      ${t.max_stars ? '<span>лимит ' + t.max_stars + ' ★</span>' : ''}
-      ${t.auto_upgrade ? '<span>авто-апгрейд</span>' : ''}
-      <span>${fmtAgo(t.updated_at)}</span></div>
-    </div>`).join('') + '<div class="note">Статусы: <b>Слежу</b> — движок мониторит выпуск. <b>Горячий таргет</b> — номер на подходе. Уведомления придут от @lvlonebot.</div>';
+    $('mine').innerHTML = d.targets.map(t => {
+      const c = COLS.find(x => x.collection_id === t.collection_id);
+      const liveIss = c ? c.issued : null;
+      const left = liveIss != null && t.target_number > liveIss ? t.target_number - liveIss : 0;
+      const badge = t.status === 'HOT_TARGET' ? 'left small' : '';
+      return `<div class="trow">
+        ${c ? artHtml(c) : ''}
+        <div style="flex:1;min-width:0">
+          <div class="r1" style="display:flex;justify-content:space-between;align-items:center">
+            <span class="nm" style="font-weight:800;font-size:13.5px">${esc(t.title || t.collection_id)}</span>
+            <span class="cnt" style="font-family:'Unbounded';font-size:14px;color:var(--gold2)">#${fmtN(t.target_number)}</span>
+          </div>
+          <div class="badges">
+            <span class="st ${t.status}">${STATUS_RU[t.status] || t.status}</span>
+            ${liveIss != null && left > 0 ? `<span class="bd">осталось ${fmtN(left)}</span>` : ''}
+            ${t.max_stars ? '<span class="bd gold">лимит ' + fmtN(t.max_stars) + ' ★</span>' : ''}
+            ${t.auto_upgrade ? '<span class="bd gold">авто-апгрейд</span>' : ''}
+          </div>
+        </div>
+      </div>`;
+    }).join('') + '<div class="note">Включи авто-апгрейд командой /auto &lt;id&gt; &lt;макс_звёзд&gt; — движок сам сделает апгрейд в пределах лимита. Для полного автомата подключи аккаунт: /login.</div>';
   } catch (e) {
-    $('mine').innerHTML = '<div class="empty"><p>Не удалось загрузить таргеты. Открой приложение из бота и попробуй снова.</p></div>';
+    $('mine').innerHTML = '<div class="empty"><p>Не удалось загрузить цели. Открой приложение из бота и попробуй снова.</p></div>';
   }
 }
+
 function switchTab(which) {
-  $('tab-col').classList.toggle('on', which === 'col');
-  $('tab-my').classList.toggle('on', which === 'my');
-  $('view-col').style.display = which === 'col' ? '' : 'none';
-  $('view-my').style.display = which === 'my' ? '' : 'none';
+  for (const [id, on] of [['col', which==='col'],['feed', which==='feed'],['my', which==='my']]) {
+    $('tab-' + id).classList.toggle('on', on);
+    $('view-' + id).style.display = on ? '' : 'none';
+  }
+  $('searchwrap').style.display = which === 'col' ? '' : 'none';
   if (which === 'my') loadMine();
 }
 $('tab-col').onclick = () => switchTab('col');
+$('tab-feed').onclick = () => switchTab('feed');
 $('tab-my').onclick = () => switchTab('my');
 $('q').oninput = renderCols;
 $('cols').onclick = e => { const c = e.target.closest('.card'); if (c) openSheet(c.dataset.c); };
@@ -321,9 +551,9 @@ $('sheet').onclick = e => { if (e.target === $('sheet')) $('sheet').classList.re
 $('sh-go').onclick = submitTarget;
 computeUserHash().then(h => { userHash = h; });
 loadState();
-setInterval(loadState, 60000); // engine meta + titles (targets live in docs/targets/)
+setInterval(loadState, 60000);
 loadLive();
-setInterval(loadLive, LIVE_POLL_MS); // LIVE numbers every 20s, direct from the tracker
+setInterval(loadLive, LIVE_POLL_MS);
 </script>
 </body>
 </html>

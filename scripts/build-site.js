@@ -37,25 +37,65 @@ async function main() {
   const collections = gifts.map(g => {
     const total = Number(g.total_supply || 0);
     const issued = Number(g.upgraded_count || 0);
+    const slug = (g.slug || g.collection_id || '').toLowerCase();
     return {
       collection_id: g.collection_id,
       title: g.name || g.collection_id,
       total,
       issued,
-      next: issued < total ? issued + 1 : null
+      next: issued < total ? issued + 1 : null,
+      // Gift art from Fragment's public CDN (same asset the marketplace
+      // itself serves) — free, no API keys, graceful fallback in the UI.
+      img: slug ? `https://fragment.com/file/gifts/${slug}/thumb.webp` : null
     };
   }).sort((a, b) => (a.title || '').localeCompare(b.title || ''));
 
   const titles = new Map(gifts.map(g => [g.collection_id, g.name || g.collection_id]));
   const connections = store.findAll('business_connections');
+  const allTargets = store.findAll('targets');
   const engine = {
     transport: config.TRANSPORT || 'botapi',
     monitoring_only: !!config.MONITORING_ONLY,
     business_linked: connections.some(c => c.user_id || c.id),
     collections: collections.length,
-    active_targets: store.findAll('targets').filter(t => ACTIVE.has(t.status)).length,
+    active_targets: allTargets.filter(t => ACTIVE.has(t.status)).length,
+    targets_total: allTargets.length,
+    upgrades_done: (store.findAll('upgrade_jobs').filter(j => j.status === 'DONE') || []).length,
+    logged_in_users: (store.findAll('telegram_sessions') || []).length,
     generated_at: new Date().toISOString()
   };
+
+  // ---- public LIVE FEED (sanitized, NO user identifiers) ----
+  // Newest first: target creations + status transitions. A reader sees
+  // "what the engine is doing right now" without any personal data.
+  const feed = [];
+  for (const t of allTargets) {
+    feed.push({
+      ts: t.created_at, type: 'new',
+      collection_id: t.collection_id,
+      number: t.target_number,
+      title: titles.get(t.collection_id) || t.collection_id
+    });
+  }
+  const byId = new Map(allTargets.map(t => [t.id, t]));
+  for (const ev of store.findAll('target_events')) {
+    const t = byId.get(ev.target_id);
+    if (!t) continue;
+    let type = 'move';
+    const to = ev.to_status || '';
+    if (to === 'HOT_TARGET') type = 'hot';
+    else if (to === 'PREDICTED') type = 'near';
+    else if (to === 'UPGRADING') type = 'upg';
+    else if (to === 'COMPLETED') type = 'done';
+    feed.push({
+      ts: ev.created_at, type,
+      collection_id: t.collection_id,
+      number: t.target_number,
+      title: titles.get(t.collection_id) || t.collection_id
+    });
+  }
+  feed.sort((a, b) => String(b.ts).localeCompare(String(a.ts)));
+  engine.feed = feed.slice(0, 40);
 
   // ---- per-user targets, hashed filenames ----
   const byUser = new Map();

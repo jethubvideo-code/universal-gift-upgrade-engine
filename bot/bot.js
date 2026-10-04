@@ -110,6 +110,17 @@ async function handle(update) {
     const payload = text.slice(7).trim();
     const dl = /^add_([A-Za-z0-9-]+)_(\d+)(?:_(\d+))?$/.exec(payload);
     if (dl) {
+      // dupe protection (deep link): same user + collection + number, active
+      const mineRows = targets.listByUser ? targets.listByUser(userId) : store.find('targets', { user_id: userId });
+      const dupe = mineRows.find(t => t.collection_id === dl[1] && Number(t.target_number) === Number(dl[2])
+        && t.status !== 'COMPLETED' && t.status !== 'FAILED' && t.status !== 'CANCELLED');
+      if (dupe) {
+        return api('sendMessage', {
+          chat_id: chatId,
+          text: `ℹ️ Этот таргет уже есть: ${esc(dl[1])} #${dl[2]} (статус ${esc(dupe.status)}).\n/auto ${dupe.id} <макс_звёзд> — включить авто-апгрейд.`,
+          parse_mode: 'MarkdownV2'
+        });
+      }
       const row = targets.create({
         user_id: userId,
         collection_id: dl[1],
@@ -118,11 +129,18 @@ async function handle(update) {
         max_upgrade_stars: dl[3] ? Number(dl[3]) : null
       });
       if (store.flushAll) store.flushAll();
+      // smart status note: number already released → upgrade possible right now
+      const g0 = store.find('gifts', { collection_id: dl[1] })[0];
+      const issued0 = g0 ? Number(g0.upgraded_count || 0) : null;
+      let statusLine = 'Status: WATCHING — движок следит каждый цикл';
+      if (issued0 != null && Number(dl[2]) <= issued0) {
+        statusLine = '⚠️ Номер уже выпущен — апгрейд возможен СРАЗУ: /login, потом /auto ' + row.id + ' <макс_звёзд>';
+      }
       await api('sendMessage', {
         chat_id: chatId,
         text: `✅ Target activated: ${esc(dl[1])} #${dl[2]}` +
           (dl[3] ? ` (limit ${dl[3]} Stars)` : '') +
-        `\nStatus: WATCHING — the engine monitors every cycle\nUse /auto ${row.id} <max_stars> to enable AUTO UPGRADE`,
+        `\n${statusLine}\nUse /auto ${row.id} <max_stars> to enable AUTO UPGRADE`,
         parse_mode: 'MarkdownV2'
       });
       return;
@@ -223,16 +241,77 @@ async function handle(update) {
 
   const add = /^\/add\s+(\S+)\s+(\d+)$/.exec(text);
   if (add) {
+    const cid = add[1].toLowerCase();
+    const num = Number(add[2]);
+    // validate the collection exists
+    const coll = store.find('gift_collections', { collection_id: cid })[0]
+      || store.find('gifts', { collection_id: cid })[0];
+    if (!coll) {
+      return api('sendMessage', {
+        chat_id: chatId,
+        text: `🤔 Коллекция «${esc(add[1])}» не найдена.\nПосмотри точный slug в /collections или в Mini App.`,
+        parse_mode: 'Markdown'
+      });
+    }
+    // dupe protection: same user + collection + number, still active
+    const dupe = (targets.listByUser ? targets.listByUser(userId) : store.find('targets', { user_id: userId }))
+      .find(t => t.collection_id === cid && Number(t.target_number) === num
+        && t.status !== 'COMPLETED' && t.status !== 'FAILED' && t.status !== 'CANCELLED');
+    if (dupe) {
+      return api('sendMessage', {
+        chat_id: chatId,
+        text: `ℹ️ У тебя уже есть этот таргет: ${esc(cid)} #${num} (статус ${dupe.status}).\n/auto ${dupe.id} <макс_звёзд> — включить авто-апгрейд.`,
+        parse_mode: 'Markdown'
+      });
+    }
     const row = targets.create({
       user_id: userId,
-      collection_id: add[1],
-      gift_id: add[1],
-      target_number: Number(add[2])   // ANY number — no special cases
+      collection_id: cid,
+      gift_id: cid,
+      target_number: num   // ANY number — no special cases
     });
     if (store.flushAll) store.flushAll();
+    // smart status note: number already released → upgrade possible right now
+    const g = store.find('gifts', { collection_id: cid })[0];
+    const issued = g ? Number(g.upgraded_count || 0) : null;
+    let extra = 'Status: WATCHING — движок следит каждый цикл.';
+    if (issued != null && num <= issued) {
+      extra = '⚠️ Номер уже выпущен — апгрейд возможен СРАЗУ.\nПодключи аккаунт (/login), затем /auto ' + row.id + ' <макс_звёзд>.';
+    }
     await api('sendMessage', {
       chat_id: chatId,
-      text: `✅ Target created: ${esc(add[1])} #${add[2]}\nStatus: WATCHING\nUse /auto ${row.id} <max_stars> to enable AUTO UPGRADE.`,
+      text: `✅ Target created: ${esc(cid)} #${num}\n${extra}\nUse /auto ${row.id} <max_stars> to enable AUTO UPGRADE.`,
+      parse_mode: 'Markdown'
+    });
+    return;
+  }
+
+  // ---- admin stats (owner only) ----
+  if (text === '/stats') {
+    if (userId !== '8396883978') {
+      return api('sendMessage', { chat_id: chatId, text: '🔒 Команда только для владельца.' });
+    }
+    const allT = store.findAll('targets');
+    const jobs = store.findAll('upgrade_jobs');
+    const byStatus = {};
+    for (const t of allT) byStatus[t.status] = (byStatus[t.status] || 0) + 1;
+    const doneJobs = jobs.filter(j => j.status === 'DONE');
+    const stars = doneJobs.reduce((a, j) => {
+      const p = j.payload_json ? JSON.parse(j.payload_json) : {};
+      return a + (Number(p.upgrade_stars || p.price || 0) || 0);
+    }, 0);
+    const users = store.findAll('users').length;
+    const sess = store.findAll('telegram_sessions').length;
+    const reqs = store.findAll('login_requests');
+    const pend = reqs.filter(r => r.status === 'pending' || r.status === 'processing').length;
+    await api('sendMessage', {
+      chat_id: chatId,
+      text: '📊 *Статистика движка*\n\n'
+        + `Пользователей: ${users} (сессий MTProto: ${sess})\n`
+        + `Таргетов: ${allT.length} — ${Object.entries(byStatus).map(([k, v]) => `${k}: ${v}`).join(', ') || '—'}\n`
+        + `Апгрейдов выполнено: ${doneJobs.length} (списано ≈ ${stars} ★)\n`
+        + `Логинов в очереди: ${pend}\n`
+        + `Коллекций под наблюдением: ${store.count('gift_collections')}`,
       parse_mode: 'Markdown'
     });
     return;

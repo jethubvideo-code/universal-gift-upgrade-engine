@@ -23,11 +23,20 @@ jobs:
           RUN_ONCE: "1"
           TEST_MODE: "false"
           DB_BACKEND: "file"
-          TRANSPORT: "botapi"
+          # Flip to full-auto MTProto with repo VARIABLES (no code change):
+          #   Settings → Secrets and variables → Actions → Variables:
+          #     TRANSPORT = mtproto   (after the QR login workflow succeeded)
+          #     ENGINE_MODE = live    (careful: real Star spending)
+          TRANSPORT: ${{ vars.TRANSPORT || 'botapi' }}
+          MODE: ${{ vars.ENGINE_MODE || 'dry-run' }}
           COLLECTION_SOURCE: "gifttracker"
           GIFTTRACKER_DATA_URL: "https://raw.githubusercontent.com/jethubvideo-code/gifttracker-bot/main/docs/gifts.json"
           BOT_TOKEN: ${{ secrets.BOT_TOKEN }}
           BUSINESS_CONNECTION_ID: ${{ vars.BUSINESS_CONNECTION_ID }}
+          # MTProto transport (used only when TRANSPORT=mtproto):
+          TG_API_ID: ${{ secrets.TG_API_ID }}
+          TG_API_HASH: ${{ secrets.TG_API_HASH }}
+          SESSION_ENCRYPTION_KEY: ${{ secrets.SESSION_ENCRYPTION_KEY }}
       - name: Build static site (GitHub Pages)
         run: node scripts/build-site.js
         env:

@@ -1,0 +1,43 @@
+name: MTProto login (QR)
+# One-time: owner scans the QR from this run's log with their Telegram app.
+# The encrypted session is committed to data/state/telegram_sessions.json.
+on:
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+concurrency:
+  group: mtproto-login
+  cancel-in-progress: true
+
+jobs:
+  login:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 20
+      - name: Install dependencies
+        run: npm ci --no-audit --no-fund || npm install --no-audit --no-fund
+      - name: QR login (scan the newest QR in this log)
+        run: node scripts/login-mtproto-qr.js
+        env:
+          TG_API_ID: ${{ secrets.TG_API_ID }}
+          TG_API_HASH: ${{ secrets.TG_API_HASH }}
+          SESSION_ENCRYPTION_KEY: ${{ secrets.SESSION_ENCRYPTION_KEY }}
+          DB_BACKEND: file
+      - name: Commit encrypted session
+        run: |
+          git config user.name "upgrade-engine-bot"
+          git config user.email "actions@users.noreply.github.com"
+          git add data/state/telegram_sessions.json
+          if git diff --cached --quiet; then
+            echo "no session file to commit"
+          else
+            git commit -m "mtproto: encrypted user session added"
+            git pull --rebase -q -X theirs origin main || true
+            git push
+          fi

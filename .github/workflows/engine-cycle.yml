@@ -1,7 +1,7 @@
 name: Engine cycle
 on:
   schedule:
-    - cron: "*/15 * * * *" # one full monitor cycle, state committed back
+    - cron: "*/5 * * * *" # one full monitor cycle, state committed back (*/5: semi-automatic mode needs fast hot-target detection)
   workflow_dispatch:
 
 permissions:

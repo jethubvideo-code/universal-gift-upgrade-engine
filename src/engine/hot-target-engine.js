@@ -126,6 +126,21 @@ export class HotTargetEngine {
           }
           currentStatus = TargetStates.HOT_TARGET;
         }
+        // SEMI-AUTOMATIC MODE (owner decision 2026-10-04: business-bot
+        // upgrades are currently blocked by a TEMPORARY Telegram platform
+        // restriction, so the engine catches the moment and the owner
+        // presses the final button): on every transition INTO HOT_TARGET
+        // send an immediate, actionable Telegram message. Deduped 30 min so
+        // a target that stays hot across several 5-min cycles does not spam.
+        if (this.notifier && typeof this.notifier.notifyUser === 'function') {
+          try {
+            const p = this.notifier.notifyUser(target.user_id, 'TARGET_HOT', {
+              target: { collection_id: target.collection_id, target_number: target.target_number },
+              next_expected: state.next_expected_number
+            }, { dedupKey: `hot:${target.id}`, dedupMinutes: 30 });
+            if (p && typeof p.catch === 'function') await p.catch(() => {});
+          } catch { /* notification must NEVER break the upgrade flow */ }
+        }
       } else if (priority === 2) {
         if (currentStatus === TargetStates.WATCHING || currentStatus === 'WATCHING') {
           if (this.targets) {
@@ -135,6 +150,17 @@ export class HotTargetEngine {
             });
           }
           currentStatus = TargetStates.PREDICTED;
+          // Prepare-ahead hint: "buy / prepare an un-upgraded gift now".
+          // Deduped 6h — this is an early warning, not the fire moment.
+          if (this.notifier && typeof this.notifier.notifyUser === 'function') {
+            try {
+              const p = this.notifier.notifyUser(target.user_id, 'TARGET_APPROACHING', {
+                target: { collection_id: target.collection_id, target_number: target.target_number },
+                next_expected: state.next_expected_number
+              }, { dedupKey: `near:${target.id}`, dedupMinutes: 360 });
+              if (p && typeof p.catch === 'function') await p.catch(() => {});
+            } catch { /* notification must NEVER break the upgrade flow */ }
+          }
         } else if (currentStatus === TargetStates.HOT_TARGET || currentStatus === 'HOT_TARGET') {
           if (this.targets) {
             await this.targets.applyTransition(target.id, TargetStates.PREDICTED, {

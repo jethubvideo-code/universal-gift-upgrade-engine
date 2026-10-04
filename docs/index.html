@@ -1,6 +1,9 @@
 <!DOCTYPE html>
 <html lang="ru">
 <head>
+<meta http-equiv="Cache-Control" content="no-store, no-cache, must-revalidate, max-age=0">
+<meta http-equiv="Pragma" content="no-cache">
+<meta http-equiv="Expires" content="0">
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
 <title>Gift Engine · Таргеты</title>
@@ -151,7 +154,7 @@ const DEEPLINK = 'https://t.me/lvlonebot?start=';
    without waiting for the engine workflows to rebuild state.json (5-15 min).
    state.json remains the source for titles/engine meta; live numbers win. */
 const LIVE_URL = 'https://jethubvideo-code.github.io/gifttracker-bot/gifts.json';
-const LIVE_POLL_MS = 20000;
+const LIVE_POLL_MS = 5000; // owner asked for per-second feel; 5s is the fastest sane rate against a static JSON file
 const tg = window.Telegram && window.Telegram.WebApp;
 if (tg) { tg.ready(); tg.expand(); if (tg.setHeaderColor) tg.setHeaderColor('#0b0a0e'); if (tg.setBackgroundColor) tg.setBackgroundColor('#0b0a0e'); }
 let COLS = [], cur = null, userHash = null, lastUpdate = null;

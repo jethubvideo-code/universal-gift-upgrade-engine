@@ -26,13 +26,33 @@ import { createStore, TABLES } from '../src/db.js';
 import { loadConfig } from '../src/core/config.js';
 import { createLogger } from '../src/core/logger.js';
 import { TargetManager } from '../src/engine/target-manager.js';
-import { BusinessConnectionManager } from '../src/telegram/botapi-business.js';
+import { BusinessConnectionManager, BotApiClient, BotApiBusinessBackend } from '../src/telegram/botapi-business.js';
+import { UpgradeExecutor } from '../src/telegram/upgrade-executor.js';
+import { scanOwnedGifts, autoActOnOwnedGifts } from '../src/engine/business-scanner.js';
+import { TelegramRateLimiter } from '../src/core/rate-limiter.js';
 
 const logger = createLogger('bot');
 const config = loadConfig();
 const store = createStore(config);
 const targets = new TargetManager(store);
 const businessConnections = new BusinessConnectionManager({ store });
+const botApiClient = new BotApiClient({ botToken: config.BOT_TOKEN });
+const limiter = new TelegramRateLimiter({});
+const businessBackend = new BotApiBusinessBackend({ client: botApiClient, limiter, logger });
+const businessExecutor = new UpgradeExecutor({
+  savedGifts: businessBackend, payments: businessBackend, limiter, metrics: null, logger,
+  mode: config.MODE
+});
+const notifier = {
+  notifyUser(userId, kind, payload) {
+    const u = store.find('users', { telegram_id: String(userId) })[0];
+    const chatId = u?.chat_id || userId;
+    const text = kind === 'OWNED_GIFT_FOUND' ? payload.text
+      : kind === 'UPGRADE_COMPLETED' ? `✅ Апгрейд выполнен: ${esc(payload.target?.collection_id || '')} #${payload.target?.target_number}`
+      : String(payload);
+    api('sendMessage', { chat_id: chatId, text }).catch(() => {});
+  }
+};
 
 const API = 'https://api.telegram.org';
 let offset = 0;
@@ -55,13 +75,17 @@ async function handle(update) {
     businessConnections.saveFromUpdate(bc);
     if (store.flushAll) store.flushAll();
     const rights = bc.rights || {};
-    const ok = rights.can_view_gifts_and_stars === true && rights.can_transfer_and_upgrade_gifts === true;
+    const missing = [];
+    if (rights.can_view_gifts_and_stars !== true) missing.push('👁 Просмотр подарков и звёзд (View gifts and Stars)');
+    if (rights.can_transfer_and_upgrade_gifts !== true) missing.push('⬆️ Передача и улучшение подарков (Transfer and upgrade gifts)');
+    const ok = missing.length === 0;
     try {
       await api('sendMessage', {
         chat_id: bc.user_chat_id ?? bc.user.id,
         text: ok
-          ? '🔗 Business connection saved. Targets with AUTO UPGRADE will now execute through your business account. Rights can be revoked anytime in Telegram Business → Bots.'
-          : '🔗 Business connection saved, but the bot lacks the required rights (View gifts and stars / Transfer and upgrade gifts). Grant them in Telegram Business → Bots.'
+          ? '🔗 Бизнес-подключение активно. Таргеты с АВТО-АПГРЕЙДОМ теперь будут выполняться через твой бизнес-аккаунт. Права можно отозвать в любой момент: Настройки → Telegram Business → Чат-боты.'
+          : '🔗 Бизнес-подключение сохранено, но не хватает прав:\n\n' + missing.map(m => '• ' + m).join('\n') +
+            '\n\nЧто сделать:\n1. Настройки → Telegram Business → Чат-боты\n2. Открой этого бота в списке\n3. Включи ОБЕ галочки выше (сейчас включена только часть)\n\nБез "Передача и улучшение подарков" апгрейд технически невозможен — бот физически не может нажать кнопку апгрейда без этого права.'
       });
     } catch { /* user chat may be unavailable — state is saved regardless */ }
     return;
@@ -117,7 +141,9 @@ async function handle(update) {
         '/targets — your targets\n' +
         '/auto <id> <max_stars> — enable AUTO UPGRADE\n' +
         '/state <collection> — counters \\(prediction\\)\n' +
-        '/linkbusiness — connect Telegram Business \\(enables AUTO UPGRADE\\)',
+        '/linkbusiness — connect Telegram Business \\(enables AUTO UPGRADE\\)\n' +
+        '/mygifts — scan your account for un\\-upgraded gifts right now\n' +
+        '/autoupgrade on <max\\_stars> — auto\\-upgrade ANY owned gift found, no number needed in advance',
       parse_mode: 'MarkdownV2',
       ...(kb ? { reply_markup: kb } : {})
     });
@@ -208,6 +234,63 @@ async function handle(update) {
     return api('sendMessage', { chat_id: chatId, text: `Target deleted.` });
   }
 
+  if (text === '/mygifts') {
+    const bcSession = businessConnections.getUserSession(userId);
+    if (!bcSession) {
+      await api('sendMessage', { chat_id: chatId, text: 'Бизнес-аккаунт не подключён. См. /linkbusiness.' });
+      return;
+    }
+    const rights = bcSession.rights || {};
+    if (rights.can_view_gifts_and_stars !== true) {
+      await api('sendMessage', { chat_id: chatId, text: 'Не выдано право "Просмотр подарков и звёзд". Открой Настройки → Telegram Business → Чат-боты и включи его этому боту.' });
+      return;
+    }
+    await api('sendMessage', { chat_id: chatId, text: '🔎 Сканирую твои подарки через бизнес-подключение…' });
+    try {
+      const scan = await scanOwnedGifts({ backend: businessBackend, userSession: bcSession, logger });
+      if (!scan.gifts.length) {
+        await api('sendMessage', { chat_id: chatId, text: 'Подарков не найдено (или право "Просмотр подарков и звёзд" не выдано — см. /linkbusiness).' });
+        return;
+      }
+      const lines = scan.gifts.map(({ gift: g, status, message }) =>
+        `\u2022 ${esc(g.slug || g.gift_id || '?')} #${g.gift_num || '?'} \u2014 *${status}*` + (message ? `\n  ${esc(message)}` : ''));
+      await api('sendMessage', {
+        chat_id: chatId,
+        text: `*Твои подарки* (${scan.total}, можно улучшить: ${scan.upgradable_count})` +
+          (scan.star_balance != null ? ` \u00b7 баланс ${scan.star_balance}\u2b50` : '') + `\n\n` + lines.join('\n') +
+          `\n\nЧтобы апгрейд срабатывал автоматически без ввода номера заранее: /autoupgrade on <макс_звёзд>`,
+        parse_mode: 'Markdown'
+      });
+    } catch (err) {
+      await api('sendMessage', { chat_id: chatId, text: `Сканирование не удалось: ${esc(err.message)}
+
+Чаще всего причина — не выданы оба права в Telegram Business → Чат-боты.` });
+    }
+    return;
+  }
+
+  const autoAll = /^\/autoupgrade\s+(on|off)(?:\s+(\d+))?$/.exec(text);
+  if (autoAll) {
+    const on = autoAll[1] === 'on';
+    if (on && !autoAll[2]) {
+      await api('sendMessage', { chat_id: chatId, text: 'Укажи лимит звёзд: /autoupgrade on 5000' });
+      return;
+    }
+    const existing = (store.find('business_settings', { user_id: userId }) || [])[0];
+    const row = { user_id: userId, auto_upgrade_all: on, max_upgrade_stars_all: on ? Number(autoAll[2]) : null, updated_at: new Date().toISOString() };
+    if (existing) store.update('business_settings', existing.id, row);
+    else store.insert('business_settings', { id: `bs-${userId}`, ...row });
+    if (store.flushAll) store.flushAll();
+    await api('sendMessage', {
+      chat_id: chatId,
+      text: on
+        ? `⚡ Авто-апгрейд ЛЮБОГО твоего подарка включён, лимит ${autoAll[2]}⭐ за штуку. Движок сам найдёт неулучшенные подарки через бизнес-подключение и улучшит их (режим: *${esc(config.MODE)}*).`
+        : '✋ Авто-апгрейд всех подарков выключен. Будут только уведомления.',
+      parse_mode: 'Markdown'
+    });
+    return;
+  }
+
   const stateCmd = /^\/state\s+(\S+)$/.exec(text);
   if (stateCmd) {
     const s = store.findAll('collection_state').find(x => x.collection_id === stateCmd[1]);
@@ -248,6 +331,34 @@ async function main() {
       await new Promise(r => setTimeout(r, 3000));
     }
   }
+
+  // Business account scan: for every connected account with full rights,
+  // scan owned gifts (match existing number-targets, act on wildcard
+  // auto-upgrade settings, notify on everything else). Runs once per bot
+  // cycle (GitHub Actions: every ~5 min via bot-poll.yml; persistent worker:
+  // every loop). This is what actually answers "how does it scan my
+  // account" — before this, nothing ever called getBusinessAccountGifts.
+  for (const bc of businessConnections.list()) {
+    if (bc.is_enabled === false) continue;
+    const rights = bc.rights || {};
+    if (rights.can_view_gifts_and_stars !== true) continue; // can't even read gifts
+    try {
+      const userSession = { session: bc.business_connection_id, rights };
+      const canExecute = rights.can_transfer_and_upgrade_gifts === true;
+      const report = await autoActOnOwnedGifts({
+        userId: bc.user_id, backend: businessBackend, userSession, store, targets,
+        executor: canExecute ? businessExecutor : null, notifier, logger
+      });
+      if (report.upgraded.length || report.notified.length) {
+        logger.info('Business scan result', {
+          user_id: bc.user_id, upgraded: report.upgraded.length, notified: report.notified.length
+        });
+      }
+    } catch (err) {
+      logger.warn('Business scan failed for user', { user_id: bc.user_id, error: err.message });
+    }
+  }
+
   if (store.flushAll) store.flushAll();
   logger.info('Bot cycle finished');
   process.exit(0);

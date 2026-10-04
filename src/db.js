@@ -7,6 +7,8 @@ export const TABLES = [
   'users',
   'telegram_sessions',
   'business_connections',
+  'business_settings',
+  'owned_gift_notifications',
   'gift_collections',
   'gifts',
   'targets',

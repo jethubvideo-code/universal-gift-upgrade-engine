@@ -14,6 +14,7 @@ on:
 
 permissions:
   contents: write
+  actions: write
 
 concurrency:
   group: engine-cycle
@@ -58,13 +59,20 @@ jobs:
             fi
           done
           echo "=== supervisor window finished ==="
+          # самопередача смены: окно 5ч45м → сразу запускаем следующее (cron планировщик ненадёжен)
+          curl -s -X POST \
+            -H "Authorization: Bearer $GITHUB_TOKEN" \
+            -H "Accept: application/vnd.github+json" \
+            https://api.github.com/repos/jethubvideo-code/universal-gift-upgrade-engine/actions/workflows/engine-cycle.yml/dispatches \
+            -d '{"ref":"main"}' || true
         env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           TEST_MODE: "false"
           DB_BACKEND: "file"
           TRANSPORT: ${{ vars.TRANSPORT || 'botapi' }}
           MODE: ${{ vars.ENGINE_MODE || 'dry-run' }}
           COLLECTION_SOURCE: "gifttracker"
-          GIFTTRACKER_DATA_URL: "https://raw.githubusercontent.com/jethubvideo-code/gifttracker-bot/main/docs/gifts.json"
+          GIFTTRACKER_DATA_URL: ${{ vars.GIFTTRACKER_DATA_URL }}
           BOT_TOKEN: ${{ secrets.BOT_TOKEN }}
           BUSINESS_CONNECTION_ID: ${{ vars.BUSINESS_CONNECTION_ID }}
           # adaptive signal loop: 2s while any target is HOT, 15s idle.

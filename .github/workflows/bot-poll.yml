@@ -1,50 +1,61 @@
 name: Bot poll
+# Постоянный поллинг-воркер (самозапуск): GitHub-планировщик cron для этого репо
+# перестал срабатывать 04.10 — бот замолкал на часы. Теперь воркер крутится 50 мин
+# и сам запускает себе замену через workflow_dispatch (GITHUB_TOKEN имеет права
+# actions:write ниже). Cron оставлен как дублирующий путь: если планировщик оживёт,
+# он просто подменит воркера (cancel-in-progress, состояние коммитится каждый цикл).
 on:
   schedule:
-    - cron: "*/2 * * * *" # short getUpdates cycle; commands + business_connection updates (fast: new targets reach the engine within minutes)
+    - cron: "*/15 * * * *"
   workflow_dispatch:
 
 permissions:
   contents: write
+  actions: write
 
-# getUpdates is exclusive: never two overlapping pollers.
+# getUpdates is exclusive: два поллера не пересекаются —
+# новый ран отменяет старого только при подмене по cron.
 concurrency:
   group: bot-poll
-  cancel-in-progress: false
+  cancel-in-progress: true
 
 jobs:
   poll:
     runs-on: ubuntu-latest
-    timeout-minutes: 5
+    timeout-minutes: 56
     steps:
       - uses: actions/checkout@v4
-      - name: Poll bot updates (one short cycle)
+      - name: Persistent poll worker (50 min + передача смены)
         run: |
+          git config user.name "upgrade-engine-bot"
+          git config user.email "actions@users.noreply.github.com"
           if [ -z "$BOT_TOKEN" ]; then
-            echo "vars.BOT_TOKEN not set yet — bot poll skipped (monitoring still runs via engine-cycle)"
+            echo "BOT_TOKEN not set — bot poll skipped (monitoring still runs via engine-cycle)"
             exit 0
           fi
-          node bot/bot.js
+          START=$(date +%s); END=$((START + 50*60))
+          while [ $(date +%s) -lt $END ]; do
+            node bot/bot.js || true
+            node scripts/build-site.js || true
+            git add data/state docs || true
+            if ! git diff --cached --quiet; then
+              git commit -m "bot: state + site update $(date -u +%FT%TZ)"
+              git pull --rebase -q -X theirs origin main || { sleep 10; git rebase --abort 2>/dev/null || true; git pull --rebase -q -X theirs origin main; }
+              git push || true
+            fi
+            sleep 2
+          done
+          echo "окно закрыто, передаю смену"
+          curl -s -X POST \
+            -H "Authorization: Bearer $GITHUB_TOKEN" \
+            -H "Accept: application/vnd.github+json" \
+            https://api.github.com/repos/jethubvideo-code/universal-gift-upgrade-engine/actions/workflows/bot-poll.yml/dispatches \
+            -d '{"ref":"main"}' || true
         env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           TEST_MODE: "false"
           DB_BACKEND: "file"
           TRANSPORT: "botapi"
           BOT_TOKEN: ${{ secrets.BOT_TOKEN }}
           MINIAPP_URL: ${{ vars.MINIAPP_URL }}
-          BOT_POLL_SECONDS: "50"
-      - name: Build static site (GitHub Pages)
-        run: node scripts/build-site.js
-        env:
-          DB_BACKEND: "file"
-      - name: Commit bot state (if changed)
-        run: |
-          git config user.name "upgrade-engine-bot"
-          git config user.email "actions@users.noreply.github.com"
-          git add data/state docs || true
-          if git diff --cached --quiet; then
-            echo "state unchanged"
-          else
-            git commit -m "bot: state + site update $(date -u +%FT%TZ)"
-            git pull --rebase -q -X theirs origin main || { sleep 10; git rebase --abort 2>/dev/null || true; git pull --rebase -q -X theirs origin main; }
-            git push
-          fi
+          BOT_POLL_SECONDS: "100"

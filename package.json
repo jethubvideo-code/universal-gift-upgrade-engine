@@ -11,8 +11,8 @@
     "start": "node src/index.js",
     "bot": "node bot/bot.js",
     "api": "node api/server.js",
-    "test": "node --test test/",
-    "test:perf": "node --test test/perf/",
+    "test": "node --test test/*.test.js",
+    "test:perf": "node --test test/perf/*.test.js",
     "check": "find src bot api test -name '*.js' -exec node --check {} +"
   },
   "dependencies": {},

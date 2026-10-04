@@ -15,6 +15,6 @@ jobs:
       - name: Syntax check
         run: find src bot api test -name '*.js' -exec node --check {} +
       - name: Unit + simulator tests
-        run: node --test test/
+        run: node --test test/*.test.js
       - name: Perf tests
-        run: node --test test/perf/
+        run: node --test test/perf/*.test.js

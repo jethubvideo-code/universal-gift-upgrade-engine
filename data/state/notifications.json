@@ -130,5 +130,16 @@
   "status": "PENDING",
   "created_at": "2026-10-04T14:56:43.815Z",
   "updated_at": "2026-10-04T14:56:43.815Z"
+ },
+ {
+  "id": "9859ebba-eb8a-46ed-97ef-d33592e2a0d6",
+  "user_id": "8396883978",
+  "chat_id": "8396883978",
+  "kind": "TARGET_HOT",
+  "payload_json": "{\"target\":{\"collection_id\":\"algorithmcup\",\"target_number\":166},\"next_expected\":166}",
+  "dedup_key": "hot:61e578f1-1d9f-4697-a7bc-69925dd844f7",
+  "status": "PENDING",
+  "created_at": "2026-10-04T15:26:44.092Z",
+  "updated_at": "2026-10-04T15:26:44.092Z"
  }
 ]

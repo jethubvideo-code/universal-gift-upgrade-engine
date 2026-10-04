@@ -1,0 +1,74 @@
+name: Engine Monitor
+
+# GITHUB-ONLY MODE: GitHub Actions is the "server". Each run performs one full
+# monitoring cycle, briefly polls the bot for user commands, publishes the
+# Mini App snapshot and commits the state files back to the repo — so the next
+# run resumes exactly where this one stopped (restart recovery on ephemeral runners).
+#
+# FREE TIER MATH (private repo: 2000 Actions min/month, billed per whole minute):
+#   */15 cron needs the repo to be PUBLIC (unlimited free minutes for public repos).
+#   For a PRIVATE repo change the cron below to '5 * * * *' (hourly ≈ 1440 min/mo)
+#   to stay inside the free quota — see docs/DEPLOYMENT.md.
+#
+# NOTE: GitHub disables scheduled workflows in a repo with no activity for 60 days;
+# the guardian keepalive below (docs/DEPLOYMENT.md) prevents that.
+
+on:
+  schedule:
+    - cron: '*/15 * * * *'
+  workflow_dispatch:
+
+concurrency:
+  group: engine-monitor
+  cancel-in-progress: false
+
+permissions:
+  contents: write
+
+jobs:
+  monitor:
+    runs-on: ubuntu-latest
+    timeout-minutes: 8
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 20
+
+      - name: Run engine cycle
+        env:
+          BOT_TOKEN: ${{ secrets.BOT_TOKEN }}
+          TG_API_ID: ${{ secrets.TG_API_ID }}
+          TG_API_HASH: ${{ secrets.TG_API_HASH }}
+          SESSION_ENCRYPTION_KEY: ${{ secrets.SESSION_ENCRYPTION_KEY }}
+          DB_BACKEND: file
+          DB_DIR: data/state
+          COLLECTION_SOURCE: ${{ vars.COLLECTION_SOURCE || 'gifttracker' }}
+          GIFTTRACKER_DATA_URL: ${{ vars.GIFTTRACKER_DATA_URL }}
+          GIFT_DATA_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          MINIAPP_URL: ${{ vars.MINIAPP_URL }}
+        run: node src/index.js --once
+
+      - name: Bot polling cycle (user commands)
+        env:
+          BOT_TOKEN: ${{ secrets.BOT_TOKEN }}
+          DB_BACKEND: file
+          DB_DIR: data/state
+          MINIAPP_URL: ${{ vars.MINIAPP_URL }}
+          COLLECTION_SOURCE: ${{ vars.COLLECTION_SOURCE || 'gifttracker' }}
+        run: BOT_POLL_SECONDS=30 node bot/bot.js
+
+      - name: Publish Mini App snapshot
+        env:
+          DB_BACKEND: file
+          DB_DIR: data/state
+        run: node src/actions/publish-snapshot.js
+
+      - name: Commit engine state
+        run: |
+          git config user.name "engine-bot"
+          git config user.email "engine-bot@users.noreply.github.com"
+          git add data/state docs/miniapp-data.json
+          git diff --cached --quiet && echo "No state changes" || git commit -m "engine: state update $(date -u +%FT%TZ)"
+          git push

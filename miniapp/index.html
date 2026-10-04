@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+  <meta name="theme-color" content="#0f1216">
+  <title>Gift Upgrade Engine</title>
+  <link rel="stylesheet" href="style.css">
+  <script src="https://telegram.org/js/telegram-web-app.js"></script>
+</head>
+<body>
+  <header class="topbar">
+    <div class="brand">🎁 Gift Upgrade Engine</div>
+    <div class="engine-state" id="engineState">…</div>
+  </header>
+
+  <nav class="tabs">
+    <button class="tab active" data-tab="targets">TARGETS</button>
+    <button class="tab" data-tab="gifts">MY GIFTS</button>
+    <button class="tab" data-tab="auto">AUTO UPGRADE</button>
+    <button class="tab" data-tab="history">HISTORY</button>
+    <button class="tab" data-tab="settings">SETTINGS</button>
+  </nav>
+
+  <main>
+    <!-- TARGETS -->
+    <section id="tab-targets" class="panel active">
+      <div id="hotBanner" class="hot-banner hidden"></div>
+      <div id="targetCards" class="cards"></div>
+      <p class="hint" id="targetsHint">Управление таргетами — через бота: <code>/add &lt;collection&gt; &lt;#N&gt;</code>. Работает с любой коллекцией и любым номером.</p>
+    </section>
+
+    <!-- MY GIFTS -->
+    <section id="tab-gifts" class="panel">
+      <div id="giftCards" class="cards"></div>
+      <p class="hint">Коллекции обнаруживаются динамически — новые появляются автоматически.</p>
+    </section>
+
+    <!-- AUTO UPGRADE -->
+    <section id="tab-auto" class="panel">
+      <div class="card">
+        <h3>⚡ AUTO UPGRADE</h3>
+        <p class="muted">Включается на каждый Target отдельно, с лимитом цены. Превышение лимита — статус <b>PRICE LIMIT_EXCEEDED</b>, ни одна звезда не списывается.</p>
+        <p class="muted">Бот: <code>/auto &lt;id&gt; &lt;max_stars&gt;</code> · <code>/manual &lt;id&gt;</code></p>
+      </div>
+      <div id="autoCards" class="cards"></div>
+    </section>
+
+    <!-- HISTORY -->
+    <section id="tab-history" class="panel">
+      <div id="historyList" class="history"></div>
+    </section>
+
+    <!-- SETTINGS -->
+    <section id="tab-settings" class="panel">
+      <div class="card">
+        <h3>⚙️ SETTINGS</h3>
+        <p class="muted">Все настройки приватности и лимитов — через бота. Здесь — состояние системы.</p>
+        <div id="metrics" class="metrics"></div>
+      </div>
+    </section>
+  </main>
+
+  <script src="app.js"></script>
+</body>
+</html>

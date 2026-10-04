@@ -53,7 +53,11 @@ async function main() {
   console.log('QR обновляется — если не сканируется, возьми последний.');
   console.log('==================================================================');
 
+  // GramJS reaches the QR flow only when the phoneNumber callback throws
+  // RESTART_AUTH_WITH_QR (see telegram/client/auth.js signInUser).
+  const qrRedirect = () => { const e = new Error('RESTART_AUTH_WITH_QR'); e.errorMessage = 'RESTART_AUTH_WITH_QR'; throw e; };
   await client.start({
+    phoneNumber: qrRedirect,
     qrCode: async ({ token, expires }) => {
       qrCount++;
       const url = `tg://login?token=${Buffer.from(token).toString('base64url')}`;

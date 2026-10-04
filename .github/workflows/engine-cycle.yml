@@ -1,7 +1,15 @@
 name: Engine cycle
+# CONTINUOUS MODE (public repo → free unlimited Actions minutes):
+# One run supervises the persistent engine for ~5h45m in 6-minute segments.
+# Inside each segment the engine polls gifttracker data at HOT_POLL_MS (2s)
+# whenever any target is HOT and POLL_INTERVAL_MS (15s) otherwise. A segment
+# restart re-reads freshly committed targets/sessions (so /add and /login
+# from the bot are picked up within minutes) and syncs state back to the repo
+# (notification dedup, upgrade jobs, collection counters). Cron every 6h =
+# 4 overlapping-free runs per day → 24/7 coverage with ~15min gaps.
 on:
   schedule:
-    - cron: "*/5 * * * *" # one full monitor cycle, state committed back (*/5: semi-automatic mode needs fast hot-target detection)
+    - cron: "0 */6 * * *"
   workflow_dispatch:
 
 permissions:
@@ -9,49 +17,61 @@ permissions:
 
 concurrency:
   group: engine-cycle
+  # NEVER cancel a live run mid-upgrade: the 15-min slack between a 345m run
+  # and the next 6h trigger makes overlap impossible anyway.
   cancel-in-progress: false
 
 jobs:
   cycle:
     runs-on: ubuntu-latest
-    timeout-minutes: 10
+    timeout-minutes: 360
     steps:
       - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 20
       - name: Install dependencies (GramJS for the MTProto transport)
         run: npm ci --no-audit --no-fund || npm install --no-audit --no-fund
-      - name: Run one engine cycle
-        run: node src/index.js --once
+      - name: Run continuous engine (~5h45m, 6-minute segments)
+        run: |
+          set -u
+          git config user.name "upgrade-engine-bot"
+          git config user.email "actions@users.noreply.github.com"
+          END=$(( $(date +%s) + 345*60 ))   # stop 15 min before the next cron run
+          SEGMENT=$(( 6*60 ))               # minutes: fast target pickup + fresh state per segment
+          while [ "$(date +%s)" -lt "$END" ]; do
+            echo "=== segment start $(date -u +%FT%TZ) ==="
+            git pull --rebase -q -X theirs origin main || { sleep 10; git rebase --abort 2>/dev/null || true; git pull --rebase -q -X theirs origin main; }
+            # graceful SIGTERM at segment end → engine.stop() flushes state
+            timeout --signal=TERM --kill-after=30 $SEGMENT node src/index.js || echo "engine exited ($?), supervisor restarts"
+            node scripts/build-site.js
+            git add data/state docs || true
+            if git diff --cached --quiet; then
+              echo "state unchanged"
+            else
+              git commit -m "engine: state + site update $(date -u +%FT%TZ)"
+              if ! git push; then
+                sleep 15
+                git pull --rebase -q -X theirs origin main || { git rebase --abort 2>/dev/null || true; git pull --rebase -q -X theirs origin main; }
+                git push || echo "push failed, state kept for next segment"
+              fi
+            fi
+          done
+          echo "=== supervisor window finished ==="
         env:
-          RUN_ONCE: "1"
           TEST_MODE: "false"
           DB_BACKEND: "file"
-          # Flip to full-auto MTProto with repo VARIABLES (no code change):
-          #   Settings → Secrets and variables → Actions → Variables:
-          #     TRANSPORT = mtproto   (after the QR login workflow succeeded)
-          #     ENGINE_MODE = live    (careful: real Star spending)
           TRANSPORT: ${{ vars.TRANSPORT || 'botapi' }}
           MODE: ${{ vars.ENGINE_MODE || 'dry-run' }}
           COLLECTION_SOURCE: "gifttracker"
           GIFTTRACKER_DATA_URL: "https://raw.githubusercontent.com/jethubvideo-code/gifttracker-bot/main/docs/gifts.json"
           BOT_TOKEN: ${{ secrets.BOT_TOKEN }}
           BUSINESS_CONNECTION_ID: ${{ vars.BUSINESS_CONNECTION_ID }}
+          # adaptive signal loop: 2s while any target is HOT, 15s idle.
+          # (source data refreshes ~1/min; cache-busting is in the fetcher)
+          POLL_INTERVAL_MS: "15000"
+          HOT_POLL_MS: "2000"
           # MTProto transport (used only when TRANSPORT=mtproto):
           TG_API_ID: ${{ secrets.TG_API_ID }}
           TG_API_HASH: ${{ secrets.TG_API_HASH }}
           SESSION_ENCRYPTION_KEY: ${{ secrets.SESSION_ENCRYPTION_KEY }}
-      - name: Build static site (GitHub Pages)
-        run: node scripts/build-site.js
-        env:
-          DB_BACKEND: "file"
-      - name: Commit engine state (if changed)
-        run: |
-          git config user.name "upgrade-engine-bot"
-          git config user.email "actions@users.noreply.github.com"
-          git add data/state docs || true
-          if git diff --cached --quiet; then
-            echo "state unchanged"
-          else
-            git commit -m "engine: state + site update $(date -u +%FT%TZ)"
-            git pull --rebase -q -X theirs origin main || { sleep 10; git rebase --abort 2>/dev/null || true; git pull --rebase -q -X theirs origin main; }
-            git push
-          fi

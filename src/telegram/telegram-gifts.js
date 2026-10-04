@@ -61,7 +61,13 @@ export class TelegramGiftsClient {
       headers.Authorization = `Bearer ${process.env.GIFT_DATA_TOKEN}`;
     }
     if (!this.fetchImpl) throw new EngineError(ErrorCodes.CONFIG_ERROR, 'No fetch implementation available');
-    const res = await this.fetchImpl(this.gifttrackerUrl, { headers });
+    // Cache-bust the raw.githubusercontent.com CDN (max-age=300): without this,
+    // every fetch inside a 5-minute window returns the SAME stale copy and
+    // fast polling (500ms-15s) is pointless. The query busts the Fastly key,
+    // so each poll sees the latest committed gifts.json (source updates ~1/min).
+    const bust = this.gifttrackerUrl.includes('?') ? '&' : '?';
+    const url = `${this.gifttrackerUrl}${bust}t=${Date.now()}`;
+    const res = await this.fetchImpl(url, { headers });
     if (!res.ok) throw new EngineError(ErrorCodes.NETWORK_ERROR, `gifttracker data ${res.status}`);
     const data = await res.json();
     const arr = Array.isArray(data) ? data : (data.gifts || data.collections || []);

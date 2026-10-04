@@ -1,7 +1,7 @@
 name: Bot poll
 on:
   schedule:
-    - cron: "*/5 * * * *" # short getUpdates cycle; commands + business_connection updates
+    - cron: "*/2 * * * *" # short getUpdates cycle; commands + business_connection updates (fast: new targets reach the engine within minutes)
   workflow_dispatch:
 
 permissions:

@@ -38,5 +38,15 @@
   "details_json": "{\"priority\":1,\"next_expected\":166}",
   "created_at": "2026-10-04T08:43:17.142Z",
   "updated_at": "2026-10-04T08:43:17.142Z"
+ },
+ {
+  "id": "54203e42-c632-4e13-87cb-b0cceb6c1e31",
+  "target_id": "61e578f1-1d9f-4697-a7bc-69925dd844f7",
+  "from_status": "HOT_TARGET",
+  "to_status": "WATCHING",
+  "reason": "Target is far from next expected number",
+  "details_json": "{\"priority\":3,\"next_expected\":188}",
+  "created_at": "2026-10-04T16:46:48.586Z",
+  "updated_at": "2026-10-04T16:46:48.586Z"
  }
 ]

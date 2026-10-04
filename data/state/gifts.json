@@ -4,11 +4,11 @@
   "gift_id": "algorithmcup",
   "collection_id": "algorithmcup",
   "slug": "algorithmcup",
-  "name": "algorithmcup",
+  "name": "Algorithm Cups",
   "total_supply": 188,
-  "upgraded_count": 165,
+  "upgraded_count": 188,
   "rarity": null,
-  "updated_at": "2026-10-04T16:40:18.465Z",
+  "updated_at": "2026-10-04T16:46:48.553Z",
   "created_at": "2026-10-04T06:51:32.880Z"
  },
  {
@@ -16,11 +16,11 @@
   "gift_id": "ArtisanBrick",
   "collection_id": "ArtisanBrick",
   "slug": "ArtisanBrick",
-  "name": "ArtisanBrick",
+  "name": "Artisan Bricks",
   "total_supply": 6852,
   "upgraded_count": 6296,
   "rarity": null,
-  "updated_at": "2026-10-04T16:40:18.466Z",
+  "updated_at": "2026-10-04T16:46:48.553Z",
   "created_at": "2026-10-04T06:51:32.880Z"
  },
  {
@@ -28,11 +28,11 @@
   "gift_id": "AstralShard",
   "collection_id": "AstralShard",
   "slug": "AstralShard",
-  "name": "AstralShard",
+  "name": "Astral Shards",
   "total_supply": 6196,
   "upgraded_count": 5700,
   "rarity": null,
-  "updated_at": "2026-10-04T16:40:18.466Z",
+  "updated_at": "2026-10-04T16:46:48.553Z",
   "created_at": "2026-10-04T06:51:32.880Z"
  },
  {
@@ -40,11 +40,11 @@
   "gift_id": "BDayCandle",
   "collection_id": "BDayCandle",
   "slug": "BDayCandle",
-  "name": "BDayCandle",
+  "name": "B-Day Candles",
   "total_supply": 307521,
   "upgraded_count": 271444,
   "rarity": null,
-  "updated_at": "2026-10-04T16:40:18.466Z",
+  "updated_at": "2026-10-04T16:46:48.553Z",
   "created_at": "2026-10-04T06:51:32.880Z"
  },
  {
@@ -52,11 +52,11 @@
   "gift_id": "BerryBox",
   "collection_id": "BerryBox",
   "slug": "BerryBox",
-  "name": "BerryBox",
+  "name": "Berry Boxes",
   "total_supply": 66580,
   "upgraded_count": 53342,
   "rarity": null,
-  "updated_at": "2026-10-04T16:40:18.466Z",
+  "updated_at": "2026-10-04T16:46:48.553Z",
   "created_at": "2026-10-04T06:51:32.880Z"
  },
  {
@@ -64,11 +64,11 @@
   "gift_id": "BigYear",
   "collection_id": "BigYear",
   "slug": "BigYear",
-  "name": "BigYear",
+  "name": "Big Years",
   "total_supply": 101415,
   "upgraded_count": 78008,
   "rarity": null,
-  "updated_at": "2026-10-04T16:40:18.466Z",
+  "updated_at": "2026-10-04T16:46:48.553Z",
   "created_at": "2026-10-04T06:51:32.880Z"
  },
  {
@@ -76,11 +76,11 @@
   "gift_id": "BlingBinky",
   "collection_id": "BlingBinky",
   "slug": "BlingBinky",
-  "name": "BlingBinky",
+  "name": "Bling Binkies",
   "total_supply": 9990,
   "upgraded_count": 9426,
   "rarity": null,
-  "updated_at": "2026-10-04T16:40:18.466Z",
+  "updated_at": "2026-10-04T16:46:48.553Z",
   "created_at": "2026-10-04T06:51:32.880Z"
  },
  {
@@ -88,11 +88,11 @@
   "gift_id": "BondedRing",
   "collection_id": "BondedRing",
   "slug": "BondedRing",
-  "name": "BondedRing",
+  "name": "Bonded Rings",
   "total_supply": 8130,
   "upgraded_count": 7842,
   "rarity": null,
-  "updated_at": "2026-10-04T16:40:18.467Z",
+  "updated_at": "2026-10-04T16:46:48.554Z",
   "created_at": "2026-10-04T06:51:32.880Z"
  },
  {
@@ -100,11 +100,11 @@
   "gift_id": "BowTie",
   "collection_id": "BowTie",
   "slug": "BowTie",
-  "name": "BowTie",
+  "name": "Bow Ties",
   "total_supply": 65687,
   "upgraded_count": 56477,
   "rarity": null,
-  "updated_at": "2026-10-04T16:40:18.467Z",
+  "updated_at": "2026-10-04T16:46:48.554Z",
   "created_at": "2026-10-04T06:51:32.880Z"
  },
  {
@@ -112,11 +112,11 @@
   "gift_id": "BunnyMuffin",
   "collection_id": "BunnyMuffin",
   "slug": "BunnyMuffin",
-  "name": "BunnyMuffin",
+  "name": "Bunny Muffins",
   "total_supply": 66655,
   "upgraded_count": 54369,
   "rarity": null,
-  "updated_at": "2026-10-04T16:40:18.467Z",
+  "updated_at": "2026-10-04T16:46:48.554Z",
   "created_at": "2026-10-04T06:51:32.881Z"
  },
  {
@@ -124,11 +124,11 @@
   "gift_id": "CandyCane",
   "collection_id": "CandyCane",
   "slug": "CandyCane",
-  "name": "CandyCane",
+  "name": "Candy Canes",
   "total_supply": 320622,
-  "upgraded_count": 229149,
+  "upgraded_count": 229150,
   "rarity": null,
-  "updated_at": "2026-10-04T16:40:18.467Z",
+  "updated_at": "2026-10-04T16:46:48.554Z",
   "created_at": "2026-10-04T06:51:32.881Z"
  },
  {
@@ -136,11 +136,11 @@
   "gift_id": "ChillFlame",
   "collection_id": "ChillFlame",
   "slug": "ChillFlame",
-  "name": "ChillFlame",
+  "name": "Chill Flames",
   "total_supply": 482271,
   "upgraded_count": 445735,
   "rarity": null,
-  "updated_at": "2026-10-04T16:40:18.467Z",
+  "updated_at": "2026-10-04T16:46:48.554Z",
   "created_at": "2026-10-04T06:51:32.881Z"
  },
  {
@@ -148,11 +148,11 @@
   "gift_id": "CloverPin",
   "collection_id": "CloverPin",
   "slug": "CloverPin",
-  "name": "CloverPin",
+  "name": "Clover Pins",
   "total_supply": 270970,
   "upgraded_count": 234517,
   "rarity": null,
-  "updated_at": "2026-10-04T16:40:18.468Z",
+  "updated_at": "2026-10-04T16:46:48.554Z",
   "created_at": "2026-10-04T06:51:32.881Z"
  },
  {
@@ -160,11 +160,11 @@
   "gift_id": "CookieHeart",
   "collection_id": "CookieHeart",
   "slug": "CookieHeart",
-  "name": "CookieHeart",
+  "name": "Cookie Hearts",
   "total_supply": 264486,
   "upgraded_count": 199703,
   "rarity": null,
-  "updated_at": "2026-10-04T16:40:18.468Z",
+  "updated_at": "2026-10-04T16:46:48.554Z",
   "created_at": "2026-10-04T06:51:32.887Z"
  },
  {
@@ -172,11 +172,11 @@
   "gift_id": "CrystalBall",
   "collection_id": "CrystalBall",
   "slug": "CrystalBall",
-  "name": "CrystalBall",
+  "name": "Crystal Balls",
   "total_supply": 27732,
   "upgraded_count": 26778,
   "rarity": null,
-  "updated_at": "2026-10-04T16:40:18.468Z",
+  "updated_at": "2026-10-04T16:46:48.554Z",
   "created_at": "2026-10-04T06:51:32.887Z"
  },
  {
@@ -184,11 +184,11 @@
   "gift_id": "CupidCharm",
   "collection_id": "CupidCharm",
   "slug": "CupidCharm",
-  "name": "CupidCharm",
+  "name": "Cupid Charms",
   "total_supply": 33112,
   "upgraded_count": 30370,
   "rarity": null,
-  "updated_at": "2026-10-04T16:40:18.468Z",
+  "updated_at": "2026-10-04T16:46:48.554Z",
   "created_at": "2026-10-04T06:51:32.887Z"
  },
  {
@@ -196,11 +196,11 @@
   "gift_id": "DeskCalendar",
   "collection_id": "DeskCalendar",
   "slug": "DeskCalendar",
-  "name": "DeskCalendar",
-  "total_supply": 293028,
-  "upgraded_count": 266133,
+  "name": "Desk Calendars",
+  "total_supply": 293053,
+  "upgraded_count": 278882,
   "rarity": null,
-  "updated_at": "2026-10-04T16:40:18.468Z",
+  "updated_at": "2026-10-04T16:46:48.554Z",
   "created_at": "2026-10-04T06:51:32.887Z"
  },
  {
@@ -212,7 +212,7 @@
   "total_supply": 32924,
   "upgraded_count": 32299,
   "rarity": null,
-  "updated_at": "2026-10-04T16:40:18.468Z",
+  "updated_at": "2026-10-04T16:46:48.554Z",
   "created_at": "2026-10-04T06:51:32.887Z"
  },
  {
@@ -220,11 +220,11 @@
   "gift_id": "DurovsCap",
   "collection_id": "DurovsCap",
   "slug": "DurovsCap",
-  "name": "DurovsCap",
+  "name": "Durov’s Caps",
   "total_supply": 4774,
   "upgraded_count": 4710,
   "rarity": null,
-  "updated_at": "2026-10-04T16:40:18.468Z",
+  "updated_at": "2026-10-04T16:46:48.555Z",
   "created_at": "2026-10-04T06:51:32.887Z"
  },
  {
@@ -232,11 +232,11 @@
   "gift_id": "DurovsGlasses",
   "collection_id": "DurovsGlasses",
   "slug": "DurovsGlasses",
-  "name": "DurovsGlasses",
+  "name": "Durov’s Glasses",
   "total_supply": 4982,
   "upgraded_count": 3770,
   "rarity": null,
-  "updated_at": "2026-10-04T16:40:18.469Z",
+  "updated_at": "2026-10-04T16:46:48.555Z",
   "created_at": "2026-10-04T06:51:32.887Z"
  },
  {
@@ -244,11 +244,11 @@
   "gift_id": "EasterEgg",
   "collection_id": "EasterEgg",
   "slug": "EasterEgg",
-  "name": "EasterEgg",
+  "name": "Easter Eggs",
   "total_supply": 173176,
   "upgraded_count": 163954,
   "rarity": null,
-  "updated_at": "2026-10-04T16:40:18.469Z",
+  "updated_at": "2026-10-04T16:46:48.555Z",
   "created_at": "2026-10-04T06:51:32.887Z"
  },
  {
@@ -256,11 +256,11 @@
   "gift_id": "ElectricSkull",
   "collection_id": "ElectricSkull",
   "slug": "ElectricSkull",
-  "name": "ElectricSkull",
+  "name": "Electric Skulls",
   "total_supply": 9407,
   "upgraded_count": 9234,
   "rarity": null,
-  "updated_at": "2026-10-04T16:40:18.469Z",
+  "updated_at": "2026-10-04T16:46:48.555Z",
   "created_at": "2026-10-04T06:51:32.887Z"
  },
  {
@@ -272,7 +272,7 @@
   "total_supply": 37640,
   "upgraded_count": 32032,
   "rarity": null,
-  "updated_at": "2026-10-04T16:40:18.469Z",
+  "updated_at": "2026-10-04T16:46:48.555Z",
   "created_at": "2026-10-04T06:51:32.887Z"
  },
  {
@@ -280,11 +280,11 @@
   "gift_id": "EternalCandle",
   "collection_id": "EternalCandle",
   "slug": "EternalCandle",
-  "name": "EternalCandle",
+  "name": "Eternal Candles",
   "total_supply": 46590,
   "upgraded_count": 45173,
   "rarity": null,
-  "updated_at": "2026-10-04T16:40:18.469Z",
+  "updated_at": "2026-10-04T16:46:48.555Z",
   "created_at": "2026-10-04T06:51:32.887Z"
  },
  {
@@ -292,11 +292,11 @@
   "gift_id": "EvilEye",
   "collection_id": "EvilEye",
   "slug": "EvilEye",
-  "name": "EvilEye",
+  "name": "Evil Eyes",
   "total_supply": 85204,
   "upgraded_count": 74592,
   "rarity": null,
-  "updated_at": "2026-10-04T16:40:18.470Z",
+  "updated_at": "2026-10-04T16:46:48.555Z",
   "created_at": "2026-10-04T06:51:32.887Z"
  },
  {
@@ -304,11 +304,11 @@
   "gift_id": "FaithAmulet",
   "collection_id": "FaithAmulet",
   "slug": "FaithAmulet",
-  "name": "FaithAmulet",
+  "name": "Faith Amulets",
   "total_supply": 172784,
   "upgraded_count": 142013,
   "rarity": null,
-  "updated_at": "2026-10-04T16:40:18.470Z",
+  "updated_at": "2026-10-04T16:46:48.558Z",
   "created_at": "2026-10-04T06:51:32.888Z"
  },
  {
@@ -316,11 +316,11 @@
   "gift_id": "FinePen",
   "collection_id": "FinePen",
   "slug": "FinePen",
-  "name": "FinePen",
+  "name": "Fine Pens",
   "total_supply": 49529,
   "upgraded_count": 36979,
   "rarity": null,
-  "updated_at": "2026-10-04T16:40:18.470Z",
+  "updated_at": "2026-10-04T16:46:48.558Z",
   "created_at": "2026-10-04T06:51:32.888Z"
  },
  {
@@ -332,7 +332,7 @@
   "total_supply": 25916,
   "upgraded_count": 24850,
   "rarity": null,
-  "updated_at": "2026-10-04T16:40:18.470Z",
+  "updated_at": "2026-10-04T16:46:48.558Z",
   "created_at": "2026-10-04T06:51:32.888Z"
  },
  {
@@ -340,11 +340,11 @@
   "gift_id": "FreshSocks",
   "collection_id": "FreshSocks",
   "slug": "FreshSocks",
-  "name": "FreshSocks",
+  "name": "Fresh Socks",
   "total_supply": 200509,
   "upgraded_count": 165973,
   "rarity": null,
-  "updated_at": "2026-10-04T16:40:18.470Z",
+  "updated_at": "2026-10-04T16:46:48.558Z",
   "created_at": "2026-10-04T06:51:32.888Z"
  },
  {
@@ -352,11 +352,11 @@
   "gift_id": "GemSignet",
   "collection_id": "GemSignet",
   "slug": "GemSignet",
-  "name": "GemSignet",
+  "name": "Gem Signets",
   "total_supply": 6962,
   "upgraded_count": 6257,
   "rarity": null,
-  "updated_at": "2026-10-04T16:40:18.470Z",
+  "updated_at": "2026-10-04T16:46:48.558Z",
   "created_at": "2026-10-04T06:51:32.888Z"
  },
  {
@@ -364,11 +364,11 @@
   "gift_id": "GenieLamp",
   "collection_id": "GenieLamp",
   "slug": "GenieLamp",
-  "name": "GenieLamp",
+  "name": "Genie Lamps",
   "total_supply": 7666,
   "upgraded_count": 6600,
   "rarity": null,
-  "updated_at": "2026-10-04T16:40:18.470Z",
+  "updated_at": "2026-10-04T16:46:48.558Z",
   "created_at": "2026-10-04T06:51:32.888Z"
  },
  {
@@ -376,11 +376,11 @@
   "gift_id": "GingerCookie",
   "collection_id": "GingerCookie",
   "slug": "GingerCookie",
-  "name": "GingerCookie",
+  "name": "Ginger Cookies",
   "total_supply": 188888,
   "upgraded_count": 151430,
   "rarity": null,
-  "updated_at": "2026-10-04T16:40:18.471Z",
+  "updated_at": "2026-10-04T16:46:48.558Z",
   "created_at": "2026-10-04T06:51:32.888Z"
  },
  {
@@ -388,11 +388,11 @@
   "gift_id": "HangingStar",
   "collection_id": "HangingStar",
   "slug": "HangingStar",
-  "name": "HangingStar",
+  "name": "Hanging Stars",
   "total_supply": 58118,
   "upgraded_count": 47332,
   "rarity": null,
-  "updated_at": "2026-10-04T16:40:18.471Z",
+  "updated_at": "2026-10-04T16:46:48.558Z",
   "created_at": "2026-10-04T06:51:32.888Z"
  },
  {
@@ -400,11 +400,11 @@
   "gift_id": "HappyBrownie",
   "collection_id": "HappyBrownie",
   "slug": "HappyBrownie",
-  "name": "HappyBrownie",
+  "name": "Happy Brownies",
   "total_supply": 264231,
   "upgraded_count": 226736,
   "rarity": null,
-  "updated_at": "2026-10-04T16:40:18.471Z",
+  "updated_at": "2026-10-04T16:46:48.558Z",
   "created_at": "2026-10-04T06:51:32.888Z"
  },
  {
@@ -412,11 +412,11 @@
   "gift_id": "HeartLocket",
   "collection_id": "HeartLocket",
   "slug": "HeartLocket",
-  "name": "HeartLocket",
+  "name": "Heart Lockets",
   "total_supply": 1973,
   "upgraded_count": 1950,
   "rarity": null,
-  "updated_at": "2026-10-04T16:40:18.471Z",
+  "updated_at": "2026-10-04T16:46:48.558Z",
   "created_at": "2026-10-04T06:51:32.900Z"
  },
  {
@@ -424,11 +424,11 @@
   "gift_id": "HeroicHelmet",
   "collection_id": "HeroicHelmet",
   "slug": "HeroicHelmet",
-  "name": "HeroicHelmet",
+  "name": "Heroic Helmets",
   "total_supply": 3794,
   "upgraded_count": 3439,
   "rarity": null,
-  "updated_at": "2026-10-04T16:40:18.471Z",
+  "updated_at": "2026-10-04T16:46:48.558Z",
   "created_at": "2026-10-04T06:51:32.900Z"
  },
  {
@@ -436,11 +436,11 @@
   "gift_id": "HexPot",
   "collection_id": "HexPot",
   "slug": "HexPot",
-  "name": "HexPot",
+  "name": "Hex Pots",
   "total_supply": 69837,
   "upgraded_count": 56944,
   "rarity": null,
-  "updated_at": "2026-10-04T16:40:18.471Z",
+  "updated_at": "2026-10-04T16:46:48.558Z",
   "created_at": "2026-10-04T06:51:32.901Z"
  },
  {
@@ -448,11 +448,11 @@
   "gift_id": "HolidayDrink",
   "collection_id": "HolidayDrink",
   "slug": "HolidayDrink",
-  "name": "HolidayDrink",
+  "name": "Holiday Drinks",
   "total_supply": 120989,
   "upgraded_count": 89897,
   "rarity": null,
-  "updated_at": "2026-10-04T16:40:18.475Z",
+  "updated_at": "2026-10-04T16:46:48.559Z",
   "created_at": "2026-10-04T06:51:32.931Z"
  },
  {
@@ -460,11 +460,11 @@
   "gift_id": "HomemadeCake",
   "collection_id": "HomemadeCake",
   "slug": "HomemadeCake",
-  "name": "HomemadeCake",
+  "name": "Homemade Cakes",
   "total_supply": 199482,
   "upgraded_count": 180527,
   "rarity": null,
-  "updated_at": "2026-10-04T16:40:18.475Z",
+  "updated_at": "2026-10-04T16:46:48.559Z",
   "created_at": "2026-10-04T06:51:32.931Z"
  },
  {
@@ -472,11 +472,11 @@
   "gift_id": "HypnoLollipop",
   "collection_id": "HypnoLollipop",
   "slug": "HypnoLollipop",
-  "name": "HypnoLollipop",
+  "name": "Hypno Lollipops",
   "total_supply": 116639,
   "upgraded_count": 84008,
   "rarity": null,
-  "updated_at": "2026-10-04T16:40:18.475Z",
+  "updated_at": "2026-10-04T16:46:48.559Z",
   "created_at": "2026-10-04T06:51:32.931Z"
  },
  {
@@ -484,11 +484,11 @@
   "gift_id": "IceCream",
   "collection_id": "IceCream",
   "slug": "IceCream",
-  "name": "IceCream",
+  "name": "Ice Creams",
   "total_supply": 342255,
   "upgraded_count": 328650,
   "rarity": null,
-  "updated_at": "2026-10-04T16:40:18.475Z",
+  "updated_at": "2026-10-04T16:46:48.559Z",
   "created_at": "2026-10-04T06:51:32.931Z"
  },
  {
@@ -496,11 +496,11 @@
   "gift_id": "InputKey",
   "collection_id": "InputKey",
   "slug": "InputKey",
-  "name": "InputKey",
+  "name": "Input Keys",
   "total_supply": 159750,
-  "upgraded_count": 135014,
+  "upgraded_count": 135015,
   "rarity": null,
-  "updated_at": "2026-10-04T16:40:18.475Z",
+  "updated_at": "2026-10-04T16:46:48.559Z",
   "created_at": "2026-10-04T06:51:32.931Z"
  },
  {
@@ -508,11 +508,11 @@
   "gift_id": "InstantRamen",
   "collection_id": "InstantRamen",
   "slug": "InstantRamen",
-  "name": "InstantRamen",
+  "name": "Instant Ramens",
   "total_supply": 457382,
   "upgraded_count": 389725,
   "rarity": null,
-  "updated_at": "2026-10-04T16:40:18.475Z",
+  "updated_at": "2026-10-04T16:46:48.559Z",
   "created_at": "2026-10-04T06:51:32.931Z"
  },
  {
@@ -520,11 +520,11 @@
   "gift_id": "intelligencecup",
   "collection_id": "intelligencecup",
   "slug": "intelligencecup",
-  "name": "intelligencecup",
+  "name": "Intelligence Cups",
   "total_supply": 220,
-  "upgraded_count": 113,
+  "upgraded_count": 0,
   "rarity": null,
-  "updated_at": "2026-10-04T16:40:18.476Z",
+  "updated_at": "2026-10-04T16:46:48.559Z",
   "created_at": "2026-10-04T06:51:32.932Z"
  },
  {
@@ -532,11 +532,11 @@
   "gift_id": "IonGem",
   "collection_id": "IonGem",
   "slug": "IonGem",
-  "name": "IonGem",
+  "name": "Ion Gems",
   "total_supply": 4692,
   "upgraded_count": 4535,
   "rarity": null,
-  "updated_at": "2026-10-04T16:40:18.476Z",
+  "updated_at": "2026-10-04T16:46:48.559Z",
   "created_at": "2026-10-04T06:51:32.932Z"
  },
  {
@@ -548,7 +548,7 @@
   "total_supply": 25719,
   "upgraded_count": 20824,
   "rarity": null,
-  "updated_at": "2026-10-04T16:40:18.476Z",
+  "updated_at": "2026-10-04T16:46:48.559Z",
   "created_at": "2026-10-04T06:51:32.932Z"
  },
  {
@@ -556,11 +556,11 @@
   "gift_id": "JackInTheBox",
   "collection_id": "JackInTheBox",
   "slug": "JackInTheBox",
-  "name": "JackInTheBox",
+  "name": "Jacks-in-the-Box",
   "total_supply": 97345,
   "upgraded_count": 96238,
   "rarity": null,
-  "updated_at": "2026-10-04T16:40:18.476Z",
+  "updated_at": "2026-10-04T16:46:48.559Z",
   "created_at": "2026-10-04T06:51:32.935Z"
  },
  {
@@ -568,11 +568,11 @@
   "gift_id": "JellyBunny",
   "collection_id": "JellyBunny",
   "slug": "JellyBunny",
-  "name": "JellyBunny",
+  "name": "Jelly Bunnies",
   "total_supply": 129350,
   "upgraded_count": 108122,
   "rarity": null,
-  "updated_at": "2026-10-04T16:40:18.476Z",
+  "updated_at": "2026-10-04T16:46:48.559Z",
   "created_at": "2026-10-04T06:51:32.935Z"
  },
  {
@@ -580,11 +580,11 @@
   "gift_id": "JesterHat",
   "collection_id": "JesterHat",
   "slug": "JesterHat",
-  "name": "JesterHat",
+  "name": "Jester Hats",
   "total_supply": 190222,
-  "upgraded_count": 143642,
+  "upgraded_count": 143643,
   "rarity": null,
-  "updated_at": "2026-10-04T16:40:18.476Z",
+  "updated_at": "2026-10-04T16:46:48.559Z",
   "created_at": "2026-10-04T06:51:32.935Z"
  },
  {
@@ -593,10 +593,10 @@
   "collection_id": "jinglebells",
   "slug": "jinglebells",
   "name": "Jingle Bells",
-  "total_supply": 100994,
-  "upgraded_count": 70414,
+  "total_supply": 100999,
+  "upgraded_count": 89056,
   "rarity": null,
-  "updated_at": "2026-10-04T16:40:18.477Z",
+  "updated_at": "2026-10-04T16:46:48.559Z",
   "created_at": "2026-10-04T06:51:32.935Z"
  },
  {
@@ -604,11 +604,11 @@
   "gift_id": "JollyChimp",
   "collection_id": "JollyChimp",
   "slug": "JollyChimp",
-  "name": "JollyChimp",
+  "name": "Jolly Chimps",
   "total_supply": 132155,
   "upgraded_count": 117965,
   "rarity": null,
-  "updated_at": "2026-10-04T16:40:18.477Z",
+  "updated_at": "2026-10-04T16:46:48.560Z",
   "created_at": "2026-10-04T06:51:32.935Z"
  },
  {
@@ -616,11 +616,11 @@
   "gift_id": "JoyfulBundle",
   "collection_id": "JoyfulBundle",
   "slug": "JoyfulBundle",
-  "name": "JoyfulBundle",
+  "name": "Joyful Bundles",
   "total_supply": 114092,
   "upgraded_count": 84620,
   "rarity": null,
-  "updated_at": "2026-10-04T16:40:18.477Z",
+  "updated_at": "2026-10-04T16:46:48.560Z",
   "created_at": "2026-10-04T06:51:32.935Z"
  },
  {
@@ -628,11 +628,11 @@
   "gift_id": "KhabibsPapakha",
   "collection_id": "KhabibsPapakha",
   "slug": "KhabibsPapakha",
-  "name": "KhabibsPapakha",
+  "name": "Khabib’s Papakhas",
   "total_supply": 29000,
-  "upgraded_count": 28660,
+  "upgraded_count": 29000,
   "rarity": null,
-  "updated_at": "2026-10-04T16:40:18.477Z",
+  "updated_at": "2026-10-04T16:46:48.560Z",
   "created_at": "2026-10-04T06:51:32.936Z"
  },
  {
@@ -640,11 +640,11 @@
   "gift_id": "KissedFrog",
   "collection_id": "KissedFrog",
   "slug": "KissedFrog",
-  "name": "KissedFrog",
+  "name": "Kissed Frogs",
   "total_supply": 14278,
   "upgraded_count": 14087,
   "rarity": null,
-  "updated_at": "2026-10-04T16:40:18.477Z",
+  "updated_at": "2026-10-04T16:46:48.560Z",
   "created_at": "2026-10-04T06:51:32.940Z"
  },
  {
@@ -652,11 +652,11 @@
   "gift_id": "LibertyFigure",
   "collection_id": "LibertyFigure",
   "slug": "LibertyFigure",
-  "name": "LibertyFigure",
+  "name": "Liberty Figures",
   "total_supply": 295480,
   "upgraded_count": 264650,
   "rarity": null,
-  "updated_at": "2026-10-04T16:40:18.477Z",
+  "updated_at": "2026-10-04T16:46:48.560Z",
   "created_at": "2026-10-04T06:51:32.940Z"
  },
  {
@@ -664,11 +664,11 @@
   "gift_id": "LightSword",
   "collection_id": "LightSword",
   "slug": "LightSword",
-  "name": "LightSword",
+  "name": "Light Swords",
   "total_supply": 131222,
   "upgraded_count": 125255,
   "rarity": null,
-  "updated_at": "2026-10-04T16:40:18.477Z",
+  "updated_at": "2026-10-04T16:46:48.560Z",
   "created_at": "2026-10-04T06:51:32.940Z"
  },
  {
@@ -676,11 +676,11 @@
   "gift_id": "LolPop",
   "collection_id": "LolPop",
   "slug": "LolPop",
-  "name": "LolPop",
+  "name": "Lol Pops",
   "total_supply": 468745,
   "upgraded_count": 434579,
   "rarity": null,
-  "updated_at": "2026-10-04T16:40:18.477Z",
+  "updated_at": "2026-10-04T16:46:48.560Z",
   "created_at": "2026-10-04T06:51:32.940Z"
  },
  {
@@ -688,11 +688,11 @@
   "gift_id": "LootBag",
   "collection_id": "LootBag",
   "slug": "LootBag",
-  "name": "LootBag",
+  "name": "Loot Bags",
   "total_supply": 14489,
   "upgraded_count": 14433,
   "rarity": null,
-  "updated_at": "2026-10-04T16:40:18.477Z",
+  "updated_at": "2026-10-04T16:46:48.561Z",
   "created_at": "2026-10-04T06:51:32.941Z"
  },
  {
@@ -704,7 +704,7 @@
   "total_supply": 30296,
   "upgraded_count": 24552,
   "rarity": null,
-  "updated_at": "2026-10-04T16:40:18.478Z",
+  "updated_at": "2026-10-04T16:46:48.561Z",
   "created_at": "2026-10-04T06:51:32.941Z"
  },
  {
@@ -712,11 +712,11 @@
   "gift_id": "LovePotion",
   "collection_id": "LovePotion",
   "slug": "LovePotion",
-  "name": "LovePotion",
+  "name": "Love Potions",
   "total_supply": 30412,
   "upgraded_count": 29185,
   "rarity": null,
-  "updated_at": "2026-10-04T16:40:18.478Z",
+  "updated_at": "2026-10-04T16:46:48.561Z",
   "created_at": "2026-10-04T06:51:32.941Z"
  },
  {
@@ -724,11 +724,11 @@
   "gift_id": "LowRider",
   "collection_id": "LowRider",
   "slug": "LowRider",
-  "name": "LowRider",
+  "name": "Low Riders",
   "total_supply": 23950,
   "upgraded_count": 23486,
   "rarity": null,
-  "updated_at": "2026-10-04T16:40:18.478Z",
+  "updated_at": "2026-10-04T16:46:48.561Z",
   "created_at": "2026-10-04T06:51:32.941Z"
  },
  {
@@ -736,11 +736,11 @@
   "gift_id": "LunarSnake",
   "collection_id": "LunarSnake",
   "slug": "LunarSnake",
-  "name": "LunarSnake",
+  "name": "Lunar Snakes",
   "total_supply": 259346,
   "upgraded_count": 201152,
   "rarity": null,
-  "updated_at": "2026-10-04T16:40:18.478Z",
+  "updated_at": "2026-10-04T16:46:48.561Z",
   "created_at": "2026-10-04T06:51:32.941Z"
  },
  {
@@ -748,11 +748,11 @@
   "gift_id": "LushBouquet",
   "collection_id": "LushBouquet",
   "slug": "LushBouquet",
-  "name": "LushBouquet",
+  "name": "Lush Bouquets",
   "total_supply": 140116,
   "upgraded_count": 112097,
   "rarity": null,
-  "updated_at": "2026-10-04T16:40:18.478Z",
+  "updated_at": "2026-10-04T16:46:48.562Z",
   "created_at": "2026-10-04T06:51:32.941Z"
  },
  {
@@ -760,11 +760,11 @@
   "gift_id": "MadPumpkin",
   "collection_id": "MadPumpkin",
   "slug": "MadPumpkin",
-  "name": "MadPumpkin",
+  "name": "Mad Pumpkins",
   "total_supply": 22199,
-  "upgraded_count": 19774,
+  "upgraded_count": 19775,
   "rarity": null,
-  "updated_at": "2026-10-04T16:40:18.478Z",
+  "updated_at": "2026-10-04T16:46:48.562Z",
   "created_at": "2026-10-04T06:51:32.948Z"
  },
  {
@@ -772,11 +772,11 @@
   "gift_id": "MagicPotion",
   "collection_id": "MagicPotion",
   "slug": "MagicPotion",
-  "name": "MagicPotion",
+  "name": "Magic Potions",
   "total_supply": 4871,
-  "upgraded_count": 4871,
+  "upgraded_count": 4782,
   "rarity": null,
-  "updated_at": "2026-10-04T16:40:18.478Z",
+  "updated_at": "2026-10-04T16:46:48.562Z",
   "created_at": "2026-10-04T06:51:32.948Z"
  },
  {
@@ -784,11 +784,11 @@
   "gift_id": "MightyArm",
   "collection_id": "MightyArm",
   "slug": "MightyArm",
-  "name": "MightyArm",
+  "name": "Mighty Arms",
   "total_supply": 4123,
   "upgraded_count": 3828,
   "rarity": null,
-  "updated_at": "2026-10-04T16:40:18.478Z",
+  "updated_at": "2026-10-04T16:46:48.562Z",
   "created_at": "2026-10-04T06:51:32.949Z"
  },
  {
@@ -796,11 +796,11 @@
   "gift_id": "MiniOscar",
   "collection_id": "MiniOscar",
   "slug": "MiniOscar",
-  "name": "MiniOscar",
+  "name": "Mini Oscars",
   "total_supply": 5614,
   "upgraded_count": 4891,
   "rarity": null,
-  "updated_at": "2026-10-04T16:40:18.478Z",
+  "updated_at": "2026-10-04T16:46:48.562Z",
   "created_at": "2026-10-04T06:51:32.949Z"
  },
  {
@@ -810,9 +810,9 @@
   "slug": "miragelamp",
   "name": "Mirage Lamp",
   "total_supply": 226713,
-  "upgraded_count": 53347,
+  "upgraded_count": 53410,
   "rarity": null,
-  "updated_at": "2026-10-04T16:40:18.478Z",
+  "updated_at": "2026-10-04T16:46:48.563Z",
   "created_at": "2026-10-04T06:51:32.949Z"
  },
  {
@@ -820,11 +820,11 @@
   "gift_id": "MoneyPot",
   "collection_id": "MoneyPot",
   "slug": "MoneyPot",
-  "name": "MoneyPot",
+  "name": "Money Pots",
   "total_supply": 91779,
   "upgraded_count": 74406,
   "rarity": null,
-  "updated_at": "2026-10-04T16:40:18.478Z",
+  "updated_at": "2026-10-04T16:46:48.563Z",
   "created_at": "2026-10-04T06:51:32.949Z"
  },
  {
@@ -832,11 +832,11 @@
   "gift_id": "MoodPack",
   "collection_id": "MoodPack",
   "slug": "MoodPack",
-  "name": "MoodPack",
+  "name": "Mood Packs",
   "total_supply": 198560,
   "upgraded_count": 183475,
   "rarity": null,
-  "updated_at": "2026-10-04T16:40:18.478Z",
+  "updated_at": "2026-10-04T16:46:48.563Z",
   "created_at": "2026-10-04T06:51:32.950Z"
  },
  {
@@ -844,11 +844,11 @@
   "gift_id": "MoonPendant",
   "collection_id": "MoonPendant",
   "slug": "MoonPendant",
-  "name": "MoonPendant",
+  "name": "Moon Pendants",
   "total_supply": 111080,
   "upgraded_count": 102665,
   "rarity": null,
-  "updated_at": "2026-10-04T16:40:18.478Z",
+  "updated_at": "2026-10-04T16:46:48.563Z",
   "created_at": "2026-10-04T06:51:32.960Z"
  },
  {
@@ -856,11 +856,11 @@
   "gift_id": "MousseCake",
   "collection_id": "MousseCake",
   "slug": "MousseCake",
-  "name": "MousseCake",
+  "name": "Mousse Cakes",
   "total_supply": 230505,
-  "upgraded_count": 179180,
+  "upgraded_count": 179181,
   "rarity": null,
-  "updated_at": "2026-10-04T16:40:18.478Z",
+  "updated_at": "2026-10-04T16:46:48.563Z",
   "created_at": "2026-10-04T06:51:32.965Z"
  },
  {
@@ -868,11 +868,11 @@
   "gift_id": "NailBracelet",
   "collection_id": "NailBracelet",
   "slug": "NailBracelet",
-  "name": "NailBracelet",
+  "name": "Nail Bracelets",
   "total_supply": 4818,
   "upgraded_count": 4696,
   "rarity": null,
-  "updated_at": "2026-10-04T16:40:18.478Z",
+  "updated_at": "2026-10-04T16:46:48.564Z",
   "created_at": "2026-10-04T06:51:32.965Z"
  },
  {
@@ -880,11 +880,11 @@
   "gift_id": "NekoHelmet",
   "collection_id": "NekoHelmet",
   "slug": "NekoHelmet",
-  "name": "NekoHelmet",
+  "name": "Neko Helmets",
   "total_supply": 16149,
   "upgraded_count": 15571,
   "rarity": null,
-  "updated_at": "2026-10-04T16:40:18.479Z",
+  "updated_at": "2026-10-04T16:46:48.564Z",
   "created_at": "2026-10-04T06:51:32.965Z"
  },
  {
@@ -892,11 +892,11 @@
   "gift_id": "PartySparkler",
   "collection_id": "PartySparkler",
   "slug": "PartySparkler",
-  "name": "PartySparkler",
+  "name": "Party Sparklers",
   "total_supply": 243771,
   "upgraded_count": 188898,
   "rarity": null,
-  "updated_at": "2026-10-04T16:40:18.479Z",
+  "updated_at": "2026-10-04T16:46:48.564Z",
   "created_at": "2026-10-04T06:51:32.965Z"
  },
  {
@@ -904,11 +904,11 @@
   "gift_id": "PerfumeBottle",
   "collection_id": "PerfumeBottle",
   "slug": "PerfumeBottle",
-  "name": "PerfumeBottle",
+  "name": "Perfume Bottles",
   "total_supply": 4848,
   "upgraded_count": 4435,
   "rarity": null,
-  "updated_at": "2026-10-04T16:40:18.479Z",
+  "updated_at": "2026-10-04T16:46:48.564Z",
   "created_at": "2026-10-04T06:51:32.965Z"
  },
  {
@@ -916,11 +916,11 @@
   "gift_id": "PetSnake",
   "collection_id": "PetSnake",
   "slug": "PetSnake",
-  "name": "PetSnake",
+  "name": "Pet Snakes",
   "total_supply": 279106,
   "upgraded_count": 191735,
   "rarity": null,
-  "updated_at": "2026-10-04T16:40:18.479Z",
+  "updated_at": "2026-10-04T16:46:48.564Z",
   "created_at": "2026-10-04T06:51:32.966Z"
  },
  {
@@ -928,11 +928,11 @@
   "gift_id": "PlushPepe",
   "collection_id": "PlushPepe",
   "slug": "PlushPepe",
-  "name": "PlushPepe",
+  "name": "Plush Pepes",
   "total_supply": 2861,
   "upgraded_count": 2825,
   "rarity": null,
-  "updated_at": "2026-10-04T16:40:18.479Z",
+  "updated_at": "2026-10-04T16:46:48.565Z",
   "created_at": "2026-10-04T06:51:32.966Z"
  },
  {
@@ -940,11 +940,11 @@
   "gift_id": "PoolFloat",
   "collection_id": "PoolFloat",
   "slug": "PoolFloat",
-  "name": "PoolFloat",
+  "name": "Pool Floats",
   "total_supply": 246862,
   "upgraded_count": 226806,
   "rarity": null,
-  "updated_at": "2026-10-04T16:40:18.479Z",
+  "updated_at": "2026-10-04T16:46:48.565Z",
   "created_at": "2026-10-04T06:51:32.969Z"
  },
  {
@@ -952,11 +952,11 @@
   "gift_id": "PreciousPeach",
   "collection_id": "PreciousPeach",
   "slug": "PreciousPeach",
-  "name": "PreciousPeach",
+  "name": "Precious Peaches",
   "total_supply": 3160,
   "upgraded_count": 3008,
   "rarity": null,
-  "updated_at": "2026-10-04T16:40:18.479Z",
+  "updated_at": "2026-10-04T16:46:48.565Z",
   "created_at": "2026-10-04T06:51:32.969Z"
  },
  {
@@ -964,11 +964,11 @@
   "gift_id": "PrettyPosy",
   "collection_id": "PrettyPosy",
   "slug": "PrettyPosy",
-  "name": "PrettyPosy",
+  "name": "Pretty Posies",
   "total_supply": 181231,
   "upgraded_count": 132764,
   "rarity": null,
-  "updated_at": "2026-10-04T16:40:18.479Z",
+  "updated_at": "2026-10-04T16:46:48.565Z",
   "created_at": "2026-10-04T06:51:32.969Z"
  },
  {
@@ -976,11 +976,11 @@
   "gift_id": "RareBird",
   "collection_id": "RareBird",
   "slug": "RareBird",
-  "name": "RareBird",
+  "name": "Rare Birds",
   "total_supply": 14971,
   "upgraded_count": 12951,
   "rarity": null,
-  "updated_at": "2026-10-04T16:40:18.479Z",
+  "updated_at": "2026-10-04T16:46:48.565Z",
   "created_at": "2026-10-04T06:51:32.972Z"
  },
  {
@@ -988,11 +988,11 @@
   "gift_id": "RecordPlayer",
   "collection_id": "RecordPlayer",
   "slug": "RecordPlayer",
-  "name": "RecordPlayer",
+  "name": "Record Players",
   "total_supply": 46888,
   "upgraded_count": 35312,
   "rarity": null,
-  "updated_at": "2026-10-04T16:40:18.479Z",
+  "updated_at": "2026-10-04T16:46:48.565Z",
   "created_at": "2026-10-04T06:51:32.972Z"
  },
  {
@@ -1000,11 +1000,11 @@
   "gift_id": "RestlessJar",
   "collection_id": "RestlessJar",
   "slug": "RestlessJar",
-  "name": "RestlessJar",
+  "name": "Restless Jars",
   "total_supply": 120184,
   "upgraded_count": 103274,
   "rarity": null,
-  "updated_at": "2026-10-04T16:40:18.479Z",
+  "updated_at": "2026-10-04T16:46:48.565Z",
   "created_at": "2026-10-04T06:51:32.972Z"
  },
  {
@@ -1012,11 +1012,11 @@
   "gift_id": "SakuraFlower",
   "collection_id": "SakuraFlower",
   "slug": "SakuraFlower",
-  "name": "SakuraFlower",
+  "name": "Sakura Flowers",
   "total_supply": 93115,
   "upgraded_count": 87977,
   "rarity": null,
-  "updated_at": "2026-10-04T16:40:18.479Z",
+  "updated_at": "2026-10-04T16:46:48.565Z",
   "created_at": "2026-10-04T06:51:32.972Z"
  },
  {
@@ -1024,11 +1024,11 @@
   "gift_id": "SantaHat",
   "collection_id": "SantaHat",
   "slug": "SantaHat",
-  "name": "SantaHat",
+  "name": "Santa Hats",
   "total_supply": 89034,
   "upgraded_count": 71601,
   "rarity": null,
-  "updated_at": "2026-10-04T16:40:18.479Z",
+  "updated_at": "2026-10-04T16:46:48.566Z",
   "created_at": "2026-10-04T06:51:32.972Z"
  },
  {
@@ -1036,11 +1036,11 @@
   "gift_id": "ScaredCat",
   "collection_id": "ScaredCat",
   "slug": "ScaredCat",
-  "name": "ScaredCat",
+  "name": "Scared Cats",
   "total_supply": 19289,
-  "upgraded_count": 19289,
+  "upgraded_count": 18766,
   "rarity": null,
-  "updated_at": "2026-10-04T16:40:18.479Z",
+  "updated_at": "2026-10-04T16:46:48.566Z",
   "created_at": "2026-10-04T06:51:32.973Z"
  },
  {
@@ -1048,11 +1048,11 @@
   "gift_id": "SharpTongue",
   "collection_id": "SharpTongue",
   "slug": "SharpTongue",
-  "name": "SharpTongue",
+  "name": "Sharp Tongues",
   "total_supply": 8546,
   "upgraded_count": 8145,
   "rarity": null,
-  "updated_at": "2026-10-04T16:40:18.479Z",
+  "updated_at": "2026-10-04T16:46:48.566Z",
   "created_at": "2026-10-04T06:51:32.973Z"
  },
  {
@@ -1060,11 +1060,11 @@
   "gift_id": "SignetRing",
   "collection_id": "SignetRing",
   "slug": "SignetRing",
-  "name": "SignetRing",
+  "name": "Signet Rings",
   "total_supply": 18499,
   "upgraded_count": 16970,
   "rarity": null,
-  "updated_at": "2026-10-04T16:40:18.480Z",
+  "updated_at": "2026-10-04T16:46:48.566Z",
   "created_at": "2026-10-04T06:51:32.977Z"
  },
  {
@@ -1072,11 +1072,11 @@
   "gift_id": "SkullFlower",
   "collection_id": "SkullFlower",
   "slug": "SkullFlower",
-  "name": "SkullFlower",
+  "name": "Skull Flowers",
   "total_supply": 24126,
   "upgraded_count": 22040,
   "rarity": null,
-  "updated_at": "2026-10-04T16:40:18.480Z",
+  "updated_at": "2026-10-04T16:46:48.566Z",
   "created_at": "2026-10-04T06:51:32.977Z"
  },
  {
@@ -1084,11 +1084,11 @@
   "gift_id": "SkyStilettos",
   "collection_id": "SkyStilettos",
   "slug": "SkyStilettos",
-  "name": "SkyStilettos",
+  "name": "Sky Stilettos",
   "total_supply": 58460,
   "upgraded_count": 52343,
   "rarity": null,
-  "updated_at": "2026-10-04T16:40:18.480Z",
+  "updated_at": "2026-10-04T16:46:48.566Z",
   "created_at": "2026-10-04T06:51:32.977Z"
  },
  {
@@ -1096,11 +1096,11 @@
   "gift_id": "SleighBell",
   "collection_id": "SleighBell",
   "slug": "SleighBell",
-  "name": "SleighBell",
+  "name": "Sleigh Bells",
   "total_supply": 28000,
   "upgraded_count": 23015,
   "rarity": null,
-  "updated_at": "2026-10-04T16:40:18.480Z",
+  "updated_at": "2026-10-04T16:46:48.566Z",
   "created_at": "2026-10-04T06:51:32.977Z"
  },
  {
@@ -1108,11 +1108,11 @@
   "gift_id": "SnakeBox",
   "collection_id": "SnakeBox",
   "slug": "SnakeBox",
-  "name": "SnakeBox",
+  "name": "Snake Boxes",
   "total_supply": 273898,
   "upgraded_count": 188249,
   "rarity": null,
-  "updated_at": "2026-10-04T16:40:18.480Z",
+  "updated_at": "2026-10-04T16:46:48.566Z",
   "created_at": "2026-10-04T06:51:32.978Z"
  },
  {
@@ -1120,11 +1120,11 @@
   "gift_id": "SnoopCigar",
   "collection_id": "SnoopCigar",
   "slug": "SnoopCigar",
-  "name": "SnoopCigar",
+  "name": "Snoop Cigars",
   "total_supply": 119573,
   "upgraded_count": 117625,
   "rarity": null,
-  "updated_at": "2026-10-04T16:40:18.480Z",
+  "updated_at": "2026-10-04T16:46:48.566Z",
   "created_at": "2026-10-04T06:51:32.978Z"
  },
  {
@@ -1132,11 +1132,11 @@
   "gift_id": "SnoopDogg",
   "collection_id": "SnoopDogg",
   "slug": "SnoopDogg",
-  "name": "SnoopDogg",
+  "name": "Snoop Doggs",
   "total_supply": 593781,
   "upgraded_count": 582313,
   "rarity": null,
-  "updated_at": "2026-10-04T16:40:18.480Z",
+  "updated_at": "2026-10-04T16:46:48.566Z",
   "created_at": "2026-10-04T06:51:32.978Z"
  },
  {
@@ -1148,7 +1148,7 @@
   "total_supply": 49969,
   "upgraded_count": 40399,
   "rarity": null,
-  "updated_at": "2026-10-04T16:40:18.480Z",
+  "updated_at": "2026-10-04T16:46:48.566Z",
   "created_at": "2026-10-04T06:51:33.000Z"
  },
  {
@@ -1156,11 +1156,11 @@
   "gift_id": "SnowGlobe",
   "collection_id": "SnowGlobe",
   "slug": "SnowGlobe",
-  "name": "SnowGlobe",
+  "name": "Snow Globes",
   "total_supply": 72788,
   "upgraded_count": 55369,
   "rarity": null,
-  "updated_at": "2026-10-04T16:40:18.480Z",
+  "updated_at": "2026-10-04T16:46:48.566Z",
   "created_at": "2026-10-04T06:51:33.001Z"
  },
  {
@@ -1168,11 +1168,11 @@
   "gift_id": "SpicedWine",
   "collection_id": "SpicedWine",
   "slug": "SpicedWine",
-  "name": "SpicedWine",
+  "name": "Spiced Wines",
   "total_supply": 146090,
   "upgraded_count": 108462,
   "rarity": null,
-  "updated_at": "2026-10-04T16:40:18.480Z",
+  "updated_at": "2026-10-04T16:46:48.567Z",
   "created_at": "2026-10-04T06:51:33.002Z"
  },
  {
@@ -1180,11 +1180,11 @@
   "gift_id": "SpringBasket",
   "collection_id": "SpringBasket",
   "slug": "SpringBasket",
-  "name": "SpringBasket",
+  "name": "Spring Baskets",
   "total_supply": 231311,
   "upgraded_count": 184855,
   "rarity": null,
-  "updated_at": "2026-10-04T16:40:18.480Z",
+  "updated_at": "2026-10-04T16:46:48.567Z",
   "created_at": "2026-10-04T06:51:33.004Z"
  },
  {
@@ -1192,11 +1192,11 @@
   "gift_id": "SpyAgaric",
   "collection_id": "SpyAgaric",
   "slug": "SpyAgaric",
-  "name": "SpyAgaric",
+  "name": "Spy Agarics",
   "total_supply": 89438,
   "upgraded_count": 86904,
   "rarity": null,
-  "updated_at": "2026-10-04T16:40:18.480Z",
+  "updated_at": "2026-10-04T16:46:48.567Z",
   "created_at": "2026-10-04T06:51:33.004Z"
  },
  {
@@ -1204,11 +1204,11 @@
   "gift_id": "StarNotepad",
   "collection_id": "StarNotepad",
   "slug": "StarNotepad",
-  "name": "StarNotepad",
+  "name": "Star Notepads",
   "total_supply": 99082,
   "upgraded_count": 73640,
   "rarity": null,
-  "updated_at": "2026-10-04T16:40:18.480Z",
+  "updated_at": "2026-10-04T16:46:48.567Z",
   "created_at": "2026-10-04T06:51:33.007Z"
  },
  {
@@ -1216,11 +1216,11 @@
   "gift_id": "StellarRocket",
   "collection_id": "StellarRocket",
   "slug": "StellarRocket",
-  "name": "StellarRocket",
+  "name": "Stellar Rockets",
   "total_supply": 156318,
   "upgraded_count": 138201,
   "rarity": null,
-  "updated_at": "2026-10-04T16:40:18.480Z",
+  "updated_at": "2026-10-04T16:46:48.567Z",
   "created_at": "2026-10-04T06:51:33.007Z"
  },
  {
@@ -1228,11 +1228,11 @@
   "gift_id": "SurgeBoard",
   "collection_id": "SurgeBoard",
   "slug": "SurgeBoard",
-  "name": "SurgeBoard",
+  "name": "Surge Boards",
   "total_supply": 39464,
   "upgraded_count": 31576,
   "rarity": null,
-  "updated_at": "2026-10-04T16:40:18.480Z",
+  "updated_at": "2026-10-04T16:46:48.567Z",
   "created_at": "2026-10-04T06:51:33.007Z"
  },
  {
@@ -1240,11 +1240,11 @@
   "gift_id": "SwagBag",
   "collection_id": "SwagBag",
   "slug": "SwagBag",
-  "name": "SwagBag",
+  "name": "Swag Bags",
   "total_supply": 237970,
   "upgraded_count": 232233,
   "rarity": null,
-  "updated_at": "2026-10-04T16:40:18.481Z",
+  "updated_at": "2026-10-04T16:46:48.567Z",
   "created_at": "2026-10-04T06:51:33.007Z"
  },
  {
@@ -1252,11 +1252,11 @@
   "gift_id": "SwissWatch",
   "collection_id": "SwissWatch",
   "slug": "SwissWatch",
-  "name": "SwissWatch",
+  "name": "Swiss Watches",
   "total_supply": 29323,
   "upgraded_count": 26071,
   "rarity": null,
-  "updated_at": "2026-10-04T16:40:18.481Z",
+  "updated_at": "2026-10-04T16:46:48.567Z",
   "created_at": "2026-10-04T06:51:33.008Z"
  },
  {
@@ -1264,11 +1264,11 @@
   "gift_id": "TamaGadget",
   "collection_id": "TamaGadget",
   "slug": "TamaGadget",
-  "name": "TamaGadget",
+  "name": "Tama Gadgets",
   "total_supply": 135097,
   "upgraded_count": 108201,
   "rarity": null,
-  "updated_at": "2026-10-04T16:40:18.481Z",
+  "updated_at": "2026-10-04T16:46:48.567Z",
   "created_at": "2026-10-04T06:51:33.008Z"
  },
  {
@@ -1276,11 +1276,11 @@
   "gift_id": "TimelessBook",
   "collection_id": "TimelessBook",
   "slug": "TimelessBook",
-  "name": "TimelessBook",
+  "name": "Timeless Books",
   "total_supply": 99421,
   "upgraded_count": 88199,
   "rarity": null,
-  "updated_at": "2026-10-04T16:40:18.481Z",
+  "updated_at": "2026-10-04T16:46:48.567Z",
   "created_at": "2026-10-04T06:51:33.014Z"
  },
  {
@@ -1292,7 +1292,7 @@
   "total_supply": 35099,
   "upgraded_count": 34392,
   "rarity": null,
-  "updated_at": "2026-10-04T16:40:18.481Z",
+  "updated_at": "2026-10-04T16:46:48.567Z",
   "created_at": "2026-10-04T06:51:33.014Z"
  },
  {
@@ -1304,7 +1304,7 @@
   "total_supply": 57724,
   "upgraded_count": 56222,
   "rarity": null,
-  "updated_at": "2026-10-04T16:40:18.481Z",
+  "updated_at": "2026-10-04T16:46:48.567Z",
   "created_at": "2026-10-04T06:51:33.014Z"
  },
  {
@@ -1312,11 +1312,11 @@
   "gift_id": "TrappedHeart",
   "collection_id": "TrappedHeart",
   "slug": "TrappedHeart",
-  "name": "TrappedHeart",
+  "name": "Trapped Hearts",
   "total_supply": 26407,
   "upgraded_count": 25114,
   "rarity": null,
-  "updated_at": "2026-10-04T16:40:18.481Z",
+  "updated_at": "2026-10-04T16:46:48.567Z",
   "created_at": "2026-10-04T06:51:33.014Z"
  },
  {
@@ -1324,11 +1324,11 @@
   "gift_id": "UFCStrike",
   "collection_id": "UFCStrike",
   "slug": "UFCStrike",
-  "name": "UFCStrike",
+  "name": "UFC Strikes",
   "total_supply": 60000,
-  "upgraded_count": 58856,
+  "upgraded_count": 59983,
   "rarity": null,
-  "updated_at": "2026-10-04T16:40:18.481Z",
+  "updated_at": "2026-10-04T16:46:48.568Z",
   "created_at": "2026-10-04T06:51:33.015Z"
  },
  {
@@ -1336,11 +1336,11 @@
   "gift_id": "ValentineBox",
   "collection_id": "ValentineBox",
   "slug": "ValentineBox",
-  "name": "ValentineBox",
+  "name": "Valentine Boxes",
   "total_supply": 41025,
   "upgraded_count": 35587,
   "rarity": null,
-  "updated_at": "2026-10-04T16:40:18.481Z",
+  "updated_at": "2026-10-04T16:46:48.568Z",
   "created_at": "2026-10-04T06:51:33.015Z"
  },
  {
@@ -1348,11 +1348,11 @@
   "gift_id": "ViceCream",
   "collection_id": "ViceCream",
   "slug": "ViceCream",
-  "name": "ViceCream",
+  "name": "Vice Creams",
   "total_supply": 490553,
   "upgraded_count": 437867,
   "rarity": null,
-  "updated_at": "2026-10-04T16:40:18.481Z",
+  "updated_at": "2026-10-04T16:46:48.568Z",
   "created_at": "2026-10-04T06:51:33.015Z"
  },
  {
@@ -1360,11 +1360,11 @@
   "gift_id": "VictoryMedal",
   "collection_id": "VictoryMedal",
   "slug": "VictoryMedal",
-  "name": "VictoryMedal",
+  "name": "Victory Medals",
   "total_supply": 124608,
   "upgraded_count": 106767,
   "rarity": null,
-  "updated_at": "2026-10-04T16:40:18.481Z",
+  "updated_at": "2026-10-04T16:46:48.568Z",
   "created_at": "2026-10-04T06:51:33.015Z"
  },
  {
@@ -1372,11 +1372,11 @@
   "gift_id": "VintageCigar",
   "collection_id": "VintageCigar",
   "slug": "VintageCigar",
-  "name": "VintageCigar",
+  "name": "Vintage Cigars",
   "total_supply": 31024,
   "upgraded_count": 26809,
   "rarity": null,
-  "updated_at": "2026-10-04T16:40:18.481Z",
+  "updated_at": "2026-10-04T16:46:48.568Z",
   "created_at": "2026-10-04T06:51:33.015Z"
  },
  {
@@ -1384,11 +1384,11 @@
   "gift_id": "VoodooDoll",
   "collection_id": "VoodooDoll",
   "slug": "VoodooDoll",
-  "name": "VoodooDoll",
+  "name": "Voodoo Dolls",
   "total_supply": 27620,
   "upgraded_count": 26835,
   "rarity": null,
-  "updated_at": "2026-10-04T16:40:18.481Z",
+  "updated_at": "2026-10-04T16:46:48.568Z",
   "created_at": "2026-10-04T06:51:33.015Z"
  },
  {
@@ -1396,11 +1396,11 @@
   "gift_id": "WestsideSign",
   "collection_id": "WestsideSign",
   "slug": "WestsideSign",
-  "name": "WestsideSign",
+  "name": "Westside Signs",
   "total_supply": 11992,
   "upgraded_count": 11509,
   "rarity": null,
-  "updated_at": "2026-10-04T16:40:18.482Z",
+  "updated_at": "2026-10-04T16:46:48.568Z",
   "created_at": "2026-10-04T06:51:33.016Z"
  },
  {
@@ -1408,11 +1408,11 @@
   "gift_id": "WhipCupcake",
   "collection_id": "WhipCupcake",
   "slug": "WhipCupcake",
-  "name": "WhipCupcake",
+  "name": "Whip Cupcakes",
   "total_supply": 367619,
   "upgraded_count": 282128,
   "rarity": null,
-  "updated_at": "2026-10-04T16:40:18.482Z",
+  "updated_at": "2026-10-04T16:46:48.568Z",
   "created_at": "2026-10-04T06:51:33.016Z"
  },
  {
@@ -1420,11 +1420,11 @@
   "gift_id": "WinterWreath",
   "collection_id": "WinterWreath",
   "slug": "WinterWreath",
-  "name": "WinterWreath",
+  "name": "Winter Wreaths",
   "total_supply": 100846,
   "upgraded_count": 77707,
   "rarity": null,
-  "updated_at": "2026-10-04T16:40:18.482Z",
+  "updated_at": "2026-10-04T16:46:48.568Z",
   "created_at": "2026-10-04T06:51:33.022Z"
  },
  {
@@ -1432,11 +1432,11 @@
   "gift_id": "WitchHat",
   "collection_id": "WitchHat",
   "slug": "WitchHat",
-  "name": "WitchHat",
+  "name": "Witch Hats",
   "total_supply": 88480,
   "upgraded_count": 82845,
   "rarity": null,
-  "updated_at": "2026-10-04T16:40:18.482Z",
+  "updated_at": "2026-10-04T16:46:48.568Z",
   "created_at": "2026-10-04T06:51:33.022Z"
  },
  {
@@ -1444,11 +1444,11 @@
   "gift_id": "XmasStocking",
   "collection_id": "XmasStocking",
   "slug": "XmasStocking",
-  "name": "XmasStocking",
+  "name": "Xmas Stockings",
   "total_supply": 334632,
-  "upgraded_count": 229626,
+  "upgraded_count": 219601,
   "rarity": null,
-  "updated_at": "2026-10-04T16:40:18.482Z",
+  "updated_at": "2026-10-04T16:46:48.568Z",
   "created_at": "2026-10-04T06:51:33.022Z"
  }
 ]

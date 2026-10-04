@@ -97,5 +97,16 @@
   "details_json": "{\"collection_id\":\"miragelamp\",\"gift_id\":\"miragelamp\",\"target_number\":55555}",
   "created_at": "2026-10-04T10:56:34.034Z",
   "updated_at": "2026-10-04T10:56:34.034Z"
+ },
+ {
+  "id": "b5da665d-29e0-44bf-8cd8-e452e3db37b0",
+  "actor_type": "system",
+  "actor_id": "target-manager",
+  "action": "STATE_TRANSITION",
+  "entity_type": "target",
+  "entity_id": "61e578f1-1d9f-4697-a7bc-69925dd844f7",
+  "details_json": "{\"from\":\"HOT_TARGET\",\"to\":\"WATCHING\",\"reason\":\"Target is far from next expected number\"}",
+  "created_at": "2026-10-04T16:46:48.586Z",
+  "updated_at": "2026-10-04T16:46:48.586Z"
  }
 ]

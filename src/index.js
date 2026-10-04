@@ -27,6 +27,7 @@ import { CollectionStateCache } from './engine/collection-state.js';
 import { CollectionMonitor } from './engine/collection-monitor.js';
 import { HotTargetEngine } from './engine/hot-target-engine.js';
 import { MtprotoClient } from './telegram/mtproto-client.js';
+import { BotApiClient, BotApiBusinessBackend, BusinessConnectionManager } from './telegram/botapi-business.js';
 import { TelegramGiftsClient } from './telegram/telegram-gifts.js';
 import { SavedGiftsClient } from './telegram/saved-gifts.js';
 import { PaymentExecutor } from './telegram/payment-executor.js';
@@ -59,10 +60,28 @@ export async function createEngine({ config = loadConfig(), store = null, transp
     if (lock.expires_at < nowIso) store.remove('locks', lock.id);
   }
 
-  // Telegram MTProto (optional in GitHub mode without a user session).
+  // Telegram transport — Variant B (Bot API Business, owner decision 0.4)
+  // or Variant A (user MTProto session). Both normalize to the same
+  // engine-facing interfaces below.
   let mtproto = null;
   let sessions = null;
-  if (transport || (config.TG_API_ID && config.TG_API_HASH && config.SESSION_ENCRYPTION_KEY)) {
+  let backend = null; // BotApiBusinessBackend when TRANSPORT=botapi
+  const useBotApi = !transport && config.TRANSPORT === 'botapi';
+  if (useBotApi) {
+    try {
+      const botApi = new BotApiClient({ botToken: config.BOT_TOKEN, fetchImpl: globalThis.fetch?.bind(globalThis) });
+      backend = new BotApiBusinessBackend({ client: botApi, limiter, logger });
+      sessions = new BusinessConnectionManager({ store });
+      if (config.BUSINESS_CONNECTION_ID) {
+        logger.info('Bot API Business transport active (env BUSINESS_CONNECTION_ID set)');
+      } else {
+        logger.info('Bot API Business transport active (connections arrive via the business_connection bot update)');
+      }
+    } catch (err) {
+      logger.warn('Bot API business backend unavailable — engine runs in monitoring-only mode', { error: err.message });
+      backend = null;
+    }
+  } else if (transport || (config.TG_API_ID && config.TG_API_HASH && config.SESSION_ENCRYPTION_KEY)) {
     try {
       sessions = new UserSessionManager({ store, encryptionKey: config.SESSION_ENCRYPTION_KEY });
       mtproto = new MtprotoClient({ transport, apiId: config.TG_API_ID, apiHash: config.TG_API_HASH });
@@ -82,8 +101,8 @@ export async function createEngine({ config = loadConfig(), store = null, transp
     gifttrackerUrl: config.GIFTTRACKER_DATA_URL
   });
 
-  const savedGifts = new SavedGiftsClient({ client: mtproto, limiter });
-  const payments = new PaymentExecutor({ client: mtproto, limiter, retry, metrics, logger });
+  const savedGifts = backend || new SavedGiftsClient({ client: mtproto, limiter });
+  const payments = backend || new PaymentExecutor({ client: mtproto, limiter, retry, metrics, logger });
   const executor = new UpgradeExecutor({ savedGifts, payments, locks, limiter, retry, metrics, logger });
   const notifier = new Notifier({ botToken: config.BOT_TOKEN, store });
 

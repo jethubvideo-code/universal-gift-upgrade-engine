@@ -28,19 +28,25 @@ export function loadConfig(env = process.env) {
     CACHE_TTL_MS: env.CACHE_TTL_MS ? parseInt(env.CACHE_TTL_MS, 10) : 60000,
     WORKER_TICK_MS: env.WORKER_TICK_MS ? parseInt(env.WORKER_TICK_MS, 10) : 250,
     COLLECTION_SOURCE: env.COLLECTION_SOURCE || 'mtproto',
-    GIFTTRACKER_DATA_URL: env.GIFTTRACKER_DATA_URL || ''
+    GIFTTRACKER_DATA_URL: env.GIFTTRACKER_DATA_URL || '',
+    // 'botapi' (Variant B, owner decision 0.4) or 'mtproto' (Variant A)
+    TRANSPORT: env.TRANSPORT === 'mtproto' ? 'mtproto' : 'botapi',
+    BUSINESS_CONNECTION_ID: env.BUSINESS_CONNECTION_ID || ''
   };
 
   if (!testMode) {
-    const required = ['BOT_TOKEN', 'TG_API_ID', 'TG_API_HASH', 'SESSION_ENCRYPTION_KEY'];
-    for (const key of required) {
-      if (!config[key]) {
-        throw new EngineError(
-          ErrorCodes.CONFIG_ERROR,
-          `Missing required configuration field: ${key}`
-        );
+    if (!config.BOT_TOKEN) {
+      throw new EngineError(ErrorCodes.CONFIG_ERROR, 'Missing required configuration field: BOT_TOKEN');
+    }
+    if (config.TRANSPORT === 'mtproto') {
+      const required = ['TG_API_ID', 'TG_API_HASH', 'SESSION_ENCRYPTION_KEY'];
+      for (const key of required) {
+        if (!config[key]) {
+          throw new EngineError(ErrorCodes.CONFIG_ERROR, `Missing required configuration field: ${key} (TRANSPORT=mtproto)`);
+        }
       }
     }
+    // botapi needs no MTProto credentials: the bot token IS the credential.
   }
 
   return Object.freeze(config);

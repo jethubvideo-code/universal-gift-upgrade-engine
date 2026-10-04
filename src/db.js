@@ -6,6 +6,7 @@ import { EngineError, ErrorCodes } from './core/errors.js';
 export const TABLES = [
   'users',
   'telegram_sessions',
+  'business_connections',
   'gift_collections',
   'gifts',
   'targets',

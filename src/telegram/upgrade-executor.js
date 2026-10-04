@@ -80,13 +80,26 @@ export class UpgradeExecutor {
     }
 
     if (savedGift.prepaid_upgrade) {
-      // Official prepaid flow.
-      const res = await this.payments.upgradePrepaid({ savedGift });
+      // Official prepaid flow (Bot API: star_count 0 / MTProto: upgradeStarGift).
+      const res = await this.payments.upgradePrepaid({ savedGift, userSession });
       return { status: 'COMPLETED', details: res, latency: Date.now() };
     }
     // Paid upgrade: price already checked against the user's maximum.
-    const { form } = await this.payments.beginPaidUpgrade({ savedGift, target });
-    return { status: 'PAYMENT_REQUIRED', details: form, latency: Date.now() };
+    // Bot API executes it from the business balance (fails closed if short);
+    // MTProto returns the official payment form.
+    try {
+      const res = await this.payments.beginPaidUpgrade({ savedGift, target, userSession });
+      if (res && res.executed) {
+        return { status: 'COMPLETED', details: res, latency: Date.now() };
+      }
+      return { status: 'PAYMENT_REQUIRED', details: res, latency: Date.now() };
+    } catch (err) {
+      if (err.code === ErrorCodes.PAYMENT_REQUIRED) {
+        // Insufficient Stars on the business balance: no Stars were spent.
+        return { status: 'PAYMENT_REQUIRED', details: { reason: err.message }, latency: Date.now() };
+      }
+      throw err;
+    }
   }
 }
 

@@ -16,16 +16,23 @@
  *   /manual <target_id>    — disable AUTO UPGRADE
  *   /del <target_id>        — delete a target
  *   /state <collection>    — collection counter state (prediction!)
+ *   /linkbusiness          — how to link the bot to Telegram Business (Variant B)
+ *
+ * Variant B (owner decision, Phase 0.4): upgrades execute through a Bot API
+ * BUSINESS CONNECTION (no user MTProto session). The `business_connection`
+ * bot update is captured here and stored by BusinessConnectionManager.
  */
 import { createStore, TABLES } from '../src/db.js';
 import { loadConfig } from '../src/core/config.js';
 import { createLogger } from '../src/core/logger.js';
 import { TargetManager } from '../src/engine/target-manager.js';
+import { BusinessConnectionManager } from '../src/telegram/botapi-business.js';
 
 const logger = createLogger('bot');
 const config = loadConfig();
 const store = createStore(config);
 const targets = new TargetManager(store);
+const businessConnections = new BusinessConnectionManager({ store });
 
 const API = 'https://api.telegram.org';
 let offset = 0;
@@ -42,6 +49,24 @@ async function api(method, body) {
 const esc = t => String(t).replace(/([_*[\]()~`>#+\-=|{}.!\\])/g, '\\$1');
 
 async function handle(update) {
+  // Variant B: business connection linked/updated in Telegram Business settings.
+  if (update.business_connection) {
+    const bc = update.business_connection;
+    businessConnections.saveFromUpdate(bc);
+    if (store.flushAll) store.flushAll();
+    const rights = bc.rights || {};
+    const ok = rights.can_view_gifts_and_stars === true && rights.can_transfer_and_upgrade_gifts === true;
+    try {
+      await api('sendMessage', {
+        chat_id: bc.user_chat_id ?? bc.user.id,
+        text: ok
+          ? '🔗 Business connection saved. Targets with AUTO UPGRADE will now execute through your business account. Rights can be revoked anytime in Telegram Business → Bots.'
+          : '🔗 Business connection saved, but the bot lacks the required rights (View gifts and stars / Transfer and upgrade gifts). Grant them in Telegram Business → Bots.'
+      });
+    } catch { /* user chat may be unavailable — state is saved regardless */ }
+    return;
+  }
+
   const msg = update.message || update.edited_message;
   if (!msg || !msg.text) return;
   const chatId = msg.chat.id;
@@ -70,9 +95,27 @@ async function handle(update) {
         '/add <collection> <number> — create a target\n' +
         '/targets — your targets\n' +
         '/auto <id> <max_stars> — enable AUTO UPGRADE\n' +
-        '/state <collection> — counters \\(prediction\\)',
+        '/state <collection> — counters \\(prediction\\)\n' +
+        '/linkbusiness — connect Telegram Business \\(enables AUTO UPGRADE\\)',
       parse_mode: 'MarkdownV2',
       ...(kb ? { reply_markup: kb } : {})
+    });
+    return;
+  }
+
+  if (text === '/linkbusiness') {
+    await api('sendMessage', {
+      chat_id: chatId,
+      text:
+        '🔗 *To enable AUTO UPGRADE through your business account (no login, no SMS):\n\n' +
+        '1\. Open Settings → *Telegram Business* → *Bots*\n' +
+        '2\. Add this bot and enable the rights:\n' +
+        '   • View gifts and Stars\n' +
+        '   • Transfer and upgrade gifts\n' +
+        '   • Transfer Stars \(only for paid upgrades\)\n' +
+        '3\. The bot receives the connection automatically — no codes to send\n\n' +
+        'Rights are revocable anytime in the same place\. The bot never sees your password, phone number or login codes\.',
+      parse_mode: 'MarkdownV2'
     });
     return;
   }

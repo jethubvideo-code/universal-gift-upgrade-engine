@@ -4,6 +4,44 @@ title: Фаза 0.2 — Проверка Telegram API (API_VERIFICATION.md)
 
 # Проверка Telegram API
 
+> **Обновление (2026-10-04)**: владелец выбрал **Вариант B (Bot API Business)**.
+> Методы Варианта B проверены по живой официальной документации
+> (core.telegram.org/bots/api, Bot API 10.3 от 2026-08-24) — см. таблицу
+> VERIFIED ниже. MTProto-методы (Вариант A) остаются в коде как legacy-путь,
+> но НЕ используются и помечены UNVERIFIED.
+
+## Вариант B — Bot API Business (АКТИВНЫЙ) — VERIFIED 2026-10-04
+
+Проверено по официальному справочнику Bot API (Bot API 10.3):
+
+| Нужно | Метод Bot API | Ключевые поля | Статус |
+|---|---|---|---|
+| Инфо о подключении | `getBusinessConnection(business_connection_id)` | `BusinessConnection { rights: BusinessBotRights, ... }` | **VERIFIED** |
+| Права бота | объект `BusinessBotRights` | `can_view_gifts_and_stars`, `can_transfer_and_upgrade_gifts`, `can_transfer_stars`, `can_convert_gifts_to_stars` | **VERIFIED** |
+| Подарки бизнес-аккаунта | `getBusinessAccountGifts(business_connection_id, exclude_*, offset?, limit?)` → `OwnedGifts { gifts[], next_offset }` | требует право `can_view_gifts_and_stars` | **VERIFIED** |
+| Объект подарка | `OwnedGiftRegular` | `owned_gift_id`, `can_be_upgraded`, `prepaid_upgrade_star_count`, **`unique_gift_number`** («номер, зарезервированный за этим подарком при апгрейде»), `is_saved`, `was_refunded` | **VERIFIED** |
+| Цена апгрейда | `Gift.upgrade_star_count` | в объекте `Gift` | **VERIFIED** |
+| Баланс Stars | `getBusinessAccountStarBalance(business_connection_id)` → `StarAmount` | требует `can_view_gifts_and_stars` | **VERIFIED** |
+| Исполнение апгрейда | `upgradeGift(business_connection_id, owned_gift_id, keep_original_details?, star_count?)` → True | требует `can_transfer_and_upgrade_gifts`; при платном апгрейде ещё `can_transfer_stars`; `star_count=0` если `prepaid_upgrade_star_count > 0`, иначе `gift.upgrade_star_count` | **VERIFIED** |
+| Ошибки | HTTP 429 + `parameters.retry_after` | | **VERIFIED** (общая форма Bot API) |
+
+**UNVERIFIED (поведение в рантайме, проверяется первым dry-run):**
+появляется ли `unique_gift_number` у всех апгрейджельных подарков. Код
+предполагает худшее: если поля нет — верификация FAILS CLOSED
+(GIFT_NOT_FOUND), апгрейд не выполняется (см. `test/botapi-business.test.js`).
+
+**Ключевой факт для 7.5**: `unique_gift_number` — номер, зарезервированный
+за конкретным подарком ДО апгрейда. Это даёт ПРЯМУЮ проверку таргета:
+`owned_gift.unique_gift_number === target.target_number`. Вывод 0.3(a)
+уточняется: если номера резервируются заранее, то «последовательная
+нумерация в момент апгрейда» — не единственный механизм; движок работает
+в обоих случаях, потому что матчинг идёт по фактическому полю, а не по
+допущению.
+
+---
+
+## Вариант A — MTProto (LEGACY, не используется)
+
 Честно: у меня нет возможности выполнить живой `payments.getStarGifts` или
 `payments.upgradeStarGift` против реального Telegram в этой сессии (нет
 активной пользовательской MTProto-сессии, и правило спеки запрещает заводить

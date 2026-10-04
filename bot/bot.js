@@ -146,23 +146,22 @@ async function handle(update) {
       return;
     }
     const kb = config.MINIAPP_URL ? {
-      inline_keyboard: [[{ text: '🎁 Open Mini App', web_app: { url: config.MINIAPP_URL } }]]
+      inline_keyboard: [[{ text: '🎁 Открыть GIFT ATELIER', web_app: { url: config.MINIAPP_URL } }]]
     } : undefined;
     await api('sendMessage', {
       chat_id: chatId,
       text:
-        '🎁 *Universal Gift Upgrade Engine*\n\n' +
-        'Track ANY gift collection and ANY number \\(#1, #777, #7777, #10000, #N\\).\n\n' +
-        'Commands:\n' +
-        '/collections — discovered collections\n' +
-        '/add <collection> <number> — create a target\n' +
-        '/targets — your targets\n' +
-        '/auto <id> <max_stars> — enable AUTO UPGRADE\n' +
-        '/state <collection> — counters \\(prediction\\)\n' +
-        '/linkbusiness — connect Telegram Business \\(enables AUTO UPGRADE\\)\n' +
-        '/mygifts — scan your account for un\\-upgraded gifts right now\n' +
-        '/autoupgrade on <max\\_stars> — auto\\-upgrade ANY owned gift found, no number needed in advance\n' +
-        '/login — подключить свой аккаунт \(полностью автоматические апгрейды с твоих Stars\)',
+        '🎁 *GIFT ATELIER* — живой монитор Telegram Gifts\n\n' +
+        '• 121 коллекция, детект апгрейда за ~8\\-10 сек\n' +
+        '• карточка каждого улучшения прилетает сюда мгновенно — с уникальным артом экземпляра\n' +
+        '• сайт обновляется в реальном времени\n\n' +
+        '*Движок авто\\-апгрейда:*\n' +
+        '/add <коллекция> <номер> — создать таргет\n' +
+        '/targets — мои таргеты и статусы\n' +
+        '/auto <id> <макс\\_звёзд> — включить АВТО\\-АПГРЕЙД\n' +
+        '/login — подключить свой аккаунт \(апгрейды с твоих Stars\)\n' +
+        '/mygifts — сканировать мои подарки сейчас\n\n' +
+        'Кнопка меню справа от поля ввода открывает сайт\.',
       parse_mode: 'MarkdownV2',
       ...(kb ? { reply_markup: kb } : {})
     });
@@ -447,15 +446,21 @@ async function main() {
         { command: 'targets', description: '🎯 Мои таргеты и статусы' },
         { command: 'add', description: '➕ Создать таргет: /add коллекция номер' },
         { command: 'auto', description: '⭐ Авто-апгрейд: /auto id макс_звёзд' },
-        { command: 'autoupgrade', description: '🔥 Авто-апгрейд любого подарка' },
-        { command: 'mygifts', description: '💎 Сканировать мои подарки' },
-        { command: 'state', description: '📊 Счётчик и предикшн коллекции' },
-        { command: 'collections', description: '🗂 Все 121 коллекций' },
         { command: 'login', description: '🔑 Подключить свой аккаунт' },
-        { command: 'linkbusiness', description: '🔗 Привязать Telegram Business' },
+        { command: 'mygifts', description: '💎 Сканировать мои подарки' },
         { command: 'help', description: 'ℹ️ Все команды' }
       ]
     });
+    // Меню-кнопка бота (постоянная, справа от поля ввода) → сайт GIFT ATELIER
+    if (config.MINIAPP_URL) {
+      try {
+        await api('setChatMenuButton', {
+          menu_button: { type: 'web_app', text: '🎁 Открыть сайт', web_app: { url: config.MINIAPP_URL } }
+        });
+      } catch (err2) {
+        logger.warn('setChatMenuButton failed (non-fatal)', { error: err2.message });
+      }
+    }
   } catch (err) {
     logger.warn('setMyCommands failed (non-fatal)', { error: err.message });
   }

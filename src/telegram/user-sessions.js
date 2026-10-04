@@ -87,6 +87,13 @@ export class UserSessionManager {
     }
   }
 
+  /** First available session (single-owner deployments). */
+  getAnySession() {
+    const all = this.store.find('telegram_sessions', {}) || [];
+    if (!all.length) return null;
+    return this.getUserSession(all[0].user_id);
+  }
+
   remove(userId) {
     const row = (this.store.find('telegram_sessions', { user_id: userId }) || [])[0];
     if (!row) return false;

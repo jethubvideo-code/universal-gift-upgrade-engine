@@ -84,7 +84,9 @@ export async function createEngine({ config = loadConfig(), store = null, transp
   } else if (transport || (config.TG_API_ID && config.TG_API_HASH && config.SESSION_ENCRYPTION_KEY)) {
     try {
       sessions = new UserSessionManager({ store, encryptionKey: config.SESSION_ENCRYPTION_KEY });
-      mtproto = new MtprotoClient({ transport, apiId: config.TG_API_ID, apiHash: config.TG_API_HASH });
+      const sessionRow = sessions.getAnySession ? sessions.getAnySession() : null;
+      mtproto = new MtprotoClient({ transport, apiId: config.TG_API_ID, apiHash: config.TG_API_HASH, sessionPlain: sessionRow?.session || null });
+      if (!sessionRow) logger.warn('No MTProto session in the store — connect will fail (run the guided login workflow)');
       await mtproto.connect();
       logger.info('MTProto connected');
     } catch (err) {

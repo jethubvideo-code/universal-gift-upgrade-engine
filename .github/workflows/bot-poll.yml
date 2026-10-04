@@ -29,7 +29,7 @@ jobs:
           TEST_MODE: "false"
           DB_BACKEND: "file"
           TRANSPORT: "botapi"
-          BOT_TOKEN: ${{ vars.BOT_TOKEN }}
+          BOT_TOKEN: ${{ secrets.BOT_TOKEN }}
           MINIAPP_URL: ${{ vars.MINIAPP_URL }}
           BOT_POLL_SECONDS: "50"
       - name: Commit bot state (if changed)

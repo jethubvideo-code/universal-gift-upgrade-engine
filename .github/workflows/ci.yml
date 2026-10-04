@@ -1,0 +1,20 @@
+name: CI
+on:
+  push:
+  pull_request:
+
+permissions:
+  contents: read
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v4
+      - name: Syntax check
+        run: find src bot api test -name '*.js' -exec node --check {} +
+      - name: Unit + simulator tests
+        run: node --test test/
+      - name: Perf tests
+        run: node --test test/perf/

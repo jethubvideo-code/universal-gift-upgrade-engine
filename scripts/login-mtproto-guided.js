@@ -67,6 +67,21 @@ async function main() {
   console.log('Guided login target chat:', requester.chat_id);
   const CHAT = requester.chat_id;
 
+  // ГВАРД: если под этим id (или его алиасом chat_id) уже лежит рабочая
+  // сессия — не нагличаем вопросами заново. Раньше воркфлоу слепо начинал
+  // GramJS-диалог ("ШАГ 1: пришли номер...") на каждый cron-тик, даже если
+  // юзер уже залогинен; при concurrency cancel-in-progress:false это давало
+  // повторяющиеся сообщения каждые несколько минут без причины.
+  {
+    const sessions0 = new UserSessionManager({ store, encryptionKey: config.SESSION_ENCRYPTION_KEY });
+    const already = sessions0.getUserSession(requester.user_id) || sessions0.getUserSession(CHAT);
+    if (already) {
+      console.log('Session already exists for', requester.user_id, '— skipping guided login, not messaging anyone.');
+      if (requester.request) await finishRequest(store, requester.request, 'done', requester.user_id);
+      process.exit(0);
+    }
+  }
+
   // --- Bot API helpers (prompts + reading this user's replies) ---
   const bot = async (method, params = {}) => {
     const res = await fetch(`https://api.telegram.org/bot${config.BOT_TOKEN}/${method}`, {
